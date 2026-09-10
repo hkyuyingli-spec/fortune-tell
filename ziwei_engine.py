@@ -1,59 +1,212 @@
-from __future__ import annotations
+"""
+Zi Wei Dou Shu (紫微斗數) core chart engine.
+
+The placement formulas here are ported and validated against the algorithm
+used by `iztro` (SylarLong/iztro), an open-source (MIT licensed), widely used
+Zi Wei Dou Shu library -- cross-checked against its published source and
+against generated reference charts for multiple test birthdates before
+being trusted here.
+
+Scope of this module (explicitly, so it's clear what's *not* included yet):
+  INCLUDED : life palace (命宮), body palace (身宮), five-element bureau
+             (五行局), the 12 palaces with correct stem+branch, all 14
+             major stars (十四主星), and the decade luck cycle (大限)
+             sequence with age ranges.
+  NOT YET  : the ~100 auxiliary/minor stars, the Four Transformations
+             (四化) flying-palace analysis, and full annual/monthly/daily
+             drill-down (流年/流月/流日 star overlays). Those are a
+             separate, much larger phase.
+"""
+from calendar_engine import TIAN_GAN, DI_ZHI, BirthChart
+
+PALACE_NAMES = [
+    "命宮", "兄弟", "夫妻", "子女", "財帛", "疾厄",
+    "遷移", "交友", "官祿", "田宅", "福德", "父母",
+]
+
+# 五虎遁: year stem -> stem at the 寅 palace
+TIGER_RULE = {
+    "甲": "丙", "己": "丙",
+    "乙": "戊", "庚": "戊",
+    "丙": "庚", "辛": "庚",
+    "丁": "壬", "壬": "壬",
+    "戊": "甲", "癸": "甲",
+}
+
+FIVE_ELEMENTS_TABLE = {1: ("木", 3), 2: ("金", 4), 3: ("水", 2), 4: ("火", 6), 5: ("土", 5)}
+
+# offsets (寅=0 internal index), counterclockwise from Zi Wei
+ZIWEI_GROUP = ["紫微", "天機", "", "太陽", "武曲", "天同", "", "", "廉貞"]
+# offsets (寅=0 internal index), clockwise from Tian Fu
+TIANFU_GROUP = ["天府", "太陰", "貪狼", "巨門", "天相", "天梁", "七殺", "", "", "", "破軍"]
+
+# 命主 (Life Star) lookup — keyed by the Life Palace's earthly branch
+# 身主 (Body Star) lookup — keyed by the YEAR's earthly branch (not the body palace)
+# Both ported from iztro's earthlyBranches data table.
+MING_ZHU_TABLE = {
+    "子": "貪狼", "丑": "巨門", "寅": "祿存", "卯": "文曲",
+    "辰": "廉貞", "巳": "武曲", "午": "破軍", "未": "武曲",
+    "申": "廉貞", "酉": "文曲", "戌": "祿存", "亥": "巨門",
+}
+SHEN_ZHU_TABLE = {
+    "子": "火星", "丑": "天相", "寅": "天梁", "卯": "天同",
+    "辰": "文昌", "巳": "天機", "午": "火星", "未": "天相",
+    "申": "天梁", "酉": "天同", "戌": "文昌", "亥": "天機",
+}
+
+YIN_INDEX = DI_ZHI.index("寅")  # standard-branch index of 寅 = 2
+
+
+def fix12(x: int) -> int:
+    return x % 12
+
+
+def fix10(x: int) -> int:
+    return x % 10
 
 
 class ZiWeiChart:
-    """Minimal compatibility layer for the current workspace snapshot.
-
-    This intentionally provides enough structure for the Streamlit UI to load and
-    render a placeholder Zi Wei chart when the full engine modules are absent.
-    """
-
-    def __init__(self, birth_chart, gender):
-        self.birth_chart = birth_chart
+    def __init__(self, chart: BirthChart, gender: str):
+        assert gender in ("male", "female")
+        self.chart = chart
         self.gender = gender
-        self.bureau_number = 5
-        self.soul_p = "命宮"
-        self.decades_by_p = {
-            "命宮": {"range": [0, 9]},
-            "兄弟宮": {"range": [10, 19]},
-            "夫妻宮": {"range": [20, 29]},
-            "子女宮": {"range": [30, 39]},
-            "財帛宮": {"range": [40, 49]},
-            "疾厄宮": {"range": [50, 59]},
-            "遷移宮": {"range": [60, 69]},
-            "交友宮": {"range": [70, 79]},
-            "官祿宮": {"range": [80, 89]},
-            "田宅宮": {"range": [90, 99]},
-            "福德宮": {"range": [100, 109]},
-            "父母宮": {"range": [110, 119]},
-        }
 
+        self._compute_soul_and_body()
+        self._compute_five_elements_bureau()
+        self._compute_palace_stems_and_branches()
+        self._compute_ziwei_tianfu_index()
+        self._compute_major_stars()
+        self._compute_decades()
+        self._compute_ming_zhu_shen_zhu()
+
+    # ---- 1. Life palace (命宮) & Body palace (身宮) ----
+    def _compute_soul_and_body(self):
+        month = self.chart.zi_wei_month_number()
+        hour_branch_std_idx = DI_ZHI.index(self.chart.hour_gz[1])
+        # p-index space: 寅 = 0
+        self.soul_p = fix12((month - 1) - hour_branch_std_idx)
+        self.body_p = fix12((month - 1) + hour_branch_std_idx)
+
+        self.soul_std = fix12(self.soul_p + YIN_INDEX)  # standard branch index (0=子)
+        self.body_std = fix12(self.body_p + YIN_INDEX)
+
+    # ---- 2. Palace heavenly stems (宮干), derived from year stem via 五虎遁 ----
+    def _compute_palace_stems_and_branches(self):
+        year_stem = self.chart.zi_wei_year_gz[0]
+        yin_stem = TIGER_RULE[year_stem]
+        yin_stem_idx = TIAN_GAN.index(yin_stem)
+
+        # p index 0..11 -> standard branch idx = p+YIN_INDEX (mod12)
+        # stem index = yin_stem_idx + p (mod 10)
+        self.palace_branch_std = [fix12(p + YIN_INDEX) for p in range(12)]
+        self.palace_stem_idx = [fix10(yin_stem_idx + p) for p in range(12)]
+
+        self.soul_stem = TIAN_GAN[self.palace_stem_idx[self.soul_p]]
+        self.soul_branch = DI_ZHI[self.soul_std]
+
+    # ---- 3. Five Elements Bureau (五行局), from life palace stem+branch ----
+    def _compute_five_elements_bureau(self):
+        # needs soul stem/branch, so make sure soul is computed first (it is, via _compute_soul_and_body)
+        pass  # computed lazily below once palace stems are known
+
+    def _finish_bureau(self):
+        stem_idx = TIAN_GAN.index(self.soul_stem)
+        branch_idx = DI_ZHI.index(self.soul_branch)
+        stem_num = stem_idx // 2 + 1
+        branch_num = (branch_idx % 6) // 2 + 1
+        idx = stem_num + branch_num
+        while idx > 5:
+            idx -= 5
+        element, bureau_num = FIVE_ELEMENTS_TABLE[idx]
+        self.bureau_element = element
+        self.bureau_number = bureau_num
+        self.bureau_name = f"{element}{['','一','二','三','四','五','六'][bureau_num]}局"
+
+    # ---- 4. Zi Wei / Tian Fu star index ----
+    def _compute_ziwei_tianfu_index(self):
+        self._finish_bureau()
+        day = self.chart.ziwei_lunar_day
+        B = self.bureau_number
+
+        offset = -1
+        remainder = -1
+        quotient = 0
+        while remainder != 0:
+            offset += 1
+            divisor = day + offset
+            quotient = divisor // B
+            remainder = divisor % B
+        quotient = quotient % 12
+        ziwei_p = quotient - 1
+        if offset % 2 == 0:
+            ziwei_p += offset
+        else:
+            ziwei_p -= offset
+        self.ziwei_p = fix12(ziwei_p)
+        self.tianfu_p = fix12(12 - self.ziwei_p)
+
+    # ---- 5. Place the 14 major stars into the 12 palaces (p-index space) ----
+    def _compute_major_stars(self):
+        self.stars_by_p = {p: [] for p in range(12)}
+        for i, name in enumerate(ZIWEI_GROUP):
+            if name:
+                self.stars_by_p[fix12(self.ziwei_p - i)].append(name)
+        for i, name in enumerate(TIANFU_GROUP):
+            if name:
+                self.stars_by_p[fix12(self.tianfu_p + i)].append(name)
+
+    # ---- 6. Decade luck cycles (大限) ----
+    def _compute_decades(self):
+        year_branch_idx = DI_ZHI.index(self.chart.zi_wei_year_gz[1])
+        year_is_yang = (year_branch_idx % 2 == 0)
+        forward = (year_is_yang and self.gender == "male") or ((not year_is_yang) and self.gender == "female")
+
+        year_stem = self.chart.zi_wei_year_gz[0]
+        yin_stem_idx = TIAN_GAN.index(TIGER_RULE[year_stem])
+
+        self.decades_by_p = {}
+        for i in range(12):
+            p = fix12(self.soul_p + i) if forward else fix12(self.soul_p - i)
+            start_age = self.bureau_number + 10 * i
+            stem_idx = fix10(yin_stem_idx + p)
+            self.decades_by_p[p] = {
+                "range": (start_age, start_age + 9),
+                "stem": TIAN_GAN[stem_idx],
+                "branch": DI_ZHI[fix12(p + YIN_INDEX)],
+            }
+        self.decade_direction = "forward" if forward else "backward"
+
+    # ---- 7. 命主 / 身主 (Life Star / Body Star) ----
+    def _compute_ming_zhu_shen_zhu(self):
+        year_branch = self.chart.zi_wei_year_gz[1]
+        self.ming_zhu = MING_ZHU_TABLE[self.soul_branch]   # keyed by Life Palace branch
+        self.shen_zhu = SHEN_ZHU_TABLE[year_branch]         # keyed by year branch
+
+    # ---- Public: full palace table, in fixed life-palace-first order ----
     def palace_table(self):
-        palaces = [
-            ("命宮", "甲", "子", ["紫微", "天府"], "命主與身主的核心落點。", "此宮影響你如何定義自身方向與生涯主軸。"),
-            ("兄弟宮", "乙", "丑", ["天機"], "兄弟與同輩關係。", "此宮反映你在人際網絡中的接觸方式與競爭感。"),
-            ("夫妻宮", "丙", "寅", ["天相"], "婚姻與伴侶關係。", "此宮可讓你觀察伴侶型態與情感互動模式。"),
-            ("子女宮", "丁", "卯", ["天梁"], "子女與教養方向。", "此宮關注你照顧他人、傳承價值的方式。"),
-            ("財帛宮", "戊", "辰", ["武曲"], "財運與資源管理。", "此宮能幫你看待收入、安全感與有形資產。"),
-            ("疾厄宮", "己", "巳", ["太陽"], "健康與體質。", "此宮提醒你注意身體節奏與休養方式。"),
-            ("遷移宮", "庚", "午", ["天同"], "旅行、工作流動與環境變化。", "此宮反映你對新環境的適應與成長。"),
-            ("交友宮", "辛", "未", ["廉貞"], "朋友與支持系統。", "此宮有助於觀察你如何結交人脈與尋求支持。"),
-            ("官祿宮", "壬", "申", ["天府"], "事業與職場定位。", "此宮是工作能力、職業方向與貢獻感的窗口。"),
-            ("田宅宮", "癸", "酉", ["巨門"], "居住、家族與資產。", "此宮能看出你對穩定感與居住環境的需求。"),
-            ("福德宮", "甲", "戌", ["文昌"], "福祉與內在安定。", "此宮關係到你內在的幸福感與價值感。"),
-            ("父母宮", "乙", "亥", ["文曲"], "父母與家庭教育。", "此宮反映你對家族關係與支持系統的感受。"),
-        ]
-
+        """Returns the 12 palaces starting at the Life Palace, going the
+        traditional counter-clockwise direction (命,兄弟,夫妻,...)."""
         rows = []
-        for palace, stem, branch, stars, meaning, blurb in palaces:
-            rows.append(
-                {
-                    "palace": palace,
-                    "stem": stem,
-                    "branch": branch,
-                    "stars": stars,
-                    "meaning": meaning,
-                    "blurb": blurb,
-                }
-            )
+        for i, pname in enumerate(PALACE_NAMES):
+            p = fix12(self.soul_p - i)
+            rows.append({
+                "palace": pname,
+                "stem": TIAN_GAN[self.palace_stem_idx[p]],
+                "branch": DI_ZHI[fix12(p + YIN_INDEX)],
+                "stars": self.stars_by_p[p],
+                "is_body_palace": (p == self.body_p),
+                "decade": self.decades_by_p[p],
+            })
         return rows
+
+    def current_year_palace(self, year: int):
+        """Which palace does a given (Gregorian, for simplicity) year's
+        branch fall on -- a simple 流年 pointer, not a full annual overlay."""
+        # Chinese year branch cycles with a known anchor: 1984 = 甲子 (branch 子, idx0)
+        branch_idx = (year - 1984) % 12
+        target_std = branch_idx
+        for i, pname in enumerate(PALACE_NAMES):
+            p = fix12(self.soul_p - i)
+            if fix12(p + YIN_INDEX) == target_std:
+                return pname
+        return None

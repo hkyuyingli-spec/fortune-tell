@@ -1,0 +1,1422 @@
+[
+ {
+  "input": {
+   "date": "1990-06-23",
+   "timeIndex": 6,
+   "gender": "male"
+  },
+  "fiveElementsClass": "火六局",
+  "soulBranch": "子",
+  "bodyBranch": "子",
+  "soulStar": "貪狼",
+  "bodyStar": "火星",
+  "palaces": [
+   {
+    "name": "福德",
+    "gz": "戊寅",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     26,
+     35
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "己卯",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     36,
+     45
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "庚辰",
+    "stars": [
+     "天同"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     46,
+     55
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "辛巳",
+    "stars": [
+     "武曲",
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     56,
+     65
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "壬午",
+    "stars": [
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     66,
+     75
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "癸未",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     76,
+     85
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "甲申",
+    "stars": [
+     "天機",
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     86,
+     95
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "乙酉",
+    "stars": [
+     "紫微",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     96,
+     105
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "丙戌",
+    "stars": [
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     106,
+     115
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "丁亥",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     116,
+     125
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "戊子",
+    "stars": [
+     "天梁"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     6,
+     15
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "己丑",
+    "stars": [
+     "七殺",
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     16,
+     25
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1990-07-19",
+   "timeIndex": 3,
+   "gender": "female"
+  },
+  "fiveElementsClass": "金四局",
+  "soulBranch": "辰",
+  "bodyBranch": "戌",
+  "soulStar": "廉貞",
+  "bodyStar": "火星",
+  "palaces": [
+   {
+    "name": "夫妻",
+    "gz": "戊寅",
+    "stars": [
+     "天同",
+     "天梁"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     24,
+     33
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "己卯",
+    "stars": [
+     "七殺",
+     "武曲"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     14,
+     23
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "庚辰",
+    "stars": [
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     4,
+     13
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "辛巳",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     114,
+     123
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "壬午",
+    "stars": [
+     "天機"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     104,
+     113
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "癸未",
+    "stars": [
+     "破軍",
+     "紫微"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     94,
+     103
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "甲申",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     84,
+     93
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "乙酉",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     74,
+     83
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "丙戌",
+    "stars": [
+     "太陰"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     64,
+     73
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "丁亥",
+    "stars": [
+     "廉貞",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     54,
+     63
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "戊子",
+    "stars": [
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     44,
+     53
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "己丑",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     34,
+     43
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1993-04-22",
+   "timeIndex": 9,
+   "gender": "male"
+  },
+  "fiveElementsClass": "火六局",
+  "soulBranch": "未",
+  "bodyBranch": "丑",
+  "soulStar": "武曲",
+  "bodyStar": "天同",
+  "palaces": [
+   {
+    "name": "疾厄",
+    "gz": "甲寅",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     56,
+     65
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "乙卯",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     46,
+     55
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "丙辰",
+    "stars": [
+     "天同"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     36,
+     45
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "丁巳",
+    "stars": [
+     "武曲",
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     26,
+     35
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "戊午",
+    "stars": [
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     16,
+     25
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "己未",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     6,
+     15
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "庚申",
+    "stars": [
+     "天機",
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     116,
+     125
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "辛酉",
+    "stars": [
+     "紫微",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     106,
+     115
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "壬戌",
+    "stars": [
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     96,
+     105
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "癸亥",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     86,
+     95
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "甲子",
+    "stars": [
+     "天梁"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     76,
+     85
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "乙丑",
+    "stars": [
+     "七殺",
+     "廉貞"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     66,
+     75
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1993-05-18",
+   "timeIndex": 0,
+   "gender": "female"
+  },
+  "fiveElementsClass": "土五局",
+  "soulBranch": "巳",
+  "bodyBranch": "巳",
+  "soulStar": "武曲",
+  "bodyStar": "天同",
+  "palaces": [
+   {
+    "name": "子女",
+    "gz": "甲寅",
+    "stars": [
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     95,
+     104
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "乙卯",
+    "stars": [
+     "天機",
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     105,
+     114
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "丙辰",
+    "stars": [
+     "天相",
+     "紫微"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     115,
+     124
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "丁巳",
+    "stars": [
+     "天梁"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     5,
+     14
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "戊午",
+    "stars": [
+     "七殺"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     15,
+     24
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "己未",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     25,
+     34
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "庚申",
+    "stars": [
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     35,
+     44
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "辛酉",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     45,
+     54
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "壬戌",
+    "stars": [
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     55,
+     64
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "癸亥",
+    "stars": [
+     "天同"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     65,
+     74
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "甲子",
+    "stars": [
+     "天府",
+     "武曲"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     75,
+     84
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "乙丑",
+    "stars": [
+     "太陰",
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     85,
+     94
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1995-09-25",
+   "timeIndex": 11,
+   "gender": "male"
+  },
+  "fiveElementsClass": "土五局",
+  "soulBranch": "戌",
+  "bodyBranch": "申",
+  "soulStar": "祿存",
+  "bodyStar": "天機",
+  "palaces": [
+   {
+    "name": "官祿",
+    "gz": "戊寅",
+    "stars": [
+     "天相",
+     "武曲"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     85,
+     94
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "己卯",
+    "stars": [
+     "天梁",
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     75,
+     84
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "庚辰",
+    "stars": [
+     "七殺"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     65,
+     74
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "辛巳",
+    "stars": [
+     "天機"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     55,
+     64
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "壬午",
+    "stars": [
+     "紫微"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     45,
+     54
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "癸未",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     35,
+     44
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "甲申",
+    "stars": [
+     "破軍"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     25,
+     34
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "乙酉",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     15,
+     24
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "丙戌",
+    "stars": [
+     "天府",
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     5,
+     14
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "丁亥",
+    "stars": [
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     115,
+     124
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "戊子",
+    "stars": [
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     105,
+     114
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "己丑",
+    "stars": [
+     "天同",
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     95,
+     104
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "2000-02-04",
+   "timeIndex": 0,
+   "gender": "male"
+  },
+  "fiveElementsClass": "水二局",
+  "soulBranch": "丑",
+  "bodyBranch": "丑",
+  "soulStar": "巨門",
+  "bodyStar": "天同",
+  "palaces": [
+   {
+    "name": "父母",
+    "gz": "丙寅",
+    "stars": [
+     "天機",
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     112,
+     121
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "丁卯",
+    "stars": [
+     "紫微",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     102,
+     111
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "戊辰",
+    "stars": [
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     92,
+     101
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "己巳",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     82,
+     91
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "庚午",
+    "stars": [
+     "天梁"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     72,
+     81
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "辛未",
+    "stars": [
+     "七殺",
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     62,
+     71
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "壬申",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     52,
+     61
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "癸酉",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     42,
+     51
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "甲戌",
+    "stars": [
+     "天同"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     32,
+     41
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "乙亥",
+    "stars": [
+     "武曲",
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     22,
+     31
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "丙子",
+    "stars": [
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     12,
+     21
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "丁丑",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     2,
+     11
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "2000-02-04",
+   "timeIndex": 11,
+   "gender": "male"
+  },
+  "fiveElementsClass": "火六局",
+  "soulBranch": "寅",
+  "bodyBranch": "子",
+  "soulStar": "祿存",
+  "bodyStar": "天同",
+  "palaces": [
+   {
+    "name": "命宮",
+    "gz": "丙寅",
+    "stars": [
+     "太陽",
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     6,
+     15
+    ]
+   },
+   {
+    "name": "父母",
+    "gz": "丁卯",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     116,
+     125
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "戊辰",
+    "stars": [
+     "天梁",
+     "天機"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     106,
+     115
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "己巳",
+    "stars": [
+     "七殺",
+     "紫微"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     96,
+     105
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "庚午",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     86,
+     95
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "辛未",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     76,
+     85
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "壬申",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     66,
+     75
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "癸酉",
+    "stars": [
+     "廉貞",
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     56,
+     65
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "甲戌",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     46,
+     55
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "乙亥",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     36,
+     45
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "丙子",
+    "stars": [
+     "天同",
+     "太陰"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     26,
+     35
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "丁丑",
+    "stars": [
+     "武曲",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     16,
+     25
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1996-02-04",
+   "timeIndex": 0,
+   "gender": "female"
+  },
+  "fiveElementsClass": "火六局",
+  "soulBranch": "丑",
+  "bodyBranch": "丑",
+  "soulStar": "巨門",
+  "bodyStar": "天機",
+  "palaces": [
+   {
+    "name": "父母",
+    "gz": "戊寅",
+    "stars": [
+     "天相",
+     "武曲"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     16,
+     25
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "己卯",
+    "stars": [
+     "天梁",
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     26,
+     35
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "庚辰",
+    "stars": [
+     "七殺"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     36,
+     45
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "辛巳",
+    "stars": [
+     "天機"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     46,
+     55
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "壬午",
+    "stars": [
+     "紫微"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     56,
+     65
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "癸未",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     66,
+     75
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "甲申",
+    "stars": [
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     76,
+     85
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "乙酉",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     86,
+     95
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "丙戌",
+    "stars": [
+     "天府",
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     96,
+     105
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "丁亥",
+    "stars": [
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     106,
+     115
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "戊子",
+    "stars": [
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     116,
+     125
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "己丑",
+    "stars": [
+     "天同",
+     "巨門"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     6,
+     15
+    ]
+   }
+  ]
+ },
+ {
+  "input": {
+   "date": "1996-02-05",
+   "timeIndex": 0,
+   "gender": "female"
+  },
+  "fiveElementsClass": "火六局",
+  "soulBranch": "丑",
+  "bodyBranch": "丑",
+  "soulStar": "巨門",
+  "bodyStar": "天機",
+  "palaces": [
+   {
+    "name": "父母",
+    "gz": "戊寅",
+    "stars": [
+     "天機",
+     "太陰"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     16,
+     25
+    ]
+   },
+   {
+    "name": "福德",
+    "gz": "己卯",
+    "stars": [
+     "紫微",
+     "貪狼"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     26,
+     35
+    ]
+   },
+   {
+    "name": "田宅",
+    "gz": "庚辰",
+    "stars": [
+     "巨門"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     36,
+     45
+    ]
+   },
+   {
+    "name": "官祿",
+    "gz": "辛巳",
+    "stars": [
+     "天相"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     46,
+     55
+    ]
+   },
+   {
+    "name": "僕役",
+    "gz": "壬午",
+    "stars": [
+     "天梁"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     56,
+     65
+    ]
+   },
+   {
+    "name": "遷移",
+    "gz": "癸未",
+    "stars": [
+     "七殺",
+     "廉貞"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     66,
+     75
+    ]
+   },
+   {
+    "name": "疾厄",
+    "gz": "甲申",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     76,
+     85
+    ]
+   },
+   {
+    "name": "財帛",
+    "gz": "乙酉",
+    "stars": [],
+    "isBodyPalace": false,
+    "decadeRange": [
+     86,
+     95
+    ]
+   },
+   {
+    "name": "子女",
+    "gz": "丙戌",
+    "stars": [
+     "天同"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     96,
+     105
+    ]
+   },
+   {
+    "name": "夫妻",
+    "gz": "丁亥",
+    "stars": [
+     "武曲",
+     "破軍"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     106,
+     115
+    ]
+   },
+   {
+    "name": "兄弟",
+    "gz": "戊子",
+    "stars": [
+     "太陽"
+    ],
+    "isBodyPalace": false,
+    "decadeRange": [
+     116,
+     125
+    ]
+   },
+   {
+    "name": "命宮",
+    "gz": "己丑",
+    "stars": [
+     "天府"
+    ],
+    "isBodyPalace": true,
+    "decadeRange": [
+     6,
+     15
+    ]
+   }
+  ]
+ }
+]

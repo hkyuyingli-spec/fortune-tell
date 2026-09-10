@@ -27,18 +27,23 @@ from ziwei_engine import ZiWeiChart
 from interpretation import MAJOR_STAR_BLURB
 
 SHICHEN_LABELS = [
-    ("子時", "23:00–00:59"), ("丑時", "01:00–02:59"), ("寅時", "03:00–04:59"),
+    ("早子時", "00:00–00:59"), ("丑時", "01:00–02:59"), ("寅時", "03:00–04:59"),
     ("卯時", "05:00–06:59"), ("辰時", "07:00–08:59"), ("巳時", "09:00–10:59"),
     ("午時", "11:00–12:59"), ("未時", "13:00–14:59"), ("申時", "15:00–16:59"),
     ("酉時", "17:00–18:59"), ("戌時", "19:00–20:59"), ("亥時", "21:00–22:59"),
+    ("夜子時", "23:00–23:59"),
 ]
+
+# Representative clock hour for each of the 13 slots (index 12 = late-zi,
+# handled specially by BirthChart's is_late_zi day-rollover logic).
+_REPRESENTATIVE_HOUR = {0: 0, 12: 23}
 
 
 class Candidate:
     def __init__(self, shichen_idx, year, month, day, gender):
         self.shichen_idx = shichen_idx
         self.label, self.time_range = SHICHEN_LABELS[shichen_idx]
-        hour = shichen_idx * 2  # representative hour within the block
+        hour = _REPRESENTATIVE_HOUR.get(shichen_idx, shichen_idx * 2)
         self.bc = BirthChart(year, month, day, hour, 0)
         self.zw = ZiWeiChart(self.bc, gender)
         life_row = self.zw.palace_table()[0]
@@ -59,7 +64,7 @@ class Candidate:
 
 
 def generate_candidates(year, month, day, gender):
-    return [Candidate(i, year, month, day, gender) for i in range(12)]
+    return [Candidate(i, year, month, day, gender) for i in range(13)]
 
 
 def personality_question(candidates):

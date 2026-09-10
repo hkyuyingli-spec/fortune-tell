@@ -11,20 +11,39 @@ st.set_page_config(page_title="命盤 · Destiny Chart", page_icon="🔮", layou
 st.markdown("""
 <style>
 :root {
-    --ink:#14182A; --paper:#EFE7D8; --cinnabar:#B23A2E; --gold:#C9A15A; --jade:#4B7A6D;
+    --ink:#14182A; --paper:#EFE7D8; --cinnabar:#B23A2E; --gold:#C9A15A; --jade:#4B7A6D; --charcoal:#23262F;
 }
 .stApp { background: var(--ink); }
-h1, h2, h3 { font-family: "Noto Serif TC", serif !important; color: var(--gold) !important; }
-.block-container { max-width: 720px; }
-.free-card, .paid-card, .rect-card {
-    background: var(--paper); color: #23262F; border-radius: 6px;
+h1 { font-family: "Noto Serif TC", serif !important; color: var(--gold) !important; }
+h2 { color: var(--gold) !important; font-family: "Noto Serif TC", serif !important; }
+
+/* Page-level text (labels, captions, radio options) sits directly on the
+   dark ink background, so it needs to be light -- Streamlit's default
+   text color here is a muted gray meant for light backgrounds and is
+   very low-contrast against navy. */
+.stMarkdown, .stMarkdown p, .stCaption, label, .stRadio div[role="radiogroup"] label p {
+    color: var(--paper) !important;
+}
+
+/* Cards (free/paid tier, info banner) sit on a light paper background,
+   so THEIR text needs to be dark -- these selectors are more specific
+   than the rule above, so they correctly win. */
+.free-card, .paid-card, .info-card {
+    background: var(--paper); border-radius: 6px;
     padding: 24px 28px; margin-bottom: 18px;
 }
+.free-card h3, .paid-card h3 { color: var(--cinnabar) !important; font-family: "Noto Serif TC", serif !important; margin-top: 0; }
+.free-card p, .paid-card p, .info-card, .palace-row, .palace-row b, .decade-tag {
+    color: var(--charcoal) !important;
+}
 .paid-card { border-left: 4px solid var(--cinnabar); }
-.rect-card { border-left: 4px solid var(--jade); }
+.info-card { border: 1px dashed var(--jade); font-size: 14px; }
 .palace-row { border-bottom: 1px dotted rgba(35,38,47,0.25); padding: 10px 0; }
-.disclaimer { color: #C9A15A; font-size: 12.5px; margin-top: 18px; line-height:1.6; }
-.candidate-box { border: 1px solid rgba(35,38,47,0.2); border-radius: 4px; padding: 10px 14px; margin-bottom: 8px; }
+.decade-tag { color: #8a7b6c !important; }
+.disclaimer { color: var(--gold) !important; font-size: 12.5px; margin-top: 18px; line-height:1.6; }
+.candidate-box { background: var(--paper); border: 1px solid rgba(35,38,47,0.2); border-radius: 4px; padding: 10px 14px; margin-bottom: 8px; color: var(--charcoal) !important; }
+.rect-card { background: var(--paper); color: var(--charcoal) !important; border-left: 4px solid var(--jade); border-radius: 6px; padding: 24px 28px; margin-bottom: 18px; }
+.block-container { max-width: 720px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -32,42 +51,56 @@ st.title("命盤 · Destiny Chart")
 st.caption("紫微斗數 + 八字 命盤產生器 — 免費看命盤結構，付費解鎖完整解讀")
 
 
+import re
+
+
+def _md_to_html(text: str) -> str:
+    """Tiny markdown->HTML helper so we can build ONE self-contained HTML
+    block per call. Streamlit renders each separate st.markdown()/
+    st.subheader() call as its own independent DOM node -- opening a
+    <div> in one call and closing it in another does NOT actually nest
+    the content in between, it leaves an empty styled box and dumps the
+    real content outside it with default (unreadable-on-dark) styling.
+    Building one full HTML string per visual "card" avoids that."""
+    text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+    paras = [p.strip() for p in text.split("\n\n") if p.strip()]
+    return "".join(f"<p>{p}</p>" for p in paras)
+
+
 def render_full_report(bc: BirthChart, zw: ZiWeiChart):
     """Shared rendering for a resolved chart (whether time was known
     upfront, or arrived at via 定盤 rectification)."""
     pillars = bc.four_pillars.as_dict()
 
-    st.markdown('<div class="free-card">', unsafe_allow_html=True)
-    st.subheader("免費 · 命盤概覽")
-    st.markdown(interp.free_tier_summary(pillars, pillars["day"][0], zw))
-    st.markdown('</div>', unsafe_allow_html=True)
+    free_html = _md_to_html(interp.free_tier_summary(pillars, pillars["day"][0], zw))
+    st.markdown(f'<div class="free-card"><h3>免費 · 命盤概覽</h3>{free_html}</div>', unsafe_allow_html=True)
 
     if not st.session_state.get("unlocked"):
-        st.info("完整報告包含：十二宮完整星曜、每個宮位解讀、十年大限排程、今年流年宮位")
+        st.markdown(
+            '<div class="info-card">完整報告包含：十二宮完整星曜、每個宮位解讀、十年大限排程、今年流年宮位</div>',
+            unsafe_allow_html=True,
+        )
         if st.button("🔓 解鎖完整報告 Unlock Full Report"):
             st.session_state["unlocked"] = True
             st.rerun()
     else:
-        st.markdown('<div class="paid-card">', unsafe_allow_html=True)
-        st.subheader("付費 · 完整命盤解讀")
-
         current_year = datetime.date.today().year
         rows, current_palace = interp.paid_tier_report(zw, current_year)
 
+        parts = ['<div class="paid-card">', "<h3>付費 · 完整命盤解讀</h3>"]
         if current_palace:
-            st.markdown(f"**{current_year} 年流年宮位：{current_palace}**")
-
+            parts.append(f"<p><b>{current_year} 年流年宮位：{current_palace}</b></p>")
         for row in rows:
-            st.markdown(
+            parts.append(
                 f"""<div class="palace-row">
                 <b>{row['palace']}</b>（{row['meaning']}）— {row['stem_branch']}<br/>
                 主星：{row['stars']}<br/>
                 {row['blurb']}<br/>
-                <span style="color:#8a7b6c;">大限：{row['decade_range']}</span>
-                </div>""",
-                unsafe_allow_html=True,
+                <span class="decade-tag">大限：{row['decade_range']}</span>
+                </div>"""
             )
-        st.markdown('</div>', unsafe_allow_html=True)
+        parts.append("</div>")
+        st.markdown("".join(parts), unsafe_allow_html=True)
 
     st.markdown(
         '<p class="disclaimer">此命盤結構（十二宮、十四主星、五行局、大限）依紫微斗數傳統排盤規則計算，'

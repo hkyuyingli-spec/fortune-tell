@@ -74,6 +74,10 @@ Validated against `iztro`'s own output at three levels:
    including two that fall in the ~2-3 week window between 立春 and the
    following Chinese New Year — the specific window that exposed a real
    bug during development (see below). **9/9 passed.**
+4. `accuracy_sweep_latezi.py` — 40 randomized birthdates specifically in
+   the 23:00-23:59 (晚子時/late-zi) window, including one that landed on
+   the last day of a lunar month and exposed a second real bug (see
+   below). **40/40 passed.**
 
 **Bugs found and fixed during this validation process** (documented here
 rather than swept under the rug):
@@ -89,6 +93,16 @@ rather than swept under the rug):
   and the following Chinese New Year — roughly a 2-3 week window every
   year. This was caught by the targeted edge-case sweep, not the random
   one, which is why both exist.
+- 晚子時 (late zi, 23:00-23:59) and 早子時 (early zi, 00:00-00:59) share
+  the same branch but are NOT the same for star placement: the reference
+  implementation (`iztro`, default config) shifts the lunar day forward
+  by one for late-zi births when computing the 紫微/天府 star position.
+  A first attempt at this fix used raw `day + 1` arithmetic, which breaks
+  for anyone born on the last day of a lunar month (there's no "day 31"
+  to add 1 to) — fixed by reading the actual next calendar day's real
+  lunar date instead of doing arithmetic on the current one. Both the
+  chart engine and the 定盤 rectification flow (now 13 candidates, not
+  12) reflect this distinction.
 
 
 - **Interpretation layer** (`interpretation.py`): templated text keyed off
