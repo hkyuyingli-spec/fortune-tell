@@ -52,10 +52,15 @@ class Candidate:
         self.bureau_number = self.zw.bureau_number
         self.decade_start = self.zw.decades_by_p[self.zw.soul_p]["range"][0]
 
-    def personality_text(self):
+    def personality_text(self, lang="zh"):
+        default_texts = {
+            "zh": "個性較不明顯外顯，容易受環境與身邊的人影響，可塑性高。",
+            "en": "A less outwardly obvious personality — easily shaped by environment and the people around you, highly adaptable.",
+            "id": "Kepribadian kurang tampak keluar — mudah dipengaruhi lingkungan dan orang sekitar, sangat mudah beradaptasi.",
+        }
         if not self.life_stars:
-            return "個性較不明顯外顯，容易受環境與身邊的人影響，可塑性高。"
-        return " ".join(MAJOR_STAR_BLURB.get(s, "") for s in self.life_stars)
+            return default_texts[lang]
+        return " ".join(MAJOR_STAR_BLURB.get(s, {}).get(lang, "") for s in self.life_stars)
 
     def decade_boundaries(self):
         """Ages at which this candidate's decade cycle rolls over (useful
@@ -67,12 +72,12 @@ def generate_candidates(year, month, day, gender):
     return [Candidate(i, year, month, day, gender) for i in range(13)]
 
 
-def personality_question(candidates):
+def personality_question(candidates, lang="zh"):
     """Group candidates by DISTINCT personality text, so the user picks
     from real, non-duplicate options rather than 12 near-identical ones."""
     groups = {}
     for c in candidates:
-        key = c.personality_text()
+        key = c.personality_text(lang)
         groups.setdefault(key, []).append(c)
     # Return as list of (text, [shichen_idx,...]) sorted for stable display
     return [(text, [c.shichen_idx for c in group]) for text, group in groups.items()]
@@ -84,12 +89,18 @@ def narrow_by_personality(candidates, chosen_shichen_indices):
 
 def narrow_by_turning_point(candidates, approx_age, tolerance=3):
     """Keep candidates whose decade cycle rolls over within `tolerance`
-    years of the age the user reports as a major turning point. Never
-    narrows to zero -- if nothing matches within tolerance, the question
-    wasn't useful for this birth date, so we leave the set untouched."""
+    years of the age the user reports as a major turning point.
+
+    Returns (result_candidates, did_narrow: bool) -- the caller needs to
+    know WHY the list didn't shrink: "this question wasn't useful for this
+    birth date" is a different situation from "you narrowed it to one",
+    and silently returning the same list for both looked identical to the
+    user before this fix."""
     kept = []
     for c in candidates:
         boundaries = c.decade_boundaries()
         if any(abs(approx_age - b) <= tolerance for b in boundaries):
             kept.append(c)
-    return kept or candidates
+    if kept:
+        return kept, True
+    return candidates, False

@@ -1,2 +1,3 @@
 streamlit>=1.60
 sxtwl>=2.0.7
+openai>=1.50

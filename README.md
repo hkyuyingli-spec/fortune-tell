@@ -119,6 +119,37 @@ rather than swept under the rug):
 - Leap-month handling uses the common 15-day-split simplification, not a
   full alternate-school treatment
 
+## Supported birth-date range
+
+Restricted to 1950–present in the UI. This isn't an arbitrary choice: it's
+the range actually covered by the validation sweeps above (300 randomized
+cases spanned 1950-2025). Dates outside that range aren't necessarily
+wrong, they're just unverified — the underlying `sxtwl` calendar library
+claims a wider range, but we haven't tested against it there.
+
+## AI Q&A (GitHub Models)
+
+Once the paid tier is unlocked, users can ask free-form questions about
+their own chart via a chat interface (`ai_chat.py`), powered by
+[GitHub Models](https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/) —
+a free, OpenAI-compatible inference API authenticated with a GitHub
+Personal Access Token, rather than a separate paid AI vendor key.
+
+**Setup**: create a GitHub PAT with `models:read` scope (GitHub Settings →
+Developer settings → Personal access tokens), then add it as a secret:
+- Locally: set the `GITHUB_TOKEN` environment variable, or add it to
+  `.streamlit/secrets.toml` as `GITHUB_TOKEN = "ghp_..."`
+- On Streamlit Community Cloud: App settings → Secrets → add the same key
+
+If the token isn't configured, the chat section shows setup instructions
+instead of crashing rather than failing silently or with a raw exception.
+
+**Grounding**: the model is given the exact computed chart (four pillars,
+all 12 palaces, stars, bureau, decades) as context and is instructed to
+answer only from those facts, in the same non-deterministic register as
+the rest of the app's interpretation text — it's told not to invent stars,
+palaces, or predictions the engine didn't actually compute.
+
 ## Running locally
 
 ```bash

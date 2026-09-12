@@ -1,3 +1,4 @@
+import re
 import datetime
 import streamlit as st
 
@@ -5,8 +6,10 @@ from calendar_engine import BirthChart
 from ziwei_engine import ZiWeiChart
 import interpretation as interp
 import rectification as rect
+import ai_chat
+from i18n import t, LANGS
 
-st.set_page_config(page_title="命盤 · Destiny Chart", page_icon="🔮", layout="centered")
+st.set_page_config(page_title="Destiny Chart", page_icon="🔮", layout="centered")
 
 st.markdown("""
 <style>
@@ -15,7 +18,7 @@ st.markdown("""
 }
 .stApp { background: var(--ink); }
 h1 { font-family: "Noto Serif TC", serif !important; color: var(--gold) !important; }
-h2 { color: var(--gold) !important; font-family: "Noto Serif TC", serif !important; }
+h2, h3 { color: var(--gold) !important; font-family: "Noto Serif TC", serif !important; }
 
 /* Page-level text (labels, captions, radio options) sits directly on the
    dark ink background, so it needs to be light -- Streamlit's default
@@ -47,11 +50,18 @@ h2 { color: var(--gold) !important; font-family: "Noto Serif TC", serif !importa
 </style>
 """, unsafe_allow_html=True)
 
-st.title("命盤 · Destiny Chart")
-st.caption("紫微斗數 + 八字 命盤產生器 — 免費看命盤結構，付費解鎖完整解讀")
+# ---- language selector (top of page, controls everything below) ----
+lang_codes = list(LANGS.keys())
+lang = st.selectbox(
+    t("language_label", "zh"),
+    lang_codes,
+    format_func=lambda code: LANGS[code],
+    index=0,
+    key="lang_select",
+)
 
-
-import re
+st.title(t("app_title", lang))
+st.caption(t("app_caption", lang))
 
 
 def _md_to_html(text: str) -> str:
@@ -67,53 +77,108 @@ def _md_to_html(text: str) -> str:
     return "".join(f"<p>{p}</p>" for p in paras)
 
 
-def render_full_report(bc: BirthChart, zw: ZiWeiChart):
+def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
     """Shared rendering for a resolved chart (whether time was known
     upfront, or arrived at via 定盤 rectification)."""
     pillars = bc.four_pillars.as_dict()
 
-    free_html = _md_to_html(interp.free_tier_summary(pillars, pillars["day"][0], zw))
-    st.markdown(f'<div class="free-card"><h3>免費 · 命盤概覽</h3>{free_html}</div>', unsafe_allow_html=True)
+    free_html = _md_to_html(interp.free_tier_summary(pillars, pillars["day"][0], zw, lang))
+    st.markdown(f'<div class="free-card"><h3>{t("free_tier_header", lang)}</h3>{free_html}</div>', unsafe_allow_html=True)
 
     if not st.session_state.get("unlocked"):
-        st.markdown(
-            '<div class="info-card">完整報告包含：十二宮完整星曜、每個宮位解讀、十年大限排程、今年流年宮位</div>',
-            unsafe_allow_html=True,
-        )
-        if st.button("🔓 解鎖完整報告 Unlock Full Report"):
+        st.markdown(f'<div class="info-card">{t("unlock_info", lang)}</div>', unsafe_allow_html=True)
+        if st.button(t("unlock_btn", lang)):
             st.session_state["unlocked"] = True
             st.rerun()
     else:
         current_year = datetime.date.today().year
-        rows, current_palace = interp.paid_tier_report(zw, current_year)
+        rows, current_palace = interp.paid_tier_report(zw, current_year, lang)
 
-        parts = ['<div class="paid-card">', "<h3>付費 · 完整命盤解讀</h3>"]
+        parts = ['<div class="paid-card">', f"<h3>{t('paid_tier_header', lang)}</h3>"]
         if current_palace:
-            parts.append(f"<p><b>{current_year} 年流年宮位：{current_palace}</b></p>")
+            parts.append(f"<p><b>{current_year}{t('current_year_palace', lang)}{current_palace}</b></p>")
         for row in rows:
             parts.append(
                 f"""<div class="palace-row">
                 <b>{row['palace']}</b>（{row['meaning']}）— {row['stem_branch']}<br/>
-                主星：{row['stars']}<br/>
+                {row['stars']}<br/>
                 {row['blurb']}<br/>
-                <span class="decade-tag">大限：{row['decade_range']}</span>
+                <span class="decade-tag">{t('decade_label', lang)}{row['decade_range']}</span>
                 </div>"""
             )
         parts.append("</div>")
         st.markdown("".join(parts), unsafe_allow_html=True)
 
-    st.markdown(
-        '<p class="disclaimer">此命盤結構（十二宮、十四主星、五行局、大限）依紫微斗數傳統排盤規則計算，'
-        '並經過與開源排盤工具（iztro）交叉驗證。目前尚未納入輔星、四化飛星與逐月/逐日流曜，屬於下一階段功能。'
-        '本報告僅供自我探索與參考，非科學預測，請勿作為人生重大決策的唯一依據。</p>',
-        unsafe_allow_html=True,
-    )
+    st.markdown(f'<p class="disclaimer">{t("disclaimer", lang)}</p>', unsafe_allow_html=True)
+
+    if st.session_state.get("unlocked"):
+        render_ai_chat(bc, zw, lang)
+
+
+CATEGORIES = [
+    ("cat_wealth", "cat_q_wealth"),
+    ("cat_career", "cat_q_career"),
+    ("cat_love", "cat_q_love"),
+    ("cat_property", "cat_q_property"),
+    ("cat_business", "cat_q_business"),
+]
+
+
+def _send_question(bc, zw, lang, question):
+    st.session_state["chat_history"].append({"role": "user", "content": question})
+    try:
+        context = ai_chat.build_chart_context(bc, zw, interp)
+        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question)
+    except Exception as e:
+        answer = f"Error: {e}"
+    st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+
+
+def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
+    st.markdown(f"### {t('ai_chat_header', lang)}")
+
+    if not ai_chat.is_configured():
+        st.warning(t("ai_not_configured", lang))
+        return
+
+    chart_key = f"{bc.solar_year}-{bc.solar_month}-{bc.solar_day}-{bc.hour}"
+    if st.session_state.get("chat_chart_key") != chart_key:
+        st.session_state["chat_chart_key"] = chart_key
+        st.session_state["chat_history"] = []
+
+    st.caption(t("ai_category_header", lang))
+    cols = st.columns(len(CATEGORIES))
+    for col, (label_key, question_key) in zip(cols, CATEGORIES):
+        with col:
+            if st.button(t(label_key, lang), key=f"cat_{label_key}", use_container_width=True):
+                with st.spinner(t("ai_thinking", lang)):
+                    _send_question(bc, zw, lang, t(question_key, lang))
+                st.rerun()
+
+    for msg in st.session_state["chat_history"]:
+        with st.chat_message(msg["role"]):
+            st.write(msg["content"])
+
+    question = st.chat_input(t("ai_chat_placeholder", lang))
+    if question:
+        with st.chat_message("user"):
+            st.write(question)
+        with st.chat_message("assistant"):
+            with st.spinner(t("ai_thinking", lang)):
+                context = ai_chat.build_chart_context(bc, zw, interp)
+                try:
+                    answer = ai_chat.ask(context, st.session_state["chat_history"], question)
+                except Exception as e:
+                    answer = f"Error: {e}"
+                st.write(answer)
+        st.session_state["chat_history"].append({"role": "user", "content": question})
+        st.session_state["chat_history"].append({"role": "assistant", "content": answer})
 
 
 mode = st.radio(
-    "你知道確切的出生時間嗎？",
+    t("know_time_q", lang),
     ["know_time", "unknown_time"],
-    format_func=lambda m: "✅ 我知道確切的出生時間" if m == "know_time" else "❓ 我不確定 / 不知道出生時間",
+    format_func=lambda m: t("know_time_yes", lang) if m == "know_time" else t("know_time_no", lang),
     horizontal=False,
 )
 
@@ -123,6 +188,10 @@ if st.session_state.get("mode") != mode:
     st.session_state.pop("chart_input", None)
     st.session_state.pop("rect_step", None)
     st.session_state.pop("rect_candidates", None)
+    st.session_state.pop("rect_candidates_narrowed", None)
+    st.session_state.pop("rect_final", None)
+    st.session_state.pop("chat_history", None)
+    st.session_state.pop("chat_chart_key", None)
     st.session_state["unlocked"] = False
 
 # ============================== KNOW TIME ==============================
@@ -130,12 +199,13 @@ if mode == "know_time":
     with st.form("birth_form"):
         col1, col2 = st.columns(2)
         with col1:
-            birth_date = st.date_input("出生日期（陽曆）", value=datetime.date(1990, 1, 1),
-                                        min_value=datetime.date(1900, 1, 1), max_value=datetime.date(2035, 12, 31))
+            birth_date = st.date_input(t("birth_date", lang), value=datetime.date(1990, 1, 1),
+                                        min_value=datetime.date(1950, 1, 1), max_value=datetime.date.today())
         with col2:
-            birth_time = st.time_input("出生時間", value=datetime.time(12, 0))
-        gender = st.radio("性別", ["male", "female"], format_func=lambda g: "男" if g == "male" else "女", horizontal=True)
-        submitted = st.form_submit_button("排盤 Reveal Chart")
+            birth_time = st.time_input(t("birth_time", lang), value=datetime.time(12, 0))
+        gender = st.radio(t("gender", lang), ["male", "female"],
+                           format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
+        submitted = st.form_submit_button(t("reveal_btn", lang))
 
     if submitted:
         st.session_state["chart_input"] = (birth_date, birth_time, gender)
@@ -145,16 +215,11 @@ if mode == "know_time":
         birth_date, birth_time, gender = st.session_state["chart_input"]
         bc = BirthChart(birth_date.year, birth_date.month, birth_date.day, birth_time.hour, birth_time.minute)
         zw = ZiWeiChart(bc, gender)
-        render_full_report(bc, zw)
+        render_full_report(bc, zw, lang)
 
 # ============================== UNKNOWN TIME: 定盤 ==============================
 else:
-    st.markdown(
-        '<div class="rect-card">紫微斗數的命宮、身宮、十四主星都是由「出生時辰」直接決定的 —— '
-        '沒有時辰，命盤不是「比較不準」，而是<b>無法唯一決定</b>：同一天出生、不同時辰，'
-        '可能對應到完全不同的命盤。以下用傳統「定盤」的方式，透過幾個問題幫你縮小範圍。</div>',
-        unsafe_allow_html=True,
-    )
+    st.markdown(f'<div class="rect-card">{t("rect_intro", lang)}</div>', unsafe_allow_html=True)
 
     step = st.session_state.get("rect_step", "input")
 
@@ -162,11 +227,12 @@ else:
         with st.form("rect_form"):
             col1, col2 = st.columns(2)
             with col1:
-                r_date = st.date_input("出生日期（陽曆）", value=datetime.date(1990, 1, 1),
-                                        min_value=datetime.date(1900, 1, 1), max_value=datetime.date(2035, 12, 31))
+                r_date = st.date_input(t("birth_date", lang), value=datetime.date(1990, 1, 1),
+                                        min_value=datetime.date(1950, 1, 1), max_value=datetime.date.today())
             with col2:
-                r_gender = st.radio("性別", ["male", "female"], format_func=lambda g: "男" if g == "male" else "女", horizontal=True)
-            go = st.form_submit_button("開始定盤 Start Rectification")
+                r_gender = st.radio(t("gender", lang), ["male", "female"],
+                                     format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
+            go = st.form_submit_button(t("rect_start_btn", lang))
         if go:
             candidates = rect.generate_candidates(r_date.year, r_date.month, r_date.day, r_gender)
             st.session_state["rect_candidates"] = candidates
@@ -175,11 +241,11 @@ else:
 
     elif step == "personality":
         candidates = st.session_state["rect_candidates"]
-        pq = rect.personality_question(candidates)
-        st.subheader("第一步：哪一段個性描述最像你？")
+        pq = rect.personality_question(candidates, lang)
+        st.subheader(t("rect_step1_header", lang))
         options = [text for text, _ in pq]
-        choice = st.radio("選一個最接近的（不用完全符合，選最像的就好）", options, index=None)
-        if choice is not None and st.button("下一步"):
+        choice = st.radio(t("rect_step1_caption", lang), options, index=None)
+        if choice is not None and st.button(t("rect_next_btn", lang)):
             chosen_idxs = dict(pq)[choice]
             narrowed = rect.narrow_by_personality(candidates, chosen_idxs)
             st.session_state["rect_candidates_narrowed"] = narrowed
@@ -188,16 +254,20 @@ else:
 
     elif step == "turning_point":
         narrowed = st.session_state["rect_candidates_narrowed"]
-        st.subheader("第二步：人生中一個明顯的轉折點，大概發生在幾歲？")
-        st.caption("例如：換跑道、重大決定、明顯的順逆變化。不確定的話可以按「跳過」。")
-        age = st.slider("大約年齡", 5, 60, 25)
+        st.subheader(t("rect_step2_header", lang))
+        st.caption(t("rect_step2_caption", lang))
+        age = st.slider(t("rect_age_label", lang), 5, 60, 25)
         col1, col2 = st.columns(2)
         with col1:
-            confirm = st.button("確認年齡")
+            confirm = st.button(t("rect_confirm_age_btn", lang))
         with col2:
-            skip = st.button("跳過此題")
+            skip = st.button(t("rect_skip_btn", lang))
         if confirm:
-            narrowed2 = rect.narrow_by_turning_point(narrowed, age)
+            narrowed2, did_narrow = rect.narrow_by_turning_point(narrowed, age)
+            if not did_narrow:
+                st.session_state["rect_turning_point_note"] = t("rect_no_narrow_note", lang)
+            else:
+                st.session_state.pop("rect_turning_point_note", None)
             st.session_state["rect_candidates_narrowed"] = narrowed2
             st.session_state["rect_step"] = "result"
             st.rerun()
@@ -207,37 +277,41 @@ else:
 
     elif step == "result":
         narrowed = st.session_state["rect_candidates_narrowed"]
+        if st.session_state.get("rect_turning_point_note"):
+            st.info(st.session_state["rect_turning_point_note"])
         if len(narrowed) == 1:
             final = narrowed[0]
-            st.success(f"根據你的回答，最可能的時辰是：**{final.label}（{final.time_range}）**")
-            if st.button("查看完整命盤"):
+            st.success(f"{t('rect_result_single', lang)} **{final.label}（{final.time_range}）**")
+            if st.button(t("rect_view_chart_btn", lang)):
                 st.session_state["rect_final"] = final
                 st.session_state["rect_step"] = "done"
                 st.rerun()
         else:
-            st.info(f"縮小到 {len(narrowed)} 個可能的時辰，請憑直覺選一個最像你的：")
+            st.info(t("rect_result_multi", lang, n=len(narrowed)))
             for c in narrowed:
                 st.markdown(
-                    f'<div class="candidate-box"><b>{c.label}（{c.time_range}）</b><br/>{c.personality_text()}</div>',
+                    f'<div class="candidate-box"><b>{c.label}（{c.time_range}）</b><br/>{c.personality_text(lang)}</div>',
                     unsafe_allow_html=True,
                 )
             labels = [c.label for c in narrowed]
-            pick = st.radio("選擇", labels, index=None)
-            if pick is not None and st.button("確認選擇"):
+            pick = st.radio(t("rect_choose_label", lang), labels, index=None)
+            if pick is not None and st.button(t("rect_confirm_choice_btn", lang)):
                 final = next(c for c in narrowed if c.label == pick)
                 st.session_state["rect_final"] = final
                 st.session_state["rect_step"] = "done"
                 st.rerun()
 
-        if st.button("重新開始定盤"):
+        if st.button(t("rect_restart_btn", lang)):
             st.session_state["rect_step"] = "input"
+            st.session_state.pop("rect_turning_point_note", None)
             st.rerun()
 
     elif step == "done":
         final = st.session_state["rect_final"]
-        st.caption(f"以下命盤基於推定時辰：{final.label}（{final.time_range}）— 如未來確認實際時辰，結果可能不同。")
-        render_full_report(final.bc, final.zw)
-        if st.button("重新定盤"):
+        st.caption(t("rect_done_caption", lang, label=final.label, time_range=final.time_range))
+        render_full_report(final.bc, final.zw, lang)
+        if st.button(t("rect_redo_btn", lang)):
             st.session_state["rect_step"] = "input"
             st.session_state["unlocked"] = False
+            st.session_state.pop("rect_turning_point_note", None)
             st.rerun()
