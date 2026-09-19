@@ -124,12 +124,50 @@ CATEGORIES = [
 ]
 
 
+def _ensure_chat_history():
+    if "chat_history" not in st.session_state or not isinstance(st.session_state["chat_history"], list):
+        st.session_state["chat_history"] = []
+    cleaned = []
+    for item in st.session_state["chat_history"]:
+        if isinstance(item, dict) and "role" in item and "content" in item:
+            cleaned.append({"role": item["role"], "content": str(item["content"])})
+    st.session_state["chat_history"] = cleaned
+
+
+def _ensure_intent_profile():
+    if "user_intent_profile" not in st.session_state:
+        st.session_state["user_intent_profile"] = {}
+    if "user_intent_history" not in st.session_state:
+        st.session_state["user_intent_history"] = []
+
+
+def _update_intent_profile(question: str):
+    _ensure_intent_profile()
+    label, _ = ai_chat.classify_question(question)
+    profile = st.session_state["user_intent_profile"]
+    profile[label] = profile.get(label, 0) + 1
+    history = st.session_state["user_intent_history"]
+    history.append(label)
+    st.session_state["user_intent_history"] = history[-10:]
+
+
 def _send_question(bc, zw, lang, question, model_name=None):
-    st.session_state["chat_history"].append({"role": "user", "content": question})
+    _ensure_chat_history()
+    _update_intent_profile(question)
+    user_msg = {"role": "user", "content": question}
+    st.session_state["chat_history"].append(user_msg)
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question, model=model_name or ai_chat.DEFAULT_MODEL)
+        history_for_request = ai_chat.sanitize_chat_history(st.session_state["chat_history"][:-1])
+        answer = ai_chat.ask(
+            context,
+            history_for_request,
+            question,
+            model=model_name or ai_chat.DEFAULT_MODEL,
+            profile_context=st.session_state.get("user_intent_profile"),
+        )
     except Exception as e:
+        st.error(f"AI error: {e}")
         answer = f"Error: {e}"
     st.session_state["chat_history"].append({"role": "assistant", "content": answer})
 
@@ -145,6 +183,10 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
     if st.session_state.get("chat_chart_key") != chart_key:
         st.session_state["chat_chart_key"] = chart_key
         st.session_state["chat_history"] = []
+        st.session_state["user_intent_profile"] = {}
+        st.session_state["user_intent_history"] = []
+    _ensure_chat_history()
+    _ensure_intent_profile()
 
     selected_model = st.selectbox(
         "AI model",
@@ -173,9 +215,18 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with st.chat_message("assistant"):
             with st.spinner(t("ai_thinking", lang)):
                 context = ai_chat.build_chart_context(bc, zw, interp)
+                _update_intent_profile(question)
                 try:
-                    answer = ai_chat.ask(context, st.session_state["chat_history"], question, model=selected_model)
+                    history_for_request = ai_chat.sanitize_chat_history(st.session_state["chat_history"])
+                    answer = ai_chat.ask(
+                        context,
+                        history_for_request,
+                        question,
+                        model=selected_model,
+                        profile_context=st.session_state.get("user_intent_profile"),
+                    )
                 except Exception as e:
+                    st.error(f"AI error: {e}")
                     answer = f"Error: {e}"
                 st.write(answer)
         st.session_state["chat_history"].append({"role": "user", "content": question})
@@ -199,6 +250,8 @@ if st.session_state.get("mode") != mode:
     st.session_state.pop("rect_final", None)
     st.session_state.pop("chat_history", None)
     st.session_state.pop("chat_chart_key", None)
+    st.session_state.pop("user_intent_profile", None)
+    st.session_state.pop("user_intent_history", None)
     st.session_state["unlocked"] = False
 
 # ============================== KNOW TIME ==============================
