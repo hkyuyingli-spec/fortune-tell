@@ -1,26 +1,27 @@
 """
-Conversational Q&A about a computed chart, backed by GitHub Models
-(https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/) --
-a free, OpenAI-compatible inference API authenticated with a GitHub
-Personal Access Token, rather than a separate paid AI vendor key.
+Conversational Q&A about a computed chart, backed by Groq.
 
 Design principle: the model is NOT asked to invent or extend the chart.
 It is given the exact computed facts (four pillars, palaces, stars,
 bureau, decades) as grounding context and instructed to answer only from
 those facts, in the same reflective/non-deterministic register as the
-rest of this app's interpretation text. This keeps the chat feature
-consistent with the app's own disclaimer instead of letting a general-
-purpose LLM freelance new "predictions" the engine never computed.
+rest of this app's interpretation text.
 """
 import os
 
 try:
-    from openai import OpenAI
-except ImportError:
-    OpenAI = None
+    from groq import Groq
+    from groq import APIConnectionError, APIError, APIStatusError, RateLimitError
+except ImportError:  # pragma: no cover
+    Groq = None
+    APIConnectionError = APIError = APIStatusError = RateLimitError = Exception
 
-GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
-DEFAULT_MODEL = "openai/gpt-4o-mini"
+DEFAULT_MODEL = "llama-3.3-70b-versatile"
+AVAILABLE_MODELS = [
+    "llama-3.3-70b-versatile",
+    "llama-3.1-8b-instant",
+    "mixtral-8x7b-32768",
+]
 
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
 以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
@@ -41,24 +42,26 @@ SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。�
 
 
 def is_configured() -> bool:
-    return OpenAI is not None and bool(_get_token())
+    return Groq is not None and bool(_get_token())
 
 
-def _get_token():
-    # Prefer Streamlit secrets when running under Streamlit; fall back to
-    # a plain environment variable for local/non-Streamlit use.
+def _get_token() -> str | None:
+    """Get the Groq API key from Streamlit secrets first, then env as fallback."""
     try:
         import streamlit as st
-        if "GITHUB_TOKEN" in st.secrets:
-            return st.secrets["GITHUB_TOKEN"]
+        value = st.secrets.get("GROQ_API_KEY")
+        if value:
+            return str(value)
     except Exception:
         pass
-    return os.environ.get("GITHUB_TOKEN")
+    return os.environ.get("GROQ_API_KEY")
 
 
-def _client():
+def _client() -> Groq:
     token = _get_token()
-    return OpenAI(base_url=GITHUB_MODELS_ENDPOINT, api_key=token)
+    if not token:
+        raise RuntimeError("Groq API key missing. Add GROQ_API_KEY in Streamlit secrets or environment.")
+    return Groq(api_key=token)
 
 
 def build_chart_context(bc, zw, interp_module) -> str:
@@ -82,20 +85,51 @@ def build_chart_context(bc, zw, interp_module) -> str:
     return "\n".join(lines)
 
 
-def ask(chart_context: str, chat_history: list, user_question: str) -> str:
-    """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
+def _resolve_model(model_name: str | None) -> str:
+    model = (model_name or DEFAULT_MODEL).strip()
+    return model if model in AVAILABLE_MODELS else DEFAULT_MODEL
+
+
+def ask(chart_context: str, chat_history: list, user_question: str, model: str = DEFAULT_MODEL, stream: bool = False):
+    """chat_history: list of {'role': 'user'|'assistant', 'content': str}
+
+    Returns a plain string by default; when stream=True, it streams chunks and
+    concatenates them into one final string so the existing app interface stays unchanged.
+    """
     if not is_configured():
-        raise RuntimeError("GitHub Models not configured (missing GITHUB_TOKEN or openai package).")
+        raise RuntimeError("Groq not configured (missing GROQ_API_KEY or groq package).")
+
+    resolved_model = _resolve_model(model)
 
     client = _client()
     messages = [{"role": "system", "content": SYSTEM_PROMPT.format(chart_context=chart_context)}]
     messages.extend(chat_history)
     messages.append({"role": "user", "content": user_question})
 
-    response = client.chat.completions.create(
-        model=DEFAULT_MODEL,
-        messages=messages,
-        temperature=0.7,
-        max_tokens=500,
-    )
-    return response.choices[0].message.content
+    try:
+        response = client.chat.completions.create(
+            model=resolved_model,
+            messages=messages,
+            temperature=0.7,
+            max_tokens=500,
+            stream=stream,
+        )
+
+        if stream:
+            chunks = []
+            for chunk in response:
+                delta = chunk.choices[0].delta.content if chunk.choices and chunk.choices[0].delta else ""
+                if delta:
+                    chunks.append(delta)
+            return "".join(chunks)
+
+        content = response.choices[0].message.content
+        return content or ""
+    except RateLimitError as exc:
+        raise RuntimeError(f"Groq rate limit exceeded. Please try again in a moment. ({exc})") from exc
+    except APIConnectionError as exc:
+        raise RuntimeError(f"Groq network error: could not connect to the Groq API. ({exc})") from exc
+    except (APIStatusError, APIError, TimeoutError) as exc:
+        raise RuntimeError(f"Groq API error: {exc}") from exc
+    except Exception as exc:
+        raise RuntimeError(f"Unable to generate Groq response: {exc}") from exc

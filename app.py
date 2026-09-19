@@ -124,11 +124,11 @@ CATEGORIES = [
 ]
 
 
-def _send_question(bc, zw, lang, question):
+def _send_question(bc, zw, lang, question, model_name=None):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question)
+        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question, model=model_name or ai_chat.DEFAULT_MODEL)
     except Exception as e:
         answer = f"Error: {e}"
     st.session_state["chat_history"].append({"role": "assistant", "content": answer})
@@ -146,13 +146,20 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         st.session_state["chat_chart_key"] = chart_key
         st.session_state["chat_history"] = []
 
+    selected_model = st.selectbox(
+        "AI model",
+        ai_chat.AVAILABLE_MODELS,
+        index=0,
+        help="llama-3.3-70b is best quality · 8b is fastest",
+    )
+
     st.caption(t("ai_category_header", lang))
     cols = st.columns(len(CATEGORIES))
     for col, (label_key, question_key) in zip(cols, CATEGORIES):
         with col:
             if st.button(t(label_key, lang), key=f"cat_{label_key}", use_container_width=True):
                 with st.spinner(t("ai_thinking", lang)):
-                    _send_question(bc, zw, lang, t(question_key, lang))
+                    _send_question(bc, zw, lang, t(question_key, lang), selected_model)
                 st.rerun()
 
     for msg in st.session_state["chat_history"]:
@@ -167,7 +174,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
             with st.spinner(t("ai_thinking", lang)):
                 context = ai_chat.build_chart_context(bc, zw, interp)
                 try:
-                    answer = ai_chat.ask(context, st.session_state["chat_history"], question)
+                    answer = ai_chat.ask(context, st.session_state["chat_history"], question, model=selected_model)
                 except Exception as e:
                     answer = f"Error: {e}"
                 st.write(answer)
