@@ -7,6 +7,7 @@ from ziwei_engine import ZiWeiChart
 import interpretation as interp
 import rectification as rect
 import ai_chat
+import firebase_db
 from i18n import t, LANGS
 
 st.set_page_config(page_title="Destiny Chart", page_icon="🔮", layout="centered")
@@ -82,6 +83,24 @@ def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
     upfront, or arrived at via 定盤 rectification)."""
     pillars = bc.four_pillars.as_dict()
 
+    # Log once per distinct chart, not on every widget-triggered rerun
+    # (Streamlit reruns the whole script on every interaction, so without
+    # this guard the same chart would get logged dozens of times).
+    log_key = f"{bc.solar_year}-{bc.solar_month}-{bc.solar_day}-{bc.hour}-{zw.gender}"
+    if st.session_state.get("logged_chart_key") != log_key:
+        st.session_state["logged_chart_key"] = log_key
+        life_row = zw.palace_table()[0]
+        firebase_db.log_chart_request({
+            "lang": lang,
+            "mode": st.session_state.get("mode"),
+            "gender": zw.gender,
+            "birth_year": bc.solar_year,
+            "birth_month": bc.solar_month,
+            "day_master": pillars["day"][0],
+            "bureau_name": zw.bureau_name,
+            "life_palace_stars": life_row["stars"],
+        })
+
     free_html = _md_to_html(interp.free_tier_summary(pillars, pillars["day"][0], zw, lang))
     st.markdown(f'<div class="free-card"><h3>{t("free_tier_header", lang)}</h3>{free_html}</div>', unsafe_allow_html=True)
 
@@ -110,6 +129,8 @@ def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
         st.markdown("".join(parts), unsafe_allow_html=True)
 
     st.markdown(f'<p class="disclaimer">{t("disclaimer", lang)}</p>', unsafe_allow_html=True)
+    if firebase_db.is_configured():
+        st.markdown(f'<p class="disclaimer">{t("privacy_note", lang)}</p>', unsafe_allow_html=True)
 
     if st.session_state.get("unlocked"):
         render_ai_chat(bc, zw, lang)
@@ -124,52 +145,21 @@ CATEGORIES = [
 ]
 
 
-def _ensure_chat_history():
-    if "chat_history" not in st.session_state or not isinstance(st.session_state["chat_history"], list):
-        st.session_state["chat_history"] = []
-    cleaned = []
-    for item in st.session_state["chat_history"]:
-        if isinstance(item, dict) and "role" in item and "content" in item:
-            cleaned.append({"role": item["role"], "content": str(item["content"])})
-    st.session_state["chat_history"] = cleaned
-
-
-def _ensure_intent_profile():
-    if "user_intent_profile" not in st.session_state:
-        st.session_state["user_intent_profile"] = {}
-    if "user_intent_history" not in st.session_state:
-        st.session_state["user_intent_history"] = []
-
-
-def _update_intent_profile(question: str):
-    _ensure_intent_profile()
-    label, _ = ai_chat.classify_question(question)
-    profile = st.session_state["user_intent_profile"]
-    profile[label] = profile.get(label, 0) + 1
-    history = st.session_state["user_intent_history"]
-    history.append(label)
-    st.session_state["user_intent_history"] = history[-10:]
-
-
-def _send_question(bc, zw, lang, question, model_name=None):
-    _ensure_chat_history()
-    _update_intent_profile(question)
-    user_msg = {"role": "user", "content": question}
-    st.session_state["chat_history"].append(user_msg)
+def _send_question(bc, zw, lang, question, category=None):
+    st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        history_for_request = ai_chat.sanitize_chat_history(st.session_state["chat_history"][:-1])
-        answer = ai_chat.ask(
-            context,
-            history_for_request,
-            question,
-            model=model_name or ai_chat.DEFAULT_MODEL,
-            profile_context=st.session_state.get("user_intent_profile"),
-        )
+        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question)
     except Exception as e:
-        st.error(f"AI error: {e}")
         answer = f"Error: {e}"
     st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+    firebase_db.log_chat_message({
+        "lang": lang,
+        "chart_key": st.session_state.get("chat_chart_key"),
+        "category": category,
+        "question": question,
+        "answer": answer,
+    })
 
 
 def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
@@ -183,17 +173,6 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
     if st.session_state.get("chat_chart_key") != chart_key:
         st.session_state["chat_chart_key"] = chart_key
         st.session_state["chat_history"] = []
-        st.session_state["user_intent_profile"] = {}
-        st.session_state["user_intent_history"] = []
-    _ensure_chat_history()
-    _ensure_intent_profile()
-
-    selected_model = st.selectbox(
-        "AI model",
-        ai_chat.AVAILABLE_MODELS,
-        index=0,
-        help="llama-3.3-70b is best quality · 8b is fastest",
-    )
 
     st.caption(t("ai_category_header", lang))
     cols = st.columns(len(CATEGORIES))
@@ -201,7 +180,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with col:
             if st.button(t(label_key, lang), key=f"cat_{label_key}", use_container_width=True):
                 with st.spinner(t("ai_thinking", lang)):
-                    _send_question(bc, zw, lang, t(question_key, lang), selected_model)
+                    _send_question(bc, zw, lang, t(question_key, lang), category=label_key)
                 st.rerun()
 
     for msg in st.session_state["chat_history"]:
@@ -215,22 +194,20 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with st.chat_message("assistant"):
             with st.spinner(t("ai_thinking", lang)):
                 context = ai_chat.build_chart_context(bc, zw, interp)
-                _update_intent_profile(question)
                 try:
-                    history_for_request = ai_chat.sanitize_chat_history(st.session_state["chat_history"])
-                    answer = ai_chat.ask(
-                        context,
-                        history_for_request,
-                        question,
-                        model=selected_model,
-                        profile_context=st.session_state.get("user_intent_profile"),
-                    )
+                    answer = ai_chat.ask(context, st.session_state["chat_history"], question)
                 except Exception as e:
-                    st.error(f"AI error: {e}")
                     answer = f"Error: {e}"
                 st.write(answer)
         st.session_state["chat_history"].append({"role": "user", "content": question})
         st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+        firebase_db.log_chat_message({
+            "lang": lang,
+            "chart_key": st.session_state.get("chat_chart_key"),
+            "category": "free_text",
+            "question": question,
+            "answer": answer,
+        })
 
 
 mode = st.radio(
@@ -250,8 +227,6 @@ if st.session_state.get("mode") != mode:
     st.session_state.pop("rect_final", None)
     st.session_state.pop("chat_history", None)
     st.session_state.pop("chat_chart_key", None)
-    st.session_state.pop("user_intent_profile", None)
-    st.session_state.pop("user_intent_history", None)
     st.session_state["unlocked"] = False
 
 # ============================== KNOW TIME ==============================
