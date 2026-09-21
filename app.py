@@ -1,4 +1,4 @@
-import re
+﻿import re
 import datetime
 import streamlit as st
 
@@ -10,7 +10,7 @@ import ai_chat
 import firebase_db
 from i18n import t, LANGS
 
-st.set_page_config(page_title="Destiny Chart", page_icon="🔮", layout="centered")
+st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
 
 st.markdown("""
 <style>
@@ -80,12 +80,8 @@ def _md_to_html(text: str) -> str:
 
 def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
     """Shared rendering for a resolved chart (whether time was known
-    upfront, or arrived at via 定盤 rectification)."""
+    upfront, or arrived at via σ«Üτ¢ñ rectification)."""
     pillars = bc.four_pillars.as_dict()
-
-    # Log once per distinct chart, not on every widget-triggered rerun
-    # (Streamlit reruns the whole script on every interaction, so without
-    # this guard the same chart would get logged dozens of times).
     log_key = f"{bc.solar_year}-{bc.solar_month}-{bc.solar_day}-{bc.hour}-{zw.gender}"
     if st.session_state.get("logged_chart_key") != log_key:
         st.session_state["logged_chart_key"] = log_key
@@ -119,7 +115,7 @@ def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
         for row in rows:
             parts.append(
                 f"""<div class="palace-row">
-                <b>{row['palace']}</b>（{row['meaning']}）— {row['stem_branch']}<br/>
+                <b>{row['palace']}</b>∩╝ê{row['meaning']}∩╝ëΓÇö {row['stem_branch']}<br/>
                 {row['stars']}<br/>
                 {row['blurb']}<br/>
                 <span class="decade-tag">{t('decade_label', lang)}{row['decade_range']}</span>
@@ -145,7 +141,7 @@ CATEGORIES = [
 ]
 
 
-def _send_question(bc, zw, lang, question, category=None):
+def _send_question(bc, zw, lang, question):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
@@ -156,7 +152,7 @@ def _send_question(bc, zw, lang, question, category=None):
     firebase_db.log_chat_message({
         "lang": lang,
         "chart_key": st.session_state.get("chat_chart_key"),
-        "category": category,
+        "category": "quick_question",
         "question": question,
         "answer": answer,
     })
@@ -180,7 +176,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with col:
             if st.button(t(label_key, lang), key=f"cat_{label_key}", use_container_width=True):
                 with st.spinner(t("ai_thinking", lang)):
-                    _send_question(bc, zw, lang, t(question_key, lang), category=label_key)
+                    _send_question(bc, zw, lang, t(question_key, lang))
                 st.rerun()
 
     for msg in st.session_state["chat_history"]:
@@ -252,7 +248,7 @@ if mode == "know_time":
         zw = ZiWeiChart(bc, gender)
         render_full_report(bc, zw, lang)
 
-# ============================== UNKNOWN TIME: 定盤 ==============================
+# ============================== UNKNOWN TIME: σ«Üτ¢ñ ==============================
 else:
     st.markdown(f'<div class="rect-card">{t("rect_intro", lang)}</div>', unsafe_allow_html=True)
 
@@ -316,7 +312,7 @@ else:
             st.info(st.session_state["rect_turning_point_note"])
         if len(narrowed) == 1:
             final = narrowed[0]
-            st.success(f"{t('rect_result_single', lang)} **{final.label}（{final.time_range}）**")
+            st.success(f"{t('rect_result_single', lang)} **{final.label}∩╝ê{final.time_range}∩╝ë**")
             if st.button(t("rect_view_chart_btn", lang)):
                 st.session_state["rect_final"] = final
                 st.session_state["rect_step"] = "done"
@@ -325,7 +321,7 @@ else:
             st.info(t("rect_result_multi", lang, n=len(narrowed)))
             for c in narrowed:
                 st.markdown(
-                    f'<div class="candidate-box"><b>{c.label}（{c.time_range}）</b><br/>{c.personality_text(lang)}</div>',
+                    f'<div class="candidate-box"><b>{c.label}∩╝ê{c.time_range}∩╝ë</b><br/>{c.personality_text(lang)}</div>',
                     unsafe_allow_html=True,
                 )
             labels = [c.label for c in narrowed]
