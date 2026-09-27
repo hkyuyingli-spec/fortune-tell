@@ -82,6 +82,32 @@ def build_chart_context(bc, zw, interp_module) -> str:
     return "\n".join(lines)
 
 
+def _extract_completion_text(response) -> str:
+    """Support the normal OpenAI object shape and fail with a clear message if
+    the provider returns an unexpected payload type."""
+    if hasattr(response, "choices"):
+        choices = getattr(response, "choices")
+        if choices and hasattr(choices[0], "message"):
+            message = getattr(choices[0], "message")
+            if hasattr(message, "content"):
+                return message.content
+            if isinstance(message, dict) and "content" in message:
+                return message["content"]
+
+    if isinstance(response, dict):
+        choices = response.get("choices") or []
+        if choices:
+            first = choices[0]
+            message = first.get("message") if isinstance(first, dict) else None
+            if isinstance(message, dict) and "content" in message:
+                return message["content"]
+
+    if isinstance(response, str):
+        raise RuntimeError("GitHub Models returned a plain string instead of a chat completion object.")
+
+    raise RuntimeError(f"Unexpected GitHub Models response type: {type(response).__name__}")
+
+
 def ask(chart_context: str, chat_history: list, user_question: str) -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
     if not is_configured():
@@ -98,4 +124,4 @@ def ask(chart_context: str, chat_history: list, user_question: str) -> str:
         temperature=0.7,
         max_tokens=500,
     )
-    return response.choices[0].message.content
+    return _extract_completion_text(response)
