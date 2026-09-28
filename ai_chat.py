@@ -1,4 +1,4 @@
-﻿"""
+"""
 Conversational Q&A about a computed chart, backed by GitHub Models
 (https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/) --
 a free, OpenAI-compatible inference API authenticated with a GitHub
@@ -22,21 +22,21 @@ except ImportError:
 GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
 DEFAULT_MODEL = "openai/gpt-4o-mini"
 
-SYSTEM_PROMPT = """Σ╜áµÿ»πÇîσæ╜τ¢ñ ┬╖ Destiny ChartπÇìτÜäσæ╜τ¢ñσòÅτ¡öσè⌐µëïπÇéΣ╜┐τö¿ΦÇàσ╖▓τ╢ôτ«ùσç║Φç¬σ╖▒τÜäτ┤½σ╛«µûùµò╕∩╝Åσà½σ¡ùσæ╜τ¢ñ∩╝î
-Σ╗ÑΣ╕ïµÿ»ΘÇÖσ╝╡σæ╜τ¢ñτÜäσ«îµò┤Φ¿êτ«ùτ╡Éµ₧£∩╝êΘÇÖµÿ»σö»Σ╕ÇσÅ»Σ┐íτÜäΣ║ïσ»ªΣ╛åµ║É∩╝îΣ╕ìσÅ»Φç¬Φíîµ¢┤µö╣µêûσ╗╢Σ╝╕∩╝ë∩╝Ü
+SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
+以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
 
 {chart_context}
 
-σ¢₧τ¡öΦªÅσëç∩╝êσïÖσ┐àΘü╡σ«ê∩╝ë∩╝Ü
-1. σÅ¬µá╣µôÜΣ╕èΘ¥óµÅÉΣ╛¢τÜäσæ╜τ¢ñΣ║ïσ»ªσ¢₧τ¡ö∩╝îΣ╕ìσÅ»µìÅΘÇáΣ╕èΘ¥óµ▓Æµ£ëτÜäµÿƒµ¢£πÇüσ««Σ╜ìµêûσñºΘÖÉΦ│çΦ¿èπÇé
-2. Φ¬₧µ░úτ╢¡µîüπÇîσÅìµÇ¥∩╝ÅµÄóτ┤óπÇì∩╝îΣ╕ìΦªüτ╡ªσç║τ╡òσ░ìπÇüσ«┐σæ╜σ╝ÅτÜäµû╖Φ¿Ç∩╝êΣ╛ïσªéπÇîΣ╜áΣ╕Çσ«Üµ£â...πÇì∩╝ë∩╝î
-   σñÜτö¿πÇîΘÇÖσÇïτ╡äσÉêσé│τ╡▒Σ╕èΣ╗úΦí¿...πÇìπÇîσÅ»Σ╗Ñµâ│µâ│...πÇìΘÇÖΘí₧Φí¿Φ┐░πÇé
-3. Σ╕ìσ░ìΘå½τÖéπÇüµ│òσ╛ïπÇüµèòΦ│çτ¡ëΘçìσñºΣ║║τöƒµ▒║τ¡ûτ╡ªσç║σà╖Θ½öσ╗║Φ¡░∩╝¢σªéµ₧£Σ╜┐τö¿ΦÇàσòÅΘÇÖΘí₧σòÅΘíî∩╝î
-   σ╝òσ░ÄΣ╗ûσÇæµèèσæ╜τ¢ñτò╢Σ╜£σÅìµÇ¥τÜäΦ╡╖Θ╗₧∩╝îΣ╕ªσ╗║Φ¡░Φ½«Φ⌐óσ░êµÑ¡Σ║║σú½πÇé
-4. σªéµ₧£Σ╜┐τö¿ΦÇàτÜäσòÅΘíîΦ╢àσç║ΘÇÖσ╝╡σæ╜τ¢ñΦâ╜σ¢₧τ¡öτÜäτ»äσ£ì∩╝êΣ╛ïσªéσòÅσê░Θéäµ▓Æσ»ªΣ╜£τÜäΦ╝öµÿƒπÇüσ¢¢σîûπÇü
-   ΘÇÉµ£êµ╡üµ¢£∩╝ë∩╝îΦ¬áσ»ªΦ¬¬µÿÄτ¢«σëìτ│╗τ╡▒Θéäµ▓Æµ£ëΘÇÖΘâ¿σêåΦ│çµûÖ∩╝îΣ╕ìΦªüτ╖¿ΘÇáπÇé
-5. τö¿Σ╜┐τö¿ΦÇàµÅÉσòÅτÜäΦ¬₧Φ¿Çσ¢₧Φªå∩╝êΣ╕¡µûçµÅÉσòÅτö¿Σ╕¡µûç∩╝îΦï▒µûçµÅÉσòÅτö¿Φï▒µûç∩╝ëπÇé
-6. σ¢₧τ¡öΣ┐¥µîüτ░íµ╜ö∩╝îΣ╕ÇΦê¼ 2-4 σÅÑΦ⌐▒∩╝îΘÖñΘ¥₧Σ╜┐τö¿ΦÇàΦªüµ▒éµ¢┤Φ⌐│τ┤░τÜäΦ¬¬µÿÄπÇé
+回答規則（務必遵守）：
+1. 只根據上面提供的命盤事實回答，不可捏造上面沒有的星曜、宮位或大限資訊。
+2. 語氣維持「反思／探索」，不要給出絕對、宿命式的斷言（例如「你一定會...」），
+   多用「這個組合傳統上代表...」「可以想想...」這類表述。
+3. 不對醫療、法律、投資等重大人生決策給出具體建議；如果使用者問這類問題，
+   引導他們把命盤當作反思的起點，並建議諮詢專業人士。
+4. 如果使用者的問題超出這張命盤能回答的範圍（例如問到還沒實作的輔星、四化、
+   逐月流曜），誠實說明目前系統還沒有這部分資料，不要編造。
+5. 用使用者提問的語言回覆（中文提問用中文，英文提問用英文）。
+6. 回答保持簡潔，一般 2-4 句話，除非使用者要求更詳細的說明。
 """
 
 
@@ -67,45 +67,19 @@ def build_chart_context(bc, zw, interp_module) -> str:
     reformatted for the model instead of for display."""
     pillars = bc.four_pillars.as_dict()
     lines = [
-        f"σ¢¢µƒ▒σà½σ¡ù∩╝Ü{pillars['year']} {pillars['month']} {pillars['day']} {pillars['hour']}",
-        f"µùÑΣ╕╗∩╝Ü{pillars['day'][0]}",
-        f"σæ╜Σ╕╗∩╝ÅΦ║½Σ╕╗∩╝Ü{zw.ming_zhu} / {zw.shen_zhu}",
-        f"Σ║öΦíîσ▒Ç∩╝Ü{zw.bureau_name}",
+        f"四柱八字：{pillars['year']} {pillars['month']} {pillars['day']} {pillars['hour']}",
+        f"日主：{pillars['day'][0]}",
+        f"命主／身主：{zw.ming_zhu} / {zw.shen_zhu}",
+        f"五行局：{zw.bureau_name}",
         "",
-        "σìüΣ║îσ««∩╝Ü",
+        "十二宮：",
     ]
     for row in zw.palace_table():
-        stars = "πÇü".join(row["stars"]) or "τäíΣ╕╗µÿƒ"
-        body_tag = "∩╝êΦ║½σ««∩╝ë" if row["is_body_palace"] else ""
+        stars = "、".join(row["stars"]) or "無主星"
+        body_tag = "（身宮）" if row["is_body_palace"] else ""
         d_start, d_end = row["decade"]["range"]
-        lines.append(f"- {row['palace']}{body_tag}∩╝Ü{row['stem']}{row['branch']}∩╝îΣ╕╗µÿƒ∩╝Ü{stars}∩╝îσñºΘÖÉ∩╝Ü{d_start}-{d_end}µ¡▓")
+        lines.append(f"- {row['palace']}{body_tag}：{row['stem']}{row['branch']}，主星：{stars}，大限：{d_start}-{d_end}歲")
     return "\n".join(lines)
-
-
-def _extract_completion_text(response) -> str:
-    """Support the normal OpenAI object shape and fail with a clear message if
-    the provider returns an unexpected payload type."""
-    if hasattr(response, "choices"):
-        choices = getattr(response, "choices")
-        if choices and hasattr(choices[0], "message"):
-            message = getattr(choices[0], "message")
-            if hasattr(message, "content"):
-                return message.content
-            if isinstance(message, dict) and "content" in message:
-                return message["content"]
-
-    if isinstance(response, dict):
-        choices = response.get("choices") or []
-        if choices:
-            first = choices[0]
-            message = first.get("message") if isinstance(first, dict) else None
-            if isinstance(message, dict) and "content" in message:
-                return message["content"]
-
-    if isinstance(response, str):
-        raise RuntimeError("GitHub Models returned a plain string instead of a chat completion object.")
-
-    raise RuntimeError(f"Unexpected GitHub Models response type: {type(response).__name__}")
 
 
 def ask(chart_context: str, chat_history: list, user_question: str) -> str:
@@ -124,4 +98,6 @@ def ask(chart_context: str, chat_history: list, user_question: str) -> str:
         temperature=0.7,
         max_tokens=500,
     )
-    return _extract_completion_text(response)
+    if isinstance(response, str):
+        raise RuntimeError("GitHub Models replied with plain text: " + response[:300])
+    return response.choices[0].message.content
