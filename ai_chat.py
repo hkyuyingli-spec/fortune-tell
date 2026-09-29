@@ -46,14 +46,30 @@ def is_configured() -> bool:
 
 def _get_token():
     # Prefer Streamlit secrets when running under Streamlit; fall back to
-    # a plain environment variable for local/non-Streamlit use.
+    # a plain environment variable and a local .streamlit/secrets.toml file.
     try:
         import streamlit as st
         if "GITHUB_TOKEN" in st.secrets:
             return st.secrets["GITHUB_TOKEN"]
     except Exception:
         pass
-    return os.environ.get("GITHUB_TOKEN")
+
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        return token
+
+    secrets_path = os.path.join(os.getcwd(), ".streamlit", "secrets.toml")
+    if os.path.exists(secrets_path):
+        try:
+            with open(secrets_path, "r", encoding="utf-8") as f:
+                text = f.read()
+            import re
+            match = re.search(r'^GITHUB_TOKEN\s*=\s*"([^"]+)"', text, re.MULTILINE)
+            if match:
+                return match.group(1)
+        except Exception:
+            pass
+    return None
 
 
 def _client():
@@ -92,12 +108,25 @@ def ask(chart_context: str, chat_history: list, user_question: str) -> str:
     messages.extend(chat_history)
     messages.append({"role": "user", "content": user_question})
 
-    response = client.chat.completions.create(
+    raw = client.chat.completions.with_raw_response.create(
         model=DEFAULT_MODEL,
         messages=messages,
         temperature=0.7,
         max_tokens=500,
     )
+    http_resp = raw.http_response
+    if http_resp.headers.get("content-type", "").startswith("text/plain"):
+        raise RuntimeError(
+            f"Non-JSON reply -- status={http_resp.status_code}, "
+            f"content-type={http_resp.headers.get('content-type')}, "
+            f"url={http_resp.request.url}, body={http_resp.text[:200]}"
+        )
+    response = raw.parse()
     if isinstance(response, str):
-        raise RuntimeError("GitHub Models replied with plain text: " + response[:300])
+        snippet = response.strip()[:300]
+        raise RuntimeError(
+            "GitHub Models replied with plain text instead of a chat completion: "
+            f"{snippet!r}. This usually means the token is invalid, expired, or the request was rejected. "
+            "Check GITHUB_TOKEN and GitHub Models access."
+        )
     return response.choices[0].message.content
