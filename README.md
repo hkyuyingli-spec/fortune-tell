@@ -127,19 +127,15 @@ cases spanned 1950-2025). Dates outside that range aren't necessarily
 wrong, they're just unverified — the underlying `sxtwl` calendar library
 claims a wider range, but we haven't tested against it there.
 
-## AI Q&A (GitHub Models)
+## AI Q&A (Groq)
 
 Once the paid tier is unlocked, users can ask free-form questions about
 their own chart via a chat interface (`ai_chat.py`), powered by
-[GitHub Models](https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/) —
-a free, OpenAI-compatible inference API authenticated with a GitHub
-Personal Access Token, rather than a separate paid AI vendor key.
+[Groq](https://groq.com/) using the `llama-3.3-70b-versatile` model.
 
-**Setup**: create a GitHub PAT with `models:read` scope (GitHub Settings →
-Developer settings → Personal access tokens), then add it as a secret:
-- Locally: set the `GITHUB_TOKEN` environment variable, or add it to
-  `.streamlit/secrets.toml` as `GITHUB_TOKEN = "ghp_..."`
-- On Streamlit Community Cloud: App settings → Secrets → add the same key
+**Setup**: create a Groq API key and add it as a secret:
+- Locally: add `GROQ_API_KEY = "your-key-here"` to `.streamlit/secrets.toml`
+- On Streamlit Community Cloud: App settings → Secrets → add `GROQ_API_KEY`
 
 If the token isn't configured, the chat section shows setup instructions
 instead of crashing rather than failing silently or with a raw exception.

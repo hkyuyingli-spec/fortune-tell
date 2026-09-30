@@ -85,9 +85,9 @@ STRINGS = {
     "rect_redo_btn": {"zh": "重新定盤", "en": "Redo Rectification", "id": "Ulangi Rektifikasi"},
     "ai_chat_header": {"zh": "💬 問AI · Ask about your chart", "en": "💬 Ask AI about your chart", "id": "💬 Tanya AI tentang bagan Anda"},
     "ai_not_configured": {
-        "zh": "AI 問答尚未設定。需要在 Streamlit Cloud 的 App settings → Secrets 加入 GITHUB_TOKEN。",
-        "en": "AI Q&A isn't set up yet. Add a GITHUB_TOKEN under App settings → Secrets in Streamlit Cloud.",
-        "id": "Tanya jawab AI belum diatur. Tambahkan GITHUB_TOKEN di App settings → Secrets di Streamlit Cloud.",
+        "zh": "AI 問答尚未設定。請在 Streamlit Cloud 的 App settings → Secrets 加入 GROQ_API_KEY。",
+        "en": "AI Q&A isn't set up yet. Add a GROQ_API_KEY under App settings → Secrets in Streamlit Cloud.",
+        "id": "Tanya jawab AI belum diatur. Tambahkan GROQ_API_KEY di App settings → Secrets di Streamlit Cloud.",
     },
     "ai_chat_placeholder": {
         "zh": "問問你的命盤，例如：我適合創業嗎？我的財帛宮代表什麼？",

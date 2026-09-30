@@ -1,8 +1,6 @@
 """
-Conversational Q&A about a computed chart, backed by GitHub Models
-(https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/) --
-a free, OpenAI-compatible inference API authenticated with a GitHub
-Personal Access Token, rather than a separate paid AI vendor key.
+Conversational Q&A about a computed chart, backed by Groq's
+OpenAI-compatible inference API.
 
 Design principle: the model is NOT asked to invent or extend the chart.
 It is given the exact computed facts (four pillars, palaces, stars,
@@ -19,8 +17,8 @@ try:
 except ImportError:
     OpenAI = None
 
-GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
-DEFAULT_MODEL = "openai/gpt-4o-mini"
+GROQ_ENDPOINT = "https://api.groq.com/openai/v1"
+DEFAULT_MODEL = "llama-3.3-70b-versatile"
 
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
 以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
@@ -45,36 +43,21 @@ def is_configured() -> bool:
 
 
 def _get_token():
-    # Prefer Streamlit secrets when running under Streamlit; fall back to
-    # a plain environment variable and a local .streamlit/secrets.toml file.
+    # Streamlit secrets work locally and on Streamlit Community Cloud.
     try:
         import streamlit as st
-        if "GITHUB_TOKEN" in st.secrets:
-            return st.secrets["GITHUB_TOKEN"]
+        token = st.secrets.get("GROQ_API_KEY")
+        if token and token != "your-key-here":
+            return token
     except Exception:
         pass
-
-    token = os.environ.get("GITHUB_TOKEN")
-    if token:
-        return token
-
-    secrets_path = os.path.join(os.getcwd(), ".streamlit", "secrets.toml")
-    if os.path.exists(secrets_path):
-        try:
-            with open(secrets_path, "r", encoding="utf-8") as f:
-                text = f.read()
-            import re
-            match = re.search(r'^GITHUB_TOKEN\s*=\s*"([^"]+)"', text, re.MULTILINE)
-            if match:
-                return match.group(1)
-        except Exception:
-            pass
-    return None
+    token = os.environ.get("GROQ_API_KEY")
+    return token if token and token != "your-key-here" else None
 
 
 def _client():
     token = _get_token()
-    return OpenAI(base_url=GITHUB_MODELS_ENDPOINT, api_key=token)
+    return OpenAI(base_url=GROQ_ENDPOINT, api_key=token)
 
 
 def build_chart_context(bc, zw, interp_module) -> str:
@@ -101,7 +84,7 @@ def build_chart_context(bc, zw, interp_module) -> str:
 def ask(chart_context: str, chat_history: list, user_question: str) -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
     if not is_configured():
-        raise RuntimeError("GitHub Models not configured (missing GITHUB_TOKEN or openai package).")
+        raise RuntimeError("Groq not configured (missing GROQ_API_KEY or openai package).")
 
     client = _client()
     messages = [{"role": "system", "content": SYSTEM_PROMPT.format(chart_context=chart_context)}]
@@ -125,8 +108,7 @@ def ask(chart_context: str, chat_history: list, user_question: str) -> str:
     if isinstance(response, str):
         snippet = response.strip()[:300]
         raise RuntimeError(
-            "GitHub Models replied with plain text instead of a chat completion: "
-            f"{snippet!r}. This usually means the token is invalid, expired, or the request was rejected. "
-            "Check GITHUB_TOKEN and GitHub Models access."
+            "Groq replied with plain text instead of a chat completion: "
+            f"{snippet!r}. Check GROQ_API_KEY and Groq API access."
         )
     return response.choices[0].message.content
