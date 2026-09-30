@@ -14,7 +14,7 @@ client = OpenAI(
     api_key=api_key,
 )
 response = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
+    model="openai/gpt-oss-20b",
     messages=[{"role": "user", "content": "Say hello in one sentence."}],
     max_tokens=50,
 )

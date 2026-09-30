@@ -131,7 +131,7 @@ claims a wider range, but we haven't tested against it there.
 
 Once the paid tier is unlocked, users can ask free-form questions about
 their own chart via a chat interface (`ai_chat.py`), powered by
-[Groq](https://groq.com/) using the `llama-3.3-70b-versatile` model.
+[Groq](https://groq.com/) using the `openai/gpt-oss-20b` model.
 
 **Setup**: create a Groq API key and add it as a secret:
 - Locally: add `GROQ_API_KEY = "your-key-here"` to `.streamlit/secrets.toml`

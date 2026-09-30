@@ -18,7 +18,7 @@ except ImportError:
     OpenAI = None
 
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1"
-DEFAULT_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_MODEL = "openai/gpt-oss-20b"
 
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
 以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
