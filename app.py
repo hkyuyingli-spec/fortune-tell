@@ -111,11 +111,12 @@ def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
 
         parts = ['<div class="paid-card">', f"<h3>{t('paid_tier_header', lang)}</h3>"]
         if current_palace:
-            parts.append(f"<p><b>{current_year}{t('current_year_palace', lang)}{current_palace}</b></p>")
+            parts.append(f"<p><b>{current_year}{t('current_year_palace', lang)}{interp.display_palace(current_palace, lang)}</b></p>")
         for row in rows:
+            meaning_separator = f"（{row['meaning']}）— " if lang == "zh" else f" ({row['meaning']}) — "
             parts.append(
                 f"""<div class="palace-row">
-                <b>{row['palace']}</b>∩╝ê{row['meaning']}∩╝ëΓÇö {row['stem_branch']}<br/>
+                <b>{row['palace']}</b>{meaning_separator}{row['stem_branch']}<br/>
                 {row['stars']}<br/>
                 {row['blurb']}<br/>
                 <span class="decade-tag">{t('decade_label', lang)}{row['decade_range']}</span>
@@ -145,7 +146,7 @@ def _send_question(bc, zw, lang, question):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question)
+        answer = ai_chat.ask(context, st.session_state["chat_history"][:-1], question, ui_lang=lang)
     except Exception as e:
         answer = f"Error: {e}"
     st.session_state["chat_history"].append({"role": "assistant", "content": answer})
@@ -191,7 +192,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
             with st.spinner(t("ai_thinking", lang)):
                 context = ai_chat.build_chart_context(bc, zw, interp)
                 try:
-                    answer = ai_chat.ask(context, st.session_state["chat_history"], question)
+                    answer = ai_chat.ask(context, st.session_state["chat_history"], question, ui_lang=lang)
                 except Exception as e:
                     answer = f"Error: {e}"
                 st.write(answer)
@@ -228,19 +229,35 @@ if st.session_state.get("mode") != mode:
 # ============================== KNOW TIME ==============================
 if mode == "know_time":
     with st.form("birth_form"):
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         with col1:
-            birth_date = st.date_input(t("birth_date", lang), value=datetime.date(1990, 1, 1),
-                                        min_value=datetime.date(1950, 1, 1), max_value=datetime.date.today())
+            birth_year = st.number_input(
+                t("birth_year", lang), min_value=1930, max_value=datetime.date.today().year,
+                value=1990, step=1, key="birth_year_known",
+            )
         with col2:
-            birth_time = st.time_input(t("birth_time", lang), value=datetime.time(12, 0))
+            birth_month = st.number_input(
+                t("birth_month", lang), min_value=1, max_value=12,
+                value=1, step=1, key="birth_month_known",
+            )
+        with col3:
+            birth_day = st.number_input(
+                t("birth_day", lang), min_value=1, max_value=31,
+                value=1, step=1, key="birth_day_known",
+            )
+        birth_time = st.time_input(t("birth_time", lang), value=datetime.time(12, 0))
         gender = st.radio(t("gender", lang), ["male", "female"],
                            format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
         submitted = st.form_submit_button(t("reveal_btn", lang))
 
     if submitted:
-        st.session_state["chart_input"] = (birth_date, birth_time, gender)
-        st.session_state["unlocked"] = False
+        try:
+            birth_date = datetime.date(int(birth_year), int(birth_month), int(birth_day))
+        except ValueError:
+            st.error(t("invalid_birth_date", lang))
+        else:
+            st.session_state["chart_input"] = (birth_date, birth_time, gender)
+            st.session_state["unlocked"] = False
 
     if "chart_input" in st.session_state:
         birth_date, birth_time, gender = st.session_state["chart_input"]
@@ -256,19 +273,35 @@ else:
 
     if step == "input":
         with st.form("rect_form"):
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
             with col1:
-                r_date = st.date_input(t("birth_date", lang), value=datetime.date(1990, 1, 1),
-                                        min_value=datetime.date(1950, 1, 1), max_value=datetime.date.today())
+                r_year = st.number_input(
+                    t("birth_year", lang), min_value=1930, max_value=datetime.date.today().year,
+                    value=1990, step=1, key="birth_year_rectification",
+                )
             with col2:
-                r_gender = st.radio(t("gender", lang), ["male", "female"],
-                                     format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
+                r_month = st.number_input(
+                    t("birth_month", lang), min_value=1, max_value=12,
+                    value=1, step=1, key="birth_month_rectification",
+                )
+            with col3:
+                r_day = st.number_input(
+                    t("birth_day", lang), min_value=1, max_value=31,
+                    value=1, step=1, key="birth_day_rectification",
+                )
+            r_gender = st.radio(t("gender", lang), ["male", "female"],
+                                format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
             go = st.form_submit_button(t("rect_start_btn", lang))
         if go:
-            candidates = rect.generate_candidates(r_date.year, r_date.month, r_date.day, r_gender)
-            st.session_state["rect_candidates"] = candidates
-            st.session_state["rect_step"] = "personality"
-            st.rerun()
+            try:
+                r_date = datetime.date(int(r_year), int(r_month), int(r_day))
+            except ValueError:
+                st.error(t("invalid_birth_date", lang))
+            else:
+                candidates = rect.generate_candidates(r_date.year, r_date.month, r_date.day, r_gender)
+                st.session_state["rect_candidates"] = candidates
+                st.session_state["rect_step"] = "personality"
+                st.rerun()
 
     elif step == "personality":
         candidates = st.session_state["rect_candidates"]

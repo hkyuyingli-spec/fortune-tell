@@ -20,6 +20,12 @@ except ImportError:
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = "openai/gpt-oss-20b"
 
+LANGUAGE_INSTRUCTIONS = {
+    "en": "Reply entirely in English. This selected UI language takes precedence over the language used in the chart context and prior messages.",
+    "zh": "請全程使用繁體中文（繁體中文）回答。此 UI 語言優先於命盤內容與先前訊息使用的語言。",
+    "id": "Jawab sepenuhnya dalam Bahasa Indonesia. Bahasa UI yang dipilih ini lebih diutamakan daripada bahasa dalam konteks bagan dan pesan sebelumnya.",
+}
+
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
 以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
 
@@ -33,7 +39,7 @@ SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。�
    引導他們把命盤當作反思的起點，並建議諮詢專業人士。
 4. 如果使用者的問題超出這張命盤能回答的範圍（例如問到還沒實作的輔星、四化、
    逐月流曜），誠實說明目前系統還沒有這部分資料，不要編造。
-5. 用使用者提問的語言回覆（中文提問用中文，英文提問用英文）。
+5. {language_instruction}
 6. 回答保持簡潔，一般 2-4 句話，除非使用者要求更詳細的說明。
 """
 
@@ -81,13 +87,20 @@ def build_chart_context(bc, zw, interp_module) -> str:
     return "\n".join(lines)
 
 
-def ask(chart_context: str, chat_history: list, user_question: str) -> str:
+def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh") -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
     if not is_configured():
         raise RuntimeError("Groq not configured (missing GROQ_API_KEY or openai package).")
 
     client = _client()
-    messages = [{"role": "system", "content": SYSTEM_PROMPT.format(chart_context=chart_context)}]
+    language_instruction = LANGUAGE_INSTRUCTIONS.get(ui_lang, LANGUAGE_INSTRUCTIONS["zh"])
+    messages = [{
+        "role": "system",
+        "content": SYSTEM_PROMPT.format(
+            chart_context=chart_context,
+            language_instruction=language_instruction,
+        ),
+    }]
     messages.extend(chat_history)
     messages.append({"role": "user", "content": user_question})
 

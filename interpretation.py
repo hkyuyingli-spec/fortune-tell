@@ -132,18 +132,124 @@ _LABELS = {
                        "id": "Istana ini lebih dipengaruhi oleh bintang dari istana berhadapan dan segitiga — sebaiknya dibaca bersama Istana Kehidupan."},
 }
 
+# Keep the engine's Traditional Chinese names as canonical dictionary keys;
+# these labels are presentation-only.
+PALACE_DISPLAY = {
+    "命宮": {"zh": "命宮", "en": "Life Palace", "id": "Istana Kehidupan"},
+    "兄弟": {"zh": "兄弟", "en": "Siblings Palace", "id": "Istana Saudara"},
+    "夫妻": {"zh": "夫妻", "en": "Marriage Palace", "id": "Istana Pernikahan"},
+    "子女": {"zh": "子女", "en": "Children Palace", "id": "Istana Anak"},
+    "財帛": {"zh": "財帛", "en": "Wealth Palace", "id": "Istana Kekayaan"},
+    "疾厄": {"zh": "疾厄", "en": "Health Palace", "id": "Istana Kesehatan"},
+    "遷移": {"zh": "遷移", "en": "Travel Palace", "id": "Istana Perjalanan"},
+    "交友": {"zh": "交友", "en": "Friends Palace", "id": "Istana Pertemanan"},
+    "官祿": {"zh": "官祿", "en": "Career Palace", "id": "Istana Karier"},
+    "田宅": {"zh": "田宅", "en": "Property Palace", "id": "Istana Properti"},
+    "福德": {"zh": "福德", "en": "Wellbeing Palace", "id": "Istana Kesejahteraan"},
+    "父母": {"zh": "父母", "en": "Parents Palace", "id": "Istana Orang Tua"},
+}
+
+# Star names are transliterated as proper names in English and Indonesian.
+STAR_DISPLAY = {
+    "紫微": {"zh": "紫微", "en": "Zi Wei", "id": "Zi Wei"},
+    "天機": {"zh": "天機", "en": "Tian Ji", "id": "Tian Ji"},
+    "太陽": {"zh": "太陽", "en": "Tai Yang", "id": "Tai Yang"},
+    "武曲": {"zh": "武曲", "en": "Wu Qu", "id": "Wu Qu"},
+    "天同": {"zh": "天同", "en": "Tian Tong", "id": "Tian Tong"},
+    "廉貞": {"zh": "廉貞", "en": "Lian Zhen", "id": "Lian Zhen"},
+    "天府": {"zh": "天府", "en": "Tian Fu", "id": "Tian Fu"},
+    "太陰": {"zh": "太陰", "en": "Tai Yin", "id": "Tai Yin"},
+    "貪狼": {"zh": "貪狼", "en": "Tan Lang", "id": "Tan Lang"},
+    "巨門": {"zh": "巨門", "en": "Ju Men", "id": "Ju Men"},
+    "天相": {"zh": "天相", "en": "Tian Xiang", "id": "Tian Xiang"},
+    "天梁": {"zh": "天梁", "en": "Tian Liang", "id": "Tian Liang"},
+    "七殺": {"zh": "七殺", "en": "Qi Sha", "id": "Qi Sha"},
+    "破軍": {"zh": "破軍", "en": "Po Jun", "id": "Po Jun"},
+}
+
+STEM_DISPLAY = {
+    "甲": {"zh": "甲", "en": "Jia", "id": "Jia"},
+    "乙": {"zh": "乙", "en": "Yi", "id": "Yi"},
+    "丙": {"zh": "丙", "en": "Bing", "id": "Bing"},
+    "丁": {"zh": "丁", "en": "Ding", "id": "Ding"},
+    "戊": {"zh": "戊", "en": "Wu", "id": "Wu"},
+    "己": {"zh": "己", "en": "Ji", "id": "Ji"},
+    "庚": {"zh": "庚", "en": "Geng", "id": "Geng"},
+    "辛": {"zh": "辛", "en": "Xin", "id": "Xin"},
+    "壬": {"zh": "壬", "en": "Ren", "id": "Ren"},
+    "癸": {"zh": "癸", "en": "Gui", "id": "Gui"},
+}
+BRANCH_DISPLAY = {
+    "子": {"zh": "子", "en": "Zi", "id": "Zi"},
+    "丑": {"zh": "丑", "en": "Chou", "id": "Chou"},
+    "寅": {"zh": "寅", "en": "Yin", "id": "Yin"},
+    "卯": {"zh": "卯", "en": "Mao", "id": "Mao"},
+    "辰": {"zh": "辰", "en": "Chen", "id": "Chen"},
+    "巳": {"zh": "巳", "en": "Si", "id": "Si"},
+    "午": {"zh": "午", "en": "Wu", "id": "Wu"},
+    "未": {"zh": "未", "en": "Wei", "id": "Wei"},
+    "申": {"zh": "申", "en": "Shen", "id": "Shen"},
+    "酉": {"zh": "酉", "en": "You", "id": "You"},
+    "戌": {"zh": "戌", "en": "Xu", "id": "Xu"},
+    "亥": {"zh": "亥", "en": "Hai", "id": "Hai"},
+}
+ELEMENT_DISPLAY = {
+    "木": {"zh": "木", "en": "Wood", "id": "Kayu"},
+    "金": {"zh": "金", "en": "Metal", "id": "Logam"},
+    "水": {"zh": "水", "en": "Water", "id": "Air"},
+    "火": {"zh": "火", "en": "Fire", "id": "Api"},
+    "土": {"zh": "土", "en": "Earth", "id": "Tanah"},
+}
+
+
+def _localized(mapping, value, lang):
+    return mapping.get(value, {}).get(lang, mapping.get(value, {}).get("zh", value))
+
+
+def display_palace(value, lang):
+    return _localized(PALACE_DISPLAY, value, lang)
+
+
+def display_star(value, lang):
+    return _localized(STAR_DISPLAY, value, lang)
+
+
+def display_stem_branch(stem, branch, lang):
+    if lang == "zh":
+        return f"{stem}{branch}"
+    return f"{_localized(STEM_DISPLAY, stem, lang)}-{_localized(BRANCH_DISPLAY, branch, lang)}"
+
+
+def _display_pillar(value, lang):
+    if lang == "zh":
+        return value
+    if len(value) >= 2 and value[0] in STEM_DISPLAY and value[1] in BRANCH_DISPLAY:
+        return display_stem_branch(value[0], value[1], lang)
+    return _localized(STEM_DISPLAY, value, lang)
+
+
+def _display_bureau(ziwei, lang):
+    if lang == "zh":
+        return ziwei.bureau_name
+    element = _localized(ELEMENT_DISPLAY, ziwei.bureau_element, lang)
+    label = "Bureau" if lang == "en" else "Biro"
+    return f"{element} {label} ({ziwei.bureau_number})"
+
 
 def free_tier_summary(bazi_pillars, day_master, ziwei, lang="zh"):
     life_row = ziwei.palace_table()[0]
-    star_text = "、".join(life_row["stars"]) if life_row["stars"] else _LABELS["no_main_star"][lang]
+    separator = "、" if lang == "zh" else ", "
+    star_text = separator.join(display_star(s, lang) for s in life_row["stars"]) if life_row["stars"] else _LABELS["no_main_star"][lang]
     day_stem = bazi_pillars["day"][0]
     L = {k: v[lang] for k, v in _LABELS.items()}
+    colon = "：" if lang == "zh" else ": "
+    dash = " — "
     lines = [
-        f"**{L['your_pillars']}**：{bazi_pillars['year']} {bazi_pillars['month']} {bazi_pillars['day']} {bazi_pillars['hour']}",
-        f"**{L['day_master']}**：{day_stem} — {DAY_MASTER_BLURB.get(day_stem, {}).get(lang, '')}",
-        f"**{L['life_palace']}**：{life_row['stem']}{life_row['branch']}，{L['main_star_is']} {star_text}",
-        f"**{L['ming_shen_zhu']}**：{ziwei.ming_zhu} / {ziwei.shen_zhu}",
-        f"**{L['bureau']}**：{ziwei.bureau_name} — {BUREAU_BLURB.get(ziwei.bureau_element, {}).get(lang, '')}",
+        f"**{L['your_pillars']}**{colon}{' '.join(_display_pillar(bazi_pillars[k], lang) for k in ('year', 'month', 'day', 'hour'))}",
+        f"**{L['day_master']}**{colon}{_localized(STEM_DISPLAY, day_stem, lang)}{dash}{DAY_MASTER_BLURB.get(day_stem, {}).get(lang, '')}",
+        f"**{L['life_palace']}**{colon}{display_stem_branch(life_row['stem'], life_row['branch'], lang)}, {L['main_star_is']} {star_text}",
+        f"**{L['ming_shen_zhu']}**{colon}{display_star(ziwei.ming_zhu, lang)} / {display_star(ziwei.shen_zhu, lang)}",
+        f"**{L['bureau']}**{colon}{_display_bureau(ziwei, lang)}{dash}{BUREAU_BLURB.get(ziwei.bureau_element, {}).get(lang, '')}",
     ]
     if life_row["stars"]:
         lines.append(f"**{L['life_star_reading']}**：" + " ".join(MAJOR_STAR_BLURB.get(s, {}).get(lang, "") for s in life_row["stars"]))
@@ -154,7 +260,8 @@ def paid_tier_report(ziwei, current_year=None, lang="zh"):
     rows = ziwei.palace_table()
     out = []
     for row in rows:
-        stars = "、".join(row["stars"]) if row["stars"] else _LABELS["no_star_generic"][lang]
+        star_separator = "、" if lang == "zh" else ", "
+        stars = star_separator.join(display_star(s, lang) for s in row["stars"]) if row["stars"] else _LABELS["no_star_generic"][lang]
         blurb = " ".join(MAJOR_STAR_BLURB.get(s, {}).get(lang, "") for s in row["stars"]) or _LABELS["no_star_blurb"][lang]
         body_tag = ""
         if row["is_body_palace"]:
@@ -162,9 +269,9 @@ def paid_tier_report(ziwei, current_year=None, lang="zh"):
         d_start, d_end = row["decade"]["range"]
         suffix = "歲" if lang == "zh" else "" if lang == "en" else " tahun"
         out.append({
-            "palace": row["palace"] + body_tag,
+            "palace": display_palace(row["palace"], lang) + body_tag,
             "meaning": PALACE_MEANING.get(row["palace"], {}).get(lang, ""),
-            "stem_branch": row["stem"] + row["branch"],
+            "stem_branch": display_stem_branch(row["stem"], row["branch"], lang),
             "stars": stars,
             "blurb": blurb,
             "decade_range": f"{d_start}–{d_end}{suffix}",

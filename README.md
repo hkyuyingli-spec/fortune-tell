@@ -121,7 +121,7 @@ rather than swept under the rug):
 
 ## Supported birth-date range
 
-Restricted to 1950–present in the UI. This isn't an arbitrary choice: it's
+Restricted to 1930–present in the UI. This isn't an arbitrary choice: it's
 the range actually covered by the validation sweeps above (300 randomized
 cases spanned 1950-2025). Dates outside that range aren't necessarily
 wrong, they're just unverified — the underlying `sxtwl` calendar library
