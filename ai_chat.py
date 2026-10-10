@@ -9,13 +9,24 @@ those facts, in the same reflective/non-deterministic register as the
 rest of this app's interpretation text. This keeps the chat feature
 consistent with the app's own disclaimer instead of letting a general-
 purpose LLM freelance new "predictions" the engine never computed.
+
+Translation layer (glossary.py): for English and Indonesian the chart facts
+are translated BY MEANING before they reach the model, and the model's reply
+is cleaned of any Chinese characters, so users never see untranslated terms
+or pinyin.
 """
+import logging
 import os
+import re
+
+from glossary import find_pinyin, leftover_chinese, translate_text
 
 try:
     from openai import OpenAI
 except ImportError:
     OpenAI = None
+
+log = logging.getLogger("ai_chat")
 
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = "openai/gpt-oss-20b"
@@ -24,6 +35,23 @@ LANGUAGE_INSTRUCTIONS = {
     "en": "Reply entirely in English. This selected UI language takes precedence over the language used in the chart context and prior messages.",
     "zh": "請全程使用繁體中文（繁體中文）回答。此 UI 語言優先於命盤內容與先前訊息使用的語言。",
     "id": "Jawab sepenuhnya dalam Bahasa Indonesia. Bahasa UI yang dipilih ini lebih diutamakan daripada bahasa dalam konteks bagan dan pesan sebelumnya.",
+}
+
+# Extra terminology rule (rule 7), written in the reply language.
+TERM_RULES = {
+    "en": (
+        "7. Terminology: the chart data uses plain-English labels. Use only those exact labels. "
+        "Never write Chinese characters and never write pinyin transliterations. "
+        "Do not introduce concepts, stars or terms that are not in the chart data (for example qi or feng shui). "
+        "When a label first appears, explain it in a few plain words."
+    ),
+    "id": (
+        "7. Istilah: data bagan memakai label bahasa Indonesia yang sederhana. Gunakan hanya label persis tersebut. "
+        "Jangan menulis karakter Mandarin dan jangan menulis transliterasi pinyin. "
+        "Jangan menambahkan konsep, bintang, atau istilah yang tidak ada dalam data bagan (misalnya qi atau feng shui). "
+        "Saat sebuah label pertama kali muncul, jelaskan dengan beberapa kata sederhana."
+    ),
+    "zh": "",
 }
 
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
@@ -41,6 +69,7 @@ SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。�
    逐月流曜），誠實說明目前系統還沒有這部分資料，不要編造。
 5. {language_instruction}
 6. 回答保持簡潔，一般 2-4 句話，除非使用者要求更詳細的說明。
+{term_rules}
 """
 
 
@@ -69,7 +98,8 @@ def _client():
 def build_chart_context(bc, zw, interp_module) -> str:
     """Serialize the actual computed chart into plain text grounding
     context -- the same data the free/paid report already shows, just
-    reformatted for the model instead of for display."""
+    reformatted for the model instead of for display.
+    (Built in Chinese; ask() translates it to the UI language.)"""
     pillars = bc.four_pillars.as_dict()
     lines = [
         f"四柱八字：{pillars['year']} {pillars['month']} {pillars['day']} {pillars['hour']}",
@@ -87,18 +117,43 @@ def build_chart_context(bc, zw, interp_module) -> str:
     return "\n".join(lines)
 
 
+def _clean_reply(text: str, lang: str) -> str:
+    """For en/id: translate any Chinese terms the model still wrote, then remove
+    leftover Chinese characters. Chinese replies are returned unchanged."""
+    if lang == "zh" or not text:
+        return text
+    text = translate_text(text, lang)
+    if leftover_chinese(text):
+        log.warning("ai_chat: removing leftover Chinese from reply: %s",
+                    "".join(sorted(leftover_chinese(text))))
+        # drop parentheses that only held Chinese, then any remaining Chinese characters
+        text = re.sub(r"\s*[（(][^()（）]*[\u4e00-\u9fff][^()（）]*[)）]", "", text)
+        text = re.sub(r"[\u4e00-\u9fff]+", "", text)
+        text = re.sub(r" {2,}", " ", text)
+    pin = find_pinyin(text)
+    if pin:
+        log.warning("ai_chat: pinyin found in reply: %s", pin)
+    return text.strip()
+
+
 def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh") -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
     if not is_configured():
         raise RuntimeError("Groq not configured (missing GROQ_API_KEY or openai package).")
 
+    lang = ui_lang if ui_lang in LANGUAGE_INSTRUCTIONS else "zh"
+
     client = _client()
-    language_instruction = LANGUAGE_INSTRUCTIONS.get(ui_lang, LANGUAGE_INSTRUCTIONS["zh"])
+    language_instruction = LANGUAGE_INSTRUCTIONS[lang]
+    # Translate the chart facts by meaning so the model never sees Chinese terms
+    # (and therefore never copies or romanizes them) in en / id mode.
+    chart_context = translate_text(chart_context, lang)
     messages = [{
         "role": "system",
         "content": SYSTEM_PROMPT.format(
             chart_context=chart_context,
             language_instruction=language_instruction,
+            term_rules=TERM_RULES[lang],
         ),
     }]
     messages.extend(chat_history)
@@ -124,4 +179,4 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
             "Groq replied with plain text instead of a chat completion: "
             f"{snippet!r}. Check GROQ_API_KEY and Groq API access."
         )
-    return response.choices[0].message.content
+    return _clean_reply(response.choices[0].message.content, lang)
