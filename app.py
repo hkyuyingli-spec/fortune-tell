@@ -9,6 +9,7 @@ import rectification as rect
 import ai_chat
 import firebase_db
 import period_engine as pe
+import beta_notice as bn
 from i18n import t, LANGS
 
 st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
@@ -64,6 +65,7 @@ lang = st.selectbox(
 
 st.title(t("app_title", lang))
 st.caption(t("app_caption", lang))
+bn.render_beta_notice(st, lang)
 
 
 def _md_to_html(text: str) -> str:
