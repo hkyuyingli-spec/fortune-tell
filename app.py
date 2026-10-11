@@ -8,6 +8,7 @@ import interpretation as interp
 import rectification as rect
 import ai_chat
 import firebase_db
+import period_engine as pe
 from i18n import t, LANGS
 
 st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
@@ -170,6 +171,8 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
     if st.session_state.get("chat_chart_key") != chart_key:
         st.session_state["chat_chart_key"] = chart_key
         st.session_state["chat_history"] = []
+
+    pe.render_period_selector(st, bc, zw, lang)
 
     st.caption(t("ai_category_header", lang))
     cols = st.columns(len(CATEGORIES))

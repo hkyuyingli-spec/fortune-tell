@@ -54,6 +54,37 @@ TERM_RULES = {
     "zh": "",
 }
 
+# Extra rule (rule 8), added only when a reference period is supplied.
+PERIOD_RULES = {
+    "en": (
+        "8. The chart data ends with a reference date and the positions of the 10-year, yearly and monthly cycles. "
+        "Answer for that period: begin by naming the period exactly as given in the reference date line, and never name any other date. "
+        "The palace named for a cycle is the life area that cycle puts in focus. "
+        "Do not make claims about any month or year that is not in the data. "
+        "If earlier answers in this conversation covered a different period, do not reuse their time frame."
+    ),
+    "id": (
+        "8. Data bagan diakhiri dengan tanggal acuan dan posisi siklus 10 tahun, tahunan, dan bulanan. "
+        "Jawablah untuk periode itu: mulai dengan menyebut periode persis seperti pada baris tanggal acuan, dan jangan menyebut tanggal lain. "
+        "Istana yang disebut untuk sebuah siklus adalah bidang kehidupan yang menjadi fokus siklus itu. "
+        "Jangan membuat klaim tentang bulan atau tahun yang tidak ada dalam data. "
+        "Jika jawaban sebelumnya dalam percakapan ini membahas periode lain, jangan gunakan kerangka waktunya."
+    ),
+    "zh": (
+        "8. 命盤資料末尾附有運限參考日期，以及大限、流年、流月所落的宮位。"
+        "請針對該時間段回答，開頭先照「運限參考日期」那一行說明時間段，不要提到其他日期。"
+        "運限所落的宮位就是該時段的重點生活領域。資料中沒有的年份或月份，不要作任何斷言。"
+        "若先前的回答針對的是其他時間段，請不要沿用該時間段。"
+    ),
+}
+
+# Note attached to the user's latest question, so the period sits next to the question itself.
+PERIOD_NOTE = {
+    "en": "Answer for this period only: {line}. Ignore the time frame of earlier answers.",
+    "id": "Jawab hanya untuk periode ini: {line}. Abaikan kerangka waktu jawaban sebelumnya.",
+    "zh": "請只針對此時間段回答：{line}。請忽略先前回答的時間段。",
+}
+
 SYSTEM_PROMPT = """你是「命盤 · Destiny Chart」的命盤問答助手。使用者已經算出自己的紫微斗數／八字命盤，
 以下是這張命盤的完整計算結果（這是唯一可信的事實來源，不可自行更改或延伸）：
 
@@ -136,8 +167,11 @@ def _clean_reply(text: str, lang: str) -> str:
     return text.strip()
 
 
-def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh") -> str:
-    """chat_history: list of {'role': 'user'|'assistant', 'content': str}"""
+def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh",
+        period_context=None) -> str:
+    """chat_history: list of {'role': 'user'|'assistant', 'content': str}
+    period_context: text from period_engine (already in the UI language). If None, it is
+    read from st.session_state["period_ctx"], which the period selector fills in."""
     if not is_configured():
         raise RuntimeError("Groq not configured (missing GROQ_API_KEY or openai package).")
 
@@ -148,16 +182,32 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
     # Translate the chart facts by meaning so the model never sees Chinese terms
     # (and therefore never copies or romanizes them) in en / id mode.
     chart_context = translate_text(chart_context, lang)
+    period_header = ""
+    if period_context is None:
+        try:
+            import streamlit as st
+            period_context = st.session_state.get("period_ctx", "")
+            period_header = st.session_state.get("period_header", "")
+        except Exception:
+            period_context = ""
+    term_rules = TERM_RULES[lang]
+    if period_context:
+        chart_context = chart_context + "\n\n" + period_context
+        term_rules = (term_rules + "\n" + PERIOD_RULES[lang]).strip()
     messages = [{
         "role": "system",
         "content": SYSTEM_PROMPT.format(
             chart_context=chart_context,
             language_instruction=language_instruction,
-            term_rules=TERM_RULES[lang],
+            term_rules=term_rules,
         ),
     }]
     messages.extend(chat_history)
-    messages.append({"role": "user", "content": user_question})
+    final_question = user_question
+    if period_context:
+        first_line = period_context.split("\n")[0]
+        final_question = user_question + "\n\n(" + PERIOD_NOTE[lang].format(line=first_line) + ")"
+    messages.append({"role": "user", "content": final_question})
 
     raw = client.chat.completions.with_raw_response.create(
         model=DEFAULT_MODEL,
@@ -179,4 +229,8 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
             "Groq replied with plain text instead of a chat completion: "
             f"{snippet!r}. Check GROQ_API_KEY and Groq API access."
         )
-    return _clean_reply(response.choices[0].message.content, lang)
+    reply = _clean_reply(response.choices[0].message.content, lang)
+    if period_header:
+        # Code-written label: shows the user exactly which period this answer used.
+        reply = "*" + period_header + "*\n\n" + reply
+    return reply
