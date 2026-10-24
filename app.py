@@ -151,7 +151,9 @@ def _send_question(bc, zw, lang, question):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        answer = "".join(ai_chat.ask(context, st.session_state["chat_history"][:-1], question, ui_lang=lang))
+        res = ai_chat.ask(context, st.session_state["chat_history"][:-1], question, ui_lang=lang)
+        import types
+        answer = "".join(res) if isinstance(res, types.GeneratorType) else str(res)
     except Exception as e:
         answer = f"Error: {e}"
     st.session_state["chat_history"].append({"role": "assistant", "content": answer})
@@ -198,7 +200,13 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with st.chat_message("assistant"):
             context = ai_chat.build_chart_context(bc, zw, interp)
             try:
-                answer = st.write_stream(ai_chat.ask(context, st.session_state["chat_history"], question, ui_lang=lang))
+                response = ai_chat.ask(context, st.session_state["chat_history"], question, ui_lang=lang)
+                import types
+                if isinstance(response, types.GeneratorType):
+                    answer = st.write_stream(response)
+                else:
+                    answer = response
+                    st.write(answer)
             except Exception as e:
                 answer = f"Error: {e}"
                 st.write(answer)
