@@ -200,7 +200,7 @@ class ZiWeiChart:
         return rows
 
     def current_year_palace(self, year: int):
-        """Which palace does a given (Gregorian, for simplicity) year's
+        """Which palace does a given lunar year's
         branch fall on -- a simple 流年 pointer, not a full annual overlay."""
         # Chinese year branch cycles with a known anchor: 1984 = 甲子 (branch 子, idx0)
         branch_idx = (year - 1984) % 12

@@ -9,6 +9,7 @@ import rectification as rect
 import ai_chat
 import firebase_db
 import period_engine as pe
+from period_engine import lunar_of
 import beta_notice as bn
 from i18n import t, LANGS
 
@@ -109,7 +110,7 @@ def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
             st.session_state["unlocked"] = True
             st.rerun()
     else:
-        current_year = datetime.date.today().year
+        current_year = lunar_of(datetime.date.today())["year"]
         rows, current_palace = interp.paid_tier_report(zw, current_year, lang)
 
         parts = ['<div class="paid-card">', f"<h3>{t('paid_tier_header', lang)}</h3>"]
