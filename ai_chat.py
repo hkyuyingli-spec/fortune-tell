@@ -209,28 +209,18 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
         final_question = user_question + "\n\n(" + PERIOD_NOTE[lang].format(line=first_line) + ")"
     messages.append({"role": "user", "content": final_question})
 
-    raw = client.chat.completions.with_raw_response.create(
+    stream = client.chat.completions.create(
         model=DEFAULT_MODEL,
         messages=messages,
         temperature=0.7,
-        max_tokens=1200,
+        max_tokens=4096,
+        stream=True,
     )
-    http_resp = raw.http_response
-    if http_resp.headers.get("content-type", "").startswith("text/plain"):
-        raise RuntimeError(
-            f"Non-JSON reply -- status={http_resp.status_code}, "
-            f"content-type={http_resp.headers.get('content-type')}, "
-            f"url={http_resp.request.url}, body={http_resp.text[:200]}"
-        )
-    response = raw.parse()
-    if isinstance(response, str):
-        snippet = response.strip()[:300]
-        raise RuntimeError(
-            "Groq replied with plain text instead of a chat completion: "
-            f"{snippet!r}. Check GROQ_API_KEY and Groq API access."
-        )
-    reply = _clean_reply(response.choices[0].message.content, lang)
     if period_header:
         # Code-written label: shows the user exactly which period this answer used.
-        reply = "*" + period_header + "*\n\n" + reply
-    return reply
+        yield "*" + period_header + "*\n\n"
+    for chunk in stream:
+        if chunk.choices:
+            delta = chunk.choices[0].delta
+            if delta and delta.content:
+                yield delta.content
