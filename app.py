@@ -10,6 +10,7 @@ import ai_chat
 import firebase_db
 import period_engine as pe
 from period_engine import lunar_of
+import time_engine as te
 import beta_notice as bn
 from i18n import t, LANGS
 
@@ -252,6 +253,7 @@ if mode == "know_time":
                 value=1, step=1, key="birth_day_known",
             )
         birth_time = st.time_input(t("birth_time", lang), value=datetime.time(12, 0))
+        birth_tz = te.render_timezone_select(st, lang)
         gender = st.radio(t("gender", lang), ["male", "female"],
                            format_func=lambda g: t("male", lang) if g == "male" else t("female", lang), horizontal=True)
         submitted = st.form_submit_button(t("reveal_btn", lang))
@@ -262,6 +264,8 @@ if mode == "know_time":
         except ValueError:
             st.error(t("invalid_birth_date", lang))
         else:
+            birth_date, birth_time, tz_info = te.apply_birth_timezone(birth_date, birth_time, birth_tz)
+            te.store_time_info(st, tz_info, birth_time)
             st.session_state["chart_input"] = (birth_date, birth_time, gender)
             st.session_state["unlocked"] = False
 
@@ -269,6 +273,7 @@ if mode == "know_time":
         birth_date, birth_time, gender = st.session_state["chart_input"]
         bc = BirthChart(birth_date.year, birth_date.month, birth_date.day, birth_time.hour, birth_time.minute)
         zw = ZiWeiChart(bc, gender)
+        te.render_time_notes(st, lang)
         render_full_report(bc, zw, lang)
 
 # ============================== UNKNOWN TIME: σ«Üτ¢ñ ==============================
