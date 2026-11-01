@@ -1,0 +1,794 @@
+[
+  {
+    "pattern_id": "zi_fu_tong_gong",
+    "name_zh": "紫府同宮",
+    "name_en": "Zi Wei and Tian Fu in the Same Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["紫微", "天府"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The source specifies 寅 or 申, 命宮, no 煞, and 甲年生人 in its detailed note."
+    },
+    "classical_text_zh": "紫微天府同宫无杀凑甲人享幅终身",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text associates Zi Wei and Tian Fu together in the Life Palace, specifically in Yin or Shen, with favorable standing for people born in a Jia year when no malefic stars join the configuration. The source phrases this as a traditional judgment, not a guaranteed result. Confirm the palace, branch, birth-year condition, and absence of the stated afflictions before applying the label; do not extend it to other placements.",
+    "practical_advice": [
+      "Confirm that both Zi Wei and Tian Fu occupy the Life Palace.",
+      "Check whether the palace is in Yin or Shen and whether the birth year is Jia.",
+      "Record any malefic stars, since the text conditions its favorable statement on their absence."
+    ],
+    "interpretation_notes": "The source's condensed phrase and its explanatory note are not fully identical in detail; retain the explicit 寅申, 守命, 六甲, and 無殺條件 rather than generalizing."
+  },
+  {
+    "pattern_id": "zi_fu_chao_yuan",
+    "name_zh": "紫府朝垣",
+    "name_en": "Zi Wei and Tian Fu Facing the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["紫微", "天府"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The note says 命坐寅申再加吉星; it does not fully specify the exact palace geometry of 朝垣."
+    },
+    "classical_text_zh": "紫府朝垣活禄逢终身福厚至三公",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source names Zi Wei–Tian Fu facing the relevant palace as 紫府朝垣 and links the pattern with lasting good fortune and high rank. Its accompanying note specifies a Life Palace in Yin or Shen and additional auspicious stars, but does not spell out every palace relationship implied by 朝垣. Treat the phrase as a source-specific configuration label; do not infer missing geometry from the name alone or apply the outcome literally.",
+    "practical_advice": [
+      "Check for the stated Life Palace branch, Yin or Shen.",
+      "Verify the chart's Zi Wei and Tian Fu positions before assigning the pattern.",
+      "Keep the source's additional auspicious-star condition attached to the interpretation."
+    ],
+    "interpretation_notes": "The label is present, but 朝垣 geometry is not fully defined in this passage. Do not equate it automatically with another palace arrangement."
+  },
+  {
+    "pattern_id": "fu_xiang_chao_yuan",
+    "name_zh": "府相朝垣",
+    "name_en": "Tian Fu and Tian Xiang Facing the Life Palace",
+    "trigger": {
+      "palaces": ["命宮", "財帛宮", "官祿宮"],
+      "required_stars": ["天府", "天相"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "命在寅申; 府相在財帛宮; 禄官朝. The exact meaning of 禄官朝 is not further specified."
+    },
+    "classical_text_zh": "府相朝垣千锺食禄",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text describes the 府相朝垣 arrangement as especially favorable when the Life Palace is in Yin or Shen, Tian Fu and Tian Xiang are in the Wealth Palace, and the career and salary positions are said to face or support the configuration. It calls this the upper pattern and says other palace placements rank lower. The wording 禄官朝 is compressed and not independently defined, so the complete geometry cannot be reconstructed from this passage alone.",
+    "practical_advice": [
+      "Verify the Life Palace branch and the locations of Tian Fu and Tian Xiang.",
+      "Check the Wealth Palace and career-related positions separately.",
+      "Mark 禄官朝 as unresolved rather than assuming a specific geometry."
+    ],
+    "interpretation_notes": "The text explicitly describes only part of the arrangement; the phrase 禄官朝 remains ambiguous."
+  },
+  {
+    "pattern_id": "qi_sha_chao_dou",
+    "name_zh": "七殺朝斗",
+    "name_en": "Qi Sha Facing the Dipper",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["七殺"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "七殺 in 寅、申、子、午; the text calls this 七殺朝斗格."
+    },
+    "classical_text_zh": "七杀寅申子午一生爵禄荣昌",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source identifies Qi Sha in Yin, Shen, Zi, or Wu with 七殺朝斗格 and associates it with rank and recognition. The quoted line does not specify additional stars, transformations, or a more detailed palace geometry beyond the named branches. Apply the label only when the chart's Qi Sha placement matches one of those branches, and present the favorable outcome as a historical textual claim rather than a prediction.",
+    "practical_advice": [
+      "Check whether Qi Sha is in Yin, Shen, Zi, or Wu.",
+      "Keep any additional chart factors separate from this short source rule.",
+      "Describe the text's favorable association without promising status or rank."
+    ],
+    "interpretation_notes": "The excerpt gives a branch-based rule but no further qualification about other stars or chart context."
+  },
+  {
+    "pattern_id": "ji_yue_tong_liang",
+    "name_zh": "機月同梁",
+    "name_en": "Ji, Moon, Tong, and Liang Configuration",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["天機", "太陰", "天同", "天梁"],
+      "condition": "ambiguous",
+      "extra_conditions": "The text says 命在寅申方論 but does not fully state how all four stars must be arranged."
+    },
+    "classical_text_zh": "机月同梁作吏人",
+    "classical_source": "《紫微斗數全書》卷一、卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text associates 機月同梁 with an administrative or clerical role and adds that the judgment is considered for a Life Palace in Yin or Shen. It further distinguishes charts with auspicious factors from ordinary charts and says malefics, 空劫, or 化忌 make the pattern lower in its traditional ranking. The passage uses a four-star shorthand without specifying each star's exact palace placement, so this dataset cannot safely infer a complete activation rule.",
+    "practical_advice": [
+      "Treat the four-star shorthand as a candidate, not an automatic match.",
+      "Verify the Life Palace branch and note the chart's auspicious or adverse factors.",
+      "Do not infer exact star positions that the passage does not provide."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the shorthand and branch condition are stated, but exact arrangement of all four stars is not."
+  },
+  {
+    "pattern_id": "yue_lang_tian_men",
+    "name_zh": "月朗天門",
+    "name_en": "Bright Moon at Heaven's Gate",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["太陰"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "太陰在亥; the text further says 子年生 and 夜時生 are matching conditions."
+    },
+    "classical_text_zh": "月朗天门于亥地登云职掌大权",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text names the Moon-bright-at-Heaven's-Gate pattern for the Moon star in Hai and links it with authority. Its annotation says a Zi-year birth and nighttime birth complete the configuration. The excerpt does not elaborate on other placements or modifying stars. Keep those stated conditions attached whenever the name is used, and treat its association with office or authority as the source's traditional language rather than a reliable forecast.",
+    "practical_advice": [
+      "Confirm Tai Yin is in Hai before using this pattern name.",
+      "Record the source's Zi-year and nighttime qualifications.",
+      "Avoid extending the source's authority claim to a guaranteed life outcome."
+    ],
+    "interpretation_notes": "The annotation specifies birth-year and time conditions; whether other chart placements are required is not explained."
+  },
+  {
+    "pattern_id": "ri_zhao_lei_men",
+    "name_zh": "日照雷門",
+    "name_en": "Sun Shining at Thunder Gate",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["太陽"],
+      "condition": "ambiguous",
+      "extra_conditions": "The text gives 子辰卯地 and daytime birth, but the branch sequence and precise palace geometry are unclear."
+    },
+    "classical_text_zh": "日照雷门子辰卯地昼生富贵声扬",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source associates a Sun-related pattern called 日照雷門 with the branch phrase 子辰卯地 and a daytime birth, then gives a favorable traditional outcome involving reputation and prosperity. The phrase is compressed and does not clearly distinguish the relevant palace, the Sun's exact position, or whether the three branches are alternatives or part of a larger geometry. Preserve the wording and do not manufacture a more precise rule.",
+    "practical_advice": [
+      "Retain the original branch phrase when recording a candidate match.",
+      "Check daytime birth as stated, but do not assume the remaining geometry.",
+      "Mark the pattern unresolved until the branch wording is independently clarified."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the source's branch sequence and placement are not sufficiently explicit to implement deterministically."
+  },
+  {
+    "pattern_id": "ri_yue_bing_ming",
+    "name_zh": "日月並明",
+    "name_en": "Sun and Moon Shining Together",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["太陽", "太陰"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source gives the phrase 日月並明 but this occurrence does not specify placements or a complete activation geometry."
+    },
+    "classical_text_zh": "日月并明佐九重于尧殿",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The phrase 日月並明 appears in a verse that associates the Sun and Moon shining together with service in a high court. In this passage, however, the source does not identify which palaces the two stars must occupy, whether they must aspect or join one another, or what birth conditions apply. The label is therefore retained as a textual motif, not a computable chart rule. Other passages discuss Sun–Moon placements separately and should not be silently merged into this line.",
+    "practical_advice": [
+      "Do not activate this label from star presence alone.",
+      "Keep this verse distinct from the separate 日月拱照 rules.",
+      "Record the missing placement conditions as unresolved."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the verse gives a name and outcome but no explicit placement conditions."
+  },
+  {
+    "pattern_id": "shi_zhong_yin_yu",
+    "name_zh": "石中隱玉",
+    "name_en": "Jade Hidden in Stone",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["巨門"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "巨門在子或午並遇科、權、祿; the source also notes differing birth-stem evaluations."
+    },
+    "classical_text_zh": "巨门子午科权禄石中隐玉福兴隆",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text applies 石中隱玉 to Ju Men in Zi or Wu with Ke, Quan, and Lu, associating the arrangement with flourishing fortune, wealth, and family distinction. It ranks Xin and Gui births highest, Ding and Ji next, and adds a short statement about Bing and Wu births. Because the last phrase is terse and culturally specific, preserve it as a source note rather than translating it into a modern promise or inferring omitted conditions.",
+    "practical_advice": [
+      "Check Ju Men is in Zi or Wu and record the stated transformations.",
+      "Keep the birth-stem ranking as a separate source qualification.",
+      "Present prosperity language as a traditional claim, not a guarantee."
+    ],
+    "interpretation_notes": "The quoted source specifies a branch and transformations, but the final birth-stem phrase is terse and should not be expanded without another source."
+  },
+  {
+    "pattern_id": "ju_ri_tong_gong",
+    "name_zh": "巨日同宮",
+    "name_en": "Ju Men and the Sun in the Same Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["巨門", "太陽"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The source gives examples with 命寅 and 巨日 in 寅/申 relationships; it also cites a favorable Sun-in-Hai, Ju Men-in-Si case."
+    },
+    "classical_text_zh": "巨日寅宫立命申先驰名而食禄",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source describes several Ju Men–Sun placements and associates them with recognition and income, including a Life Palace in Yin and formulations placing the stars in Yin or Shen. Elsewhere it gives additional examples with the Sun in Si and Ju Men in Hai, while warning that other directions may be unfavorable. These are placement-specific statements, not a universal rule that every Ju Men–Sun conjunction has the same result.",
+    "practical_advice": [
+      "Record the exact positions of Ju Men, the Sun, and the Life Palace.",
+      "Do not treat every Ju Men–Sun pairing as equivalent to the cited examples.",
+      "Include the source's branch qualifications when summarizing the pattern."
+    ],
+    "interpretation_notes": "The source contains several related formulas rather than one single invariant arrangement; preserve the individual branch conditions."
+  },
+  {
+    "pattern_id": "ri_yue_gong_zhao",
+    "name_zh": "日月拱照",
+    "name_en": "Sun and Moon Supporting the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["太陽", "太陰"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The source gives multiple branch arrangements: 日巳月酉 with 命丑; 日卯月亥 with 命未; and 日月同未 with 命丑."
+    },
+    "classical_text_zh": "日巳月酉丑宫命步蟾宫",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text lists specific Sun and Moon branch combinations associated with the Life Palace and describes them as favorable for distinction. It also says that Sun and Moon illuminating or supporting the Life Palace is preferable to simply having them守命, while emphasizing that the chart's favorable and unfavorable factors matter. Because the compact lines omit some grammatical links, retain each example separately instead of reducing them to a broad conjunction rule.",
+    "practical_advice": [
+      "Compare the chart against each stated branch arrangement individually.",
+      "Distinguish a supporting/aspecting relation from both stars守命.",
+      "Read the source's favorable claim alongside its warning about chart modifiers."
+    ],
+    "interpretation_notes": "The source lists several separate configurations; the exact scope of each compressed line may require specialist textual review."
+  },
+  {
+    "pattern_id": "jun_chen_qing_hui",
+    "name_zh": "君臣慶會",
+    "name_en": "Rulers and Ministers Gathering in Harmony",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["天府", "天相", "天梁"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source says 天府、天相、天梁同; it does not specify a particular palace in this phrase."
+    },
+    "classical_text_zh": "天府天相天梁同君臣庆会",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source names the gathering of Tian Fu, Tian Xiang, and Tian Liang as 君臣慶會, a classical courtly metaphor for rulers and ministers meeting. The quoted line identifies the three stars but does not state their palace positions, whether they must be together or arranged across a configuration, or the conditions needed for the name to apply. Keep the term descriptive and avoid assigning an exact chart trigger beyond the stars named in the text.",
+    "practical_advice": [
+      "Confirm all three named stars before recording this as a candidate.",
+      "Do not assume the quote requires a single-palace conjunction.",
+      "Keep the palace geometry marked as unspecified."
+    ],
+    "interpretation_notes": "The stars are named, but the positional meaning of 同 and the required palace geometry are not clarified."
+  },
+  {
+    "pattern_id": "xiong_su_chao_yuan",
+    "name_zh": "雄宿朝元",
+    "name_en": "The Heroic Star Returning to Its Origin",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["廉貞"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "廉貞在申 or 未 and no 煞; the source says 加殺平常."
+    },
+    "classical_text_zh": "廉贞申未宫无杀富贵声扬播远名",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text identifies Lian Zhen in Shen or Wei without malefic stars as 雄宿朝元格 and associates it with reputation and favorable status. It explicitly downgrades the judgment when malefics are added, saying the result becomes ordinary. The quote does not name a required palace beyond the star's branch, so the entry records those branches and the no-malefic condition without inventing a Life Palace requirement.",
+    "practical_advice": [
+      "Check Lian Zhen is in Shen or Wei.",
+      "Record whether malefic stars join the configuration.",
+      "Do not add a palace restriction absent from the source."
+    ],
+    "interpretation_notes": "The passage specifies star branches and the malefic condition, but not a specific palace."
+  },
+  {
+    "pattern_id": "zi_fu_jia_ming",
+    "name_zh": "紫府夾命",
+    "name_en": "Zi Wei and Tian Fu Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["紫微", "天府"],
+      "condition": "ambiguous",
+      "extra_conditions": "The phrase names a 贵格 but does not give the flanking branches or palace geometry."
+    },
+    "classical_text_zh": "紫府夹命为贵格",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source names Zi Wei and Tian Fu flanking the Life Palace as a 贵格, but the quoted line gives no example branches, adjacent-palace positions, or additional requirements. The name suggests a flanking arrangement, yet the source excerpt does not show how to determine it from a chart. Retain the source's classification while marking the geometry unresolved; do not apply the pattern automatically from the mere presence of both stars.",
+    "practical_advice": [
+      "Require an independently verified flanking arrangement before activating the pattern.",
+      "Do not treat Zi Wei and Tian Fu merely appearing somewhere in a chart as sufficient.",
+      "Preserve the source's 贵格 label as a historical classification, not a guarantee."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the name implies flanking, but no placements or geometry are provided in the quoted text."
+  },
+  {
+    "pattern_id": "chang_qu_jia_ming",
+    "name_zh": "昌曲夾命",
+    "name_en": "Wen Chang and Wen Qu Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["文昌", "文曲"],
+      "condition": "flanking",
+      "extra_conditions": "The example is 命在丑, 文昌在寅, 文曲在子; the text says auspicious stars strengthen the judgment."
+    },
+    "classical_text_zh": "昌曲夹命最为奇",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text describes Wen Chang and Wen Qu on either side of the Life Palace, giving Life Palace in Chou, Wen Chang in Yin, and Wen Qu in Zi as its example. It associates the arrangement with wealth or rank and says auspicious factors are needed for the higher classification. The example establishes one geometry; the passage does not explicitly state whether every other pair of adjacent branches is equivalent, so avoid extending it beyond the text.",
+    "practical_advice": [
+      "Check the stated example geometry against the actual palace branches.",
+      "Record auspicious factors separately, as the source makes them relevant.",
+      "Do not generalize the single example to unlisted branch arrangements."
+    ],
+    "interpretation_notes": "The source provides one concrete example and a qualification about auspicious factors; broader geometry is not fully enumerated."
+  },
+  {
+    "pattern_id": "zuo_you_jia_ming",
+    "name_zh": "左右夾命",
+    "name_en": "Left Assistant and Right Assistant Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["左輔", "右弼"],
+      "condition": "flanking",
+      "extra_conditions": "The example is 命丑、左輔子、右弼寅; the text gives birth-month qualifications for that example."
+    },
+    "classical_text_zh": "左右夹命为贵格",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source calls Left Assistant and Right Assistant flanking the Life Palace a 贵格 and gives a specific example: Life Palace in Chou, Left Assistant in Zi, and Right Assistant in Yin. It adds that births in the fourth, seventh, tenth, or eleventh lunar months match this example, and describes wealth as an alternative favorable outcome. The text does not establish that the month rule applies to every possible flanking arrangement.",
+    "practical_advice": [
+      "Verify the Life Palace and both assistant-star branches.",
+      "Check the stated birth months only for the example arrangement given.",
+      "Avoid treating the traditional outcome as a certain prediction."
+    ],
+    "interpretation_notes": "The source provides a clear example, but does not generalize its birth-month condition to all placements."
+  },
+  {
+    "pattern_id": "kui_yue_jia_ming",
+    "name_zh": "魁鉞夾命",
+    "name_en": "Tian Kui and Tian Yue Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["天魁", "天鉞"],
+      "condition": "flanking",
+      "extra_conditions": "Example: 命辰、魁卯、鉞巳."
+    },
+    "classical_text_zh": "魁钺夹命为奇格",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source names Tian Kui and Tian Yue flanking the Life Palace as a notable configuration and gives a concrete example: Life Palace in Chen, Tian Kui in Mao, and Tian Yue in Si. The excerpt does not state additional birth, transformation, or malefic conditions for this rule. Use the example as the verified geometry and avoid extrapolating beyond it without another textual basis.",
+    "practical_advice": [
+      "Check the three palace branches in the example.",
+      "Do not infer omitted birth or transformation conditions.",
+      "Keep the source's evaluative term separate from a deterministic prediction."
+    ],
+    "interpretation_notes": "Only the example geometry is explicit; other possible flanking arrangements are not enumerated."
+  },
+  {
+    "pattern_id": "yang_tuo_jia_ji",
+    "name_zh": "羊陀夾忌",
+    "name_en": "Qing Yang and Tuo Luo Flanking Ji",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["擎羊", "陀羅", "化忌"],
+      "condition": "flanking",
+      "extra_conditions": "Example: 命在申，羊在酉，陀在未，with the 忌星 at the stated center position."
+    },
+    "classical_text_zh": "羊陀夹忌为败局",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source describes Qing Yang and Tuo Luo flanking a Ji star as a lower pattern and gives an example with the Life Palace in Shen, Qing Yang in You, and Tuo Luo in Wei, with a Ji star present. It says other cases follow the example, but the exact position of the Ji star is not clearly stated in the sentence. Do not infer more geometry than the text supplies.",
+    "practical_advice": [
+      "Check for both malefic stars and the stated Ji condition.",
+      "Compare placements to the Shen/You/Wei example.",
+      "Flag the Ji star's exact position as unresolved if the chart mapping is unclear."
+    ],
+    "interpretation_notes": "The example is explicit for the two flanking stars, while the central/related position of 化忌 is under-specified."
+  },
+  {
+    "pattern_id": "jie_kong_jia_ming",
+    "name_zh": "劫空夾命",
+    "name_en": "Robbery and Emptiness Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["劫空"],
+      "condition": "ambiguous",
+      "extra_conditions": "The example says 命亥、劫子、空亥, which does not clearly show two stars flanking the Life Palace."
+    },
+    "classical_text_zh": "劫空夹命为败局",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source labels 劫空夾命 as an unfavorable arrangement and says periods encountering it or a Ji star may also be unfavorable. Its example places the Life Palace in Hai, Jie in Zi, and Kong in Hai, which does not transparently match the usual sense of two stars flanking a palace. Preserve the quotation and do not silently repair the apparent inconsistency or convert it into a chart-matching rule.",
+    "practical_advice": [
+      "Do not automatically activate this pattern from the label alone.",
+      "Retain the source's example exactly as written for review.",
+      "Seek textual clarification before implementing the geometry."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the example appears inconsistent with the name's flanking meaning."
+  },
+  {
+    "pattern_id": "huo_ling_jia_ming",
+    "name_zh": "火鈴夾命",
+    "name_en": "Fire and Bell Stars Flanking the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["火星", "鈴星"],
+      "condition": "flanking",
+      "extra_conditions": "Example: 命安寅 or 申, 火星在丑, 鈴星在卯; the text adds 吉多尚可 and 惟夾忌."
+    },
+    "classical_text_zh": "火铃夹命为败局",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source calls Fire and Bell stars flanking the Life Palace a lower configuration and gives an example with the Life Palace in Yin or Shen, Fire in Chou, and Bell in Mao. It qualifies the judgment by saying that many auspicious factors may make it acceptable, while particularly noting a Ji star caught in the arrangement. Apply only the stated example and preserve the source's modifiers instead of treating the label as sufficient by itself.",
+    "practical_advice": [
+      "Check the example branches for the Life Palace, Fire, and Bell stars.",
+      "Record auspicious factors and any Ji star separately.",
+      "Do not apply the negative label without checking the stated qualifications."
+    ],
+    "interpretation_notes": "The source gives one explicit example and brief modifiers, but does not enumerate every possible branch arrangement."
+  },
+  {
+    "pattern_id": "fan_shui_tao_hua",
+    "name_zh": "泛水桃花",
+    "name_en": "Peach Blossom Floating on Water",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["貪狼", "擎羊", "陀羅"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "貪狼 with 擎羊 and 陀羅 in 亥 or 子; the text says auspicious stars modify the judgment."
+    },
+    "classical_text_zh": "贪遇羊陀居亥子名为泛水桃花",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text names the combination of Tan Lang with Qing Yang and Tuo Luo in Hai or Zi as 泛水桃花. It gives a strongly moralizing warning about desire and alcohol, then explicitly qualifies the judgment by saying auspicious stars make it favorable. The historical wording should be treated as symbolic doctrine, not a diagnosis of a person's character or conduct. Keep the branch and modifier conditions attached to the pattern.",
+    "practical_advice": [
+      "Verify Tan Lang, both malefics, and the Hai/Zi placement before labeling it.",
+      "Include the source's auspicious-star qualification.",
+      "Avoid using the historical moral judgment to stereotype a person."
+    ],
+    "interpretation_notes": "The source includes a clear placement and a modifier; its moralizing outcome is culturally situated and not a factual behavioral assessment."
+  },
+  {
+    "pattern_id": "feng_liu_cai_zhang",
+    "name_zh": "風流彩杖",
+    "name_en": "The Romantic Painted Staff",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["貪狼", "陀羅"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "貪狼 and 陀羅 in 寅; the source gives no additional palace requirement."
+    },
+    "classical_text_zh": "贪狼陀罗在寅宫号曰风流彩杖",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text names Tan Lang with Tuo Luo in Yin as 風流彩杖. This is a more specific statement than the separate verse saying 刑遇貪狼, but it does not identify a palace or provide a detailed interpretation of the named configuration. Store the star and branch association as written, without assuming that it requires a Life Palace placement. Do not conflate this phrase with 泛水桃花, which has its own branch and star conditions.",
+    "practical_advice": [
+      "Check Tan Lang and Tuo Luo in Yin before using the named pattern.",
+      "Do not infer a Life Palace requirement from the passage.",
+      "Keep this label distinct from the separately described 泛水桃花 pattern."
+    ],
+    "interpretation_notes": "The Volume III phrase specifies Tan Lang, Tuo Luo, and Yin; it does not specify a palace. Volume I's related 刑遇貪狼 aphorism is less specific."
+  },
+  {
+    "pattern_id": "lu_ma_jiao_chi",
+    "name_zh": "祿馬交馳",
+    "name_en": "Lu and Horse Stars in Conjunction",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["祿存", "天馬"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The source defines it as 天馬與祿存同宮."
+    },
+    "classical_text_zh": "如与禄存同宫，谓之禄马交驰，又曰折鞭马",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "In its discussion of Tian Ma, the source says that when it is in the same palace as Lu Cun the arrangement is called 祿馬交馳, also known there as 折鞭馬. The passage later groups several named horse configurations and warns that different combinations have different traditional outcomes. This excerpt defines co-location but does not state a particular palace requirement, so match the two stars in one palace without adding one.",
+    "practical_advice": [
+      "Check whether Tian Ma and Lu Cun occupy the same palace.",
+      "Record the palace without imposing a palace-specific requirement.",
+      "Do not transfer interpretations from the other horse combinations in the passage."
+    ],
+    "interpretation_notes": "The co-location rule is explicit; the source also uses 折鞭馬 as an alternate name in this passage."
+  },
+  {
+    "pattern_id": "zi_wei_zuo_you_tong_gong",
+    "name_zh": "紫微輔弼同宮",
+    "name_en": "Zi Wei with Left and Right Assistants in the Same Palace",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["紫微", "左輔", "右弼"],
+      "condition": "ambiguous",
+      "extra_conditions": "The verse names 紫微 and 輔弼同宮; it does not specify a palace or clarify whether both assistants must individually share the palace."
+    },
+    "classical_text_zh": "紫微輔弼同宮，一呼百諾居上品。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse says that Zi Wei with the assistant stars together in one palace is associated with a high traditional rank and broad response from others. The line does not name the palace or specify whether both Left Assistant and Right Assistant must be co-located with Zi Wei, or whether the pair may support it from another relation. Store the words as a classical association, and require an explicit configuration definition before implementing a strict trigger.",
+    "practical_advice": [
+      "Record which assistant stars are present and where they are placed.",
+      "Do not infer an unstated palace or aspect relation.",
+      "Avoid presenting the verse's rank language as a literal forecast."
+    ],
+    "interpretation_notes": "The wording 輔弼同宮 is attested, but its exact star-by-star geometry is not explained."
+  },
+  {
+    "pattern_id": "fu_bi_jia_di",
+    "name_zh": "輔弼夾帝",
+    "name_en": "Left and Right Assistants Flanking the Emperor",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["左輔", "右弼", "紫微"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source says 輔弼夾帝 but does not specify branch positions or a worked example."
+    },
+    "classical_text_zh": "輔弼夾帝為上品",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source calls Left and Right Assistants flanking the Emperor a high-grade configuration. In context, 帝 refers to Zi Wei, but the line provides no branch example, named palace, or rules for distinguishing a true flank from an aspect or other support. Keep the phrase and its favorable classification, while marking the exact trigger as unresolved. Do not substitute the separate 紫微輔弼同宮 phrase, which describes a different relation.",
+    "practical_advice": [
+      "Treat this as a candidate until the flanking geometry is established.",
+      "Keep it distinct from the same-palace Zi Wei–assistant phrase.",
+      "Do not infer branch positions from the evaluative label."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the text names the relation but gives no geometry or example."
+  },
+  {
+    "pattern_id": "kui_yue_tong_xing",
+    "name_zh": "魁鉞同行",
+    "name_en": "Tian Kui and Tian Yue Traveling Together",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["天魁", "天鉞"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source says 同行 but does not define whether this means co-location, mutual aspect, or another relation."
+    },
+    "classical_text_zh": "魁鉞同行，位居臺輔。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse associates Tian Kui and Tian Yue traveling together with service in a high official position. It does not specify the palace, the exact meaning of 同行, or any required supporting stars. The phrase should therefore be treated as a named traditional association rather than a complete chart-matching rule. Keep the two stars and the textual outcome, but do not infer a conjunction or palace from the wording alone.",
+    "practical_advice": [
+      "Confirm both Tian Kui and Tian Yue before recording the association.",
+      "Preserve the unknown meaning of 同行 rather than assuming conjunction.",
+      "Do not turn the historical office reference into a guaranteed career outcome."
+    ],
+    "interpretation_notes": "The star pair is explicit, but the positional relation and palace are not."
+  },
+  {
+    "pattern_id": "lu_wen_gong_ming",
+    "name_zh": "祿文拱命",
+    "name_en": "Lu and Literary Stars Supporting the Life Palace",
+    "trigger": {
+      "palaces": ["命宮"],
+      "required_stars": ["祿存", "文昌", "文曲"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source says 祿文拱命 but does not identify which literary or Lu stars, nor their exact geometry."
+    },
+    "classical_text_zh": "祿文拱命，貴而且賢。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse says that Lu and literary influences supporting the Life Palace are associated with rank and virtue. It does not define which Lu star is meant, whether 文 refers specifically to Wen Chang and Wen Qu, or how the stars must support the Life Palace. The entry records the phrase as a textual pattern name but leaves the activation criteria unresolved. Do not treat the proposed star list as a source-confirmed exact trigger.",
+    "practical_advice": [
+      "Do not activate the label from an assumed star list.",
+      "Keep the source's wording and missing geometry visible.",
+      "Seek a better-defined passage before using it as a deterministic rule."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the terms 祿 and 文 and the meaning of 拱 are not specified in this line."
+  },
+  {
+    "pattern_id": "ri_yue_jia_cai",
+    "name_zh": "日月夾財",
+    "name_en": "Sun and Moon Flanking the Wealth Palace",
+    "trigger": {
+      "palaces": ["財帛宮"],
+      "required_stars": ["太陽", "太陰"],
+      "condition": "flanking",
+      "extra_conditions": "Sun and Moon flank the Wealth Palace; the verse says 不權則富, without a specific branch example."
+    },
+    "classical_text_zh": "日月夾財，不權則富。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse describes the Sun and Moon flanking the Wealth Palace and says the traditional outcome is authority or wealth. It does not specify which branches are required, whether other stars modify the configuration, or how to handle a chart where only one luminary is adjacent. The core relation is stated, but the source gives no detailed geometry beyond the flanking description. Avoid translating the aphorism into a financial guarantee.",
+    "practical_advice": [
+      "Check that both luminaries flank the Wealth Palace rather than merely appearing in the chart.",
+      "Record branches and other modifiers because this verse does not list them.",
+      "Present the wealth/authority wording as a classical association, not advice to take financial risks."
+    ],
+    "interpretation_notes": "The basic flanking relation is clear; branch-specific conditions are not supplied."
+  },
+  {
+    "pattern_id": "ma_tou_dai_jian",
+    "name_zh": "馬頭帶劍",
+    "name_en": "Sword at the Horse's Head",
+    "trigger": {
+      "palaces": [],
+      "required_stars": [],
+      "condition": "ambiguous",
+      "extra_conditions": "The verse names the pattern and outcome but does not identify its chart trigger."
+    },
+    "classical_text_zh": "馬頭帶劍，鎮衛邊疆。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse names 馬頭帶劍 and associates it with guarding the frontier. The quoted passage does not say which stars form the pattern, which branch or palace constitutes the horse's head, or what additional conditions activate it. The name and outcome are therefore preserved as a classical phrase only. Do not fill the empty star list from later traditions or assume that a single chart placement is enough.",
+    "practical_advice": [
+      "Do not use the phrase as an automated match without a source-defined trigger.",
+      "Keep the star list empty until the text identifies its components.",
+      "Avoid interpreting the martial image as a literal occupation prediction."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the source provides only the name and aphoristic outcome."
+  },
+  {
+    "pattern_id": "xing_qiu_jia_yin",
+    "name_zh": "刑囚夾印",
+    "name_en": "Punishment and Prison Stars Flanking the Seal",
+    "trigger": {
+      "palaces": [],
+      "required_stars": [],
+      "condition": "ambiguous",
+      "extra_conditions": "The verse names 刑囚 and 印 but does not identify the stars, palace geometry, or configuration."
+    },
+    "classical_text_zh": "刑囚夾印，刑杖惟司。",
+    "classical_source": "《紫微斗數全書》卷一 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷一",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The verse names 刑囚夾印 and associates it with judicial punishment or official penal duties. It does not identify which stars correspond to 刑, 囚, or 印, nor how they must flank a palace or one another. The trigger is not recoverable from this line alone, so the entry intentionally carries no required stars and must not be used for automatic chart classification. Preserve the historic language as a quote, not as a claim about a person's legal future.",
+    "practical_advice": [
+      "Do not infer star identities from the pattern name alone.",
+      "Keep this entry inactive until a source passage defines the geometry.",
+      "Avoid presenting the punishment wording as a prediction of legal trouble."
+    ],
+    "interpretation_notes": "Ambiguous trigger: all structural terms in the name remain undefined in the cited verse."
+  },
+  {
+    "pattern_id": "tan_wu_xian_pin_hou_fu",
+    "name_zh": "貪武先貧後富",
+    "name_en": "Tan Lang and Wu Qu: Poverty First, Wealth Later",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["貪狼", "武曲"],
+      "condition": "ambiguous",
+      "extra_conditions": "The source names the pair and sequence but does not fully define its placement; it separately mentions 紫微、日月、左右、昌曲 and 限逢祿權科 for a 贵显 judgment."
+    },
+    "classical_text_zh": "贪武先贫而后富",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source associates Tan Lang and Wu Qu with a sequence of early hardship followed by later wealth, then adds a critical characterization and a separate qualification: Zi Wei, Sun and Moon, Left and Right Assistants, Wen Chang and Wen Qu in the Life chart, with a period encountering Lu, Quan, and Ke, may support a higher traditional assessment. The exact placements of the initial pair are not defined in this short rule, so keep its trigger ambiguous.",
+    "practical_advice": [
+      "Treat Tan Lang–Wu Qu as a candidate association, not an exact activation rule.",
+      "Separate the stated supporting stars and period condition from the initial phrase.",
+      "Do not use the source's moral characterization to judge a person's character."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the pair's placement is omitted; the additional Life-chart and period conditions are separate qualifications."
+  },
+  {
+    "pattern_id": "sha_po_lang",
+    "name_zh": "殺破狼（三曜組合）",
+    "name_en": "The Sha-Po-Lang Three-Star Group",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["七殺", "破軍", "貪狼"],
+      "condition": "ambiguous",
+      "extra_conditions": "The text groups the three stars and says 入廟; it does not specify whether they must occupy particular palaces or aspects."
+    },
+    "classical_text_zh": "破军七杀与贪狼，入庙英雄不可当",
+    "classical_source": "《紫微斗數全書》卷二 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷二",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The source groups Po Jun, Qi Sha, and Tan Lang and says that when they are in favorable temple positions their force is exceptional. The line does not say whether all three must occur in a single chart, which palaces or relationships matter, or how the three-star phrase maps to a chart-specific activation. It is therefore a source-attested group, not a complete matching rule. Preserve 入廟 as an explicit qualification and do not invent palace geometry.",
+    "practical_advice": [
+      "Keep the three stars grouped only where the chart contains the relevant placements.",
+      "Verify the source's 入廟 qualification rather than matching star names alone.",
+      "Do not infer a fixed palace arrangement from this aphorism."
+    ],
+    "interpretation_notes": "Ambiguous trigger: the stars and temple condition are named, but the relationship among their placements is not."
+  },
+  {
+    "pattern_id": "wu_qu_tian_xiang_tong_yuan",
+    "name_zh": "武曲天相同垣",
+    "name_en": "Wu Qu and Tian Xiang in the Same Palace",
+    "trigger": {
+      "palaces": [],
+      "required_stars": ["武曲", "天相", "文昌", "文曲"],
+      "condition": "specific_arrangement",
+      "extra_conditions": "The text says 武曲與天相同垣逢昌曲; it gives no specific palace or further branch restriction."
+    },
+    "classical_text_zh": "武曲或与天相同垣逢昌曲",
+    "classical_source": "《紫微斗數全書》卷三 (Wikisource transcription; edition not independently verified)",
+    "provenance": {
+      "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷三",
+      "verification_status": "transcription_located_edition_unverified"
+    },
+    "modern_summary_en": "The text says Wu Qu may share a palace with Tian Xiang and encounter Wen Chang and Wen Qu, associating the arrangement with cleverness and skilled work. It does not specify the palace or branches, and the first line may describe Wu Qu with the literary stars before the note adds Tian Xiang as an alternative same-palace relation. Keep the two statements distinct and avoid requiring a geometry beyond what each line says.",
+    "practical_advice": [
+      "Check whether Wu Qu and Tian Xiang share a palace before using this label.",
+      "Record Wen Chang and Wen Qu as additional stated factors.",
+      "Do not infer a particular palace or branch from the passage."
+    ],
+    "interpretation_notes": "The annotation supports a same-palace Wu Qu–Tian Xiang reading with Chang/Qu, but its relation to the preceding line is not fully explicit."
+  }
+]
