@@ -108,7 +108,7 @@ Do not invent interpretations not in the definitions. Do not quote the classical
 - 不要給出絕對宿命論（如「你一定會發財」），但要給出明確的趨勢與行動建議。
 - {language_instruction}
 - 【翻譯與用詞】：當語言為英文或印尼文時，請務必使用命盤資料中提供的專有名詞（如 "Pioneer star", "Strategist star", "Self (Life)"）。絕對不要使用中文拼音或直譯。
-- 回答長度約 150-250 字，確保細節充足，絕不敷衍。
+- 回答長度：根據問題深度彈性調整。簡單問題 150-250 字；需要深入解析的問題（如財運、事業、感情、具體年份運勢）300-500 字，包含具體情境、引用參考文獻的內容、與可執行建議。絕不敷衍。
 {term_rules}
 """
 
