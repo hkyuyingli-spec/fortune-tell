@@ -152,7 +152,7 @@ def _send_question(bc, zw, lang, question):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        star_defs = lookup_star_definitions(zw)
+        star_defs = lookup_star_definitions(zw, question=question)
         res = ai_chat.ask(
             context,
             st.session_state["chat_history"][:-1],
@@ -208,7 +208,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with st.chat_message("assistant"):
             context = ai_chat.build_chart_context(bc, zw, interp)
             try:
-                star_defs = lookup_star_definitions(zw)
+                star_defs = lookup_star_definitions(zw, question=question)
                 response = ai_chat.ask(
                     context,
                     st.session_state["chat_history"],

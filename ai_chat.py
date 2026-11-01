@@ -193,7 +193,7 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
     chart_context = translate_text(chart_context, lang)
     if star_definitions:
         from knowledge_lookup import format_star_definitions
-        chart_context = chart_context + format_star_definitions(star_definitions)
+        chart_context = chart_context + format_star_definitions(star_definitions, lang)
     period_header = ""
     if period_context is None:
         try:
