@@ -167,13 +167,31 @@ def format_star_definitions(defs, lang="zh"):
             if provenance.get("verification_status") != "verified":
                 if lang == "zh":
                     lines.append("  來源尚未核實；此段內容應視為暫定參考。")
+                elif lang == "id":
+                    lines.append(
+                        "  Sumber belum diverifikasi; anggap uraian ini sebagai "
+                        "referensi sementara."
+                    )
                 else:
                     lines.append(
                         "  Provenance is unverified; treat this expansion as provisional."
                     )
             lines.append(
-                f"  Translation: {classical_expansion['modern_translation_en']}"
+                f"  {'現代摘要' if lang == 'zh' else 'Modern summary'}: "
+                f"{classical_expansion['modern_summary_en']}"
             )
+            if lang == "zh":
+                lines.append("  解讀提示：此為傳統象徵性說法，並非確定預測或醫療建議。")
+            elif lang == "id":
+                lines.append(
+                    "  Note: Interpretasi simbolis tradisional, bukan prediksi pasti "
+                    "atau nasihat medis."
+                )
+            else:
+                lines.append(
+                    "  Note: Traditional symbolic interpretation, not a factual "
+                    "prediction or medical advice."
+                )
             if classical_expansion.get("practical_advice"):
                 lines.append("  Advice:")
                 for advice in classical_expansion["practical_advice"]:

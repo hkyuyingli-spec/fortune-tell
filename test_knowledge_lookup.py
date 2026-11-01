@@ -59,6 +59,7 @@ class KnowledgeLookupTests(unittest.TestCase):
         formatted = format_star_definitions([definition], lang="zh")
         self.assertIn("Classical:", formatted)
         self.assertIn("來源尚未核實", formatted)
+        self.assertIn("並非確定預測或醫療建議", formatted)
 
     def test_reference_data_has_consistent_source_and_expansion_status(self):
         definitions = _load()
@@ -67,12 +68,24 @@ class KnowledgeLookupTests(unittest.TestCase):
             self.assertTrue(definition["source"]["url"])
             self.assertIn("classical_expansion", definition)
             expansion = definition.get("classical_expansion")
-            if expansion:
-                self.assertEqual(
-                    expansion["provenance"]["verification_status"], "unverified"
-                )
-                self.assertIsNone(expansion["provenance"]["edition"])
-                self.assertIsNone(expansion["provenance"]["url"])
+            self.assertIsNotNone(expansion)
+            self.assertEqual(
+                expansion["provenance"]["verification_status"],
+                "transcription_located_edition_unverified",
+            )
+            self.assertIsNone(expansion["provenance"]["edition"])
+            self.assertTrue(expansion["provenance"]["url"])
+            self.assertTrue(expansion["modern_summary_en"])
+            self.assertTrue(expansion["practical_advice"])
+            self.assertTrue(expansion["interpretation_note"])
+
+    def test_english_and_indonesian_formats_include_caution(self):
+        definition = lookup_star_definitions(self.chart, max_stars=1)[0]
+        english = format_star_definitions([definition], lang="en")
+        indonesian = format_star_definitions([definition], lang="id")
+        self.assertIn("not a factual prediction or medical advice", english)
+        self.assertIn("bukan prediksi pasti", indonesian)
+        self.assertIn("Sumber belum diverifikasi", indonesian)
 
 
 if __name__ == "__main__":

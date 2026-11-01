@@ -18,15 +18,7 @@
       "zh_hant": "紫微星是紫微斗數十四主星之首,象徵尊貴、領導力與與生俱來的權威氣質。"
     },
     "classical_expansion": {
-      "classical_text_zh": "紫微屬土，乃中天之尊星，為帝座。主尊貴、威權、領導。入命宮則氣質高雅，有王者之風；入財帛則財源穩定而體面；入官祿則宜掌權柄。最忌落陷，落陷則孤高自賞，易生孤獨。",
-      "classical_source": "《紫微斗數全書》 (to be verified)",
-      "provenance": {
-        "claimed_work": "《紫微斗數全書》",
-        "edition": null,
-        "url": null,
-        "verification_status": "unverified"
-      },
-      "modern_translation_en": "Ziwei belongs to Earth. It is the honored star in the middle of the sky and the imperial seat. It signifies dignity, authority, and leadership. In the Life Palace, it indicates an elegant manner and kingly bearing; in the Wealth Palace, stable, respectable income; and in the Career Palace, suitability for authority. Its greatest unfavorable condition is a fallen position, associated with aloof self-admiration and a tendency toward loneliness.",
+      "classical_text_zh": "紫微屬土，乃中天之尊星為帝座，主掌造化樞機，人生主宰。",
       "practical_advice": [
         "When leading, act with dignity and use authority responsibly.",
         "In financial matters, favor stable and reputable sources of income.",
@@ -37,7 +29,17 @@
         "Life": "Indicates an elegant manner and a kingly bearing.",
         "Wealth": "Indicates stable and respectable sources of income.",
         "Career": "Indicates suitability for positions of authority."
-      }
+      },
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage portrays Ziwei as the central, governing star and emphasizes that its reading depends on its palace, condition, and surrounding stars. This is a traditional symbolic framework, not a guarantee of rank, wealth, or success."
     },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
@@ -64,15 +66,7 @@
       "zh_hant": "天機星主智慧、謀略與變通,是一顆不停運轉、時刻盤算下一步的機巧之星。"
     },
     "classical_expansion": {
-      "classical_text_zh": "天機屬木，乃南斗第三星，為謀略之星。主智慧、機變、策劃。入命宮則心思細密，善謀略；入財帛則財來財去，靠智取；入官祿則宜參謀、企劃之職。最忌浮動，浮動則多思少成。",
-      "classical_source": "《紫微斗數全書》 (to be verified)",
-      "provenance": {
-        "claimed_work": "《紫微斗數全書》",
-        "edition": null,
-        "url": null,
-        "verification_status": "unverified"
-      },
-      "modern_translation_en": "Tianji belongs to Wood. It is the third star of the Southern Dipper and a star of strategy. It signifies wisdom, adaptability, and planning. In the Life Palace, it indicates a meticulous mind and skill in strategizing; in the Wealth Palace, money may come and go, with gains made through intelligence; and in the Career Palace, advisory and planning work is suitable. Its greatest unfavorable condition is instability: when unsettled, one may think much but accomplish little.",
+      "classical_text_zh": "天機屬木，南斗第三益算之善星也。",
       "practical_advice": [
         "Use careful planning and strategic thinking when making decisions.",
         "For financial matters, rely on thoughtful judgment and account for money coming and going.",
@@ -83,7 +77,17 @@
         "Life": "Indicates a meticulous mind and skill in strategizing.",
         "Wealth": "Indicates money may come and go, with gains made through intelligence.",
         "Career": "Indicates suitability for advisory and planning work."
-      }
+      },
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The text associates Tianji with beneficial influence, ingenuity, and responsive planning. It also stresses that results depend on placement and the other stars present; this symbolism is not a prediction of fixed outcomes."
     },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
@@ -109,7 +113,24 @@
       "zh_hans": "太阳星散发温暖、博爱与众目所瞩的光芒——照亮他人,以名声为回报。",
       "zh_hant": "太陽星散發溫暖、博愛與眾目所矚的光芒——照亮他人,以名聲為回報。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "太陽星屬火，日之精也。乃造化之表儀，在數主人有貴氣，能為文為武。",
+      "practical_advice": [
+        "Share credit and make helpful work visible without taking on every responsibility.",
+        "Balance public commitments with rest and limits."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage links the Sun with visibility, public responsibility, and the capacity to act or lead. It repeatedly qualifies the reading by the star?s condition and company, rather than treating visibility or recognition as assured."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -135,15 +156,7 @@
       "zh_hant": "武曲星是財富與果斷行動之星——務實、自律、為結果而生。"
     },
     "classical_expansion": {
-      "classical_text_zh": "武曲屬金，乃北斗第六星，為財帛之星。主財富、果斷、執行。入命宮則剛毅果決，重實利；入財帛則財源廣進，善理財；入官祿則宜金融、實業之職。最忌孤剋，孤剋則六親緣薄。",
-      "classical_source": "《紫微斗數全書》 (to be verified)",
-      "provenance": {
-        "claimed_work": "《紫微斗數全書》",
-        "edition": null,
-        "url": null,
-        "verification_status": "unverified"
-      },
-      "modern_translation_en": "Wuqu belongs to Metal. It is the sixth star of the Northern Dipper and the star of wealth. It signifies wealth, decisiveness, and execution. In the Life Palace, it indicates firmness, decisiveness, and focus on practical gain; in the Wealth Palace, plentiful income and skill in managing money; and in the Career Palace, suitability for finance or industry. Its greatest unfavorable condition is isolation and harshness, associated with weak ties to close relatives.",
+      "classical_text_zh": "武曲北斗第六星，屬金，乃財帛宮主。",
       "practical_advice": [
         "Make decisions firmly while keeping practical value in view.",
         "Manage income and finances carefully, drawing on the stated strength in money management.",
@@ -154,7 +167,17 @@
         "Life": "Indicates a firm, decisive nature that values practical gain.",
         "Wealth": "Indicates broad sources of income and skill in managing money.",
         "Career": "Indicates suitability for work in finance or industry."
-      }
+      },
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage associates Wuqu with resources, finance, and a decisive temperament. It says the reading changes with the star?s condition and combinations; it should not be read as a promise of wealth."
     },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
@@ -180,7 +203,24 @@
       "zh_hans": "天同星是安逸、和谐与福气之星——性情温和,天生招福纳善。",
       "zh_hant": "天同星是安逸、和諧與福氣之星——性情溫和,天生招福納善。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "天同星屬水，乃南方第四星也，為福德宮之主宰。",
+      "practical_advice": [
+        "Build cooperation through patience and considerate communication.",
+        "Keep comfort and harmony from becoming reasons to avoid necessary decisions."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The text presents Tian Tong as a gentle, benefic, and comfort-oriented influence, describing a conciliatory rather than forceful style. It still makes outcomes conditional on chart context."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -205,7 +245,24 @@
       "zh_hans": "廉贞星融合魅力、野心与激情——有磁性、精于权谋、情感复杂。",
       "zh_hant": "廉貞星融合魅力、野心與激情——有磁性、精於權謀、情感複雜。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "廉貞屬火，北斗第五星也。在斗司品秩，在數司權令。",
+      "practical_advice": [
+        "Be explicit about rules, roles, and boundaries when working with others.",
+        "Use influence transparently and pause before reacting in high-stakes disagreements."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage associates Lian Zhen with authority, standards, and the exercise of power; it describes markedly different readings under different combinations. A modern, non-deterministic reading can treat this as a prompt to examine ambition, boundaries, and accountability."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -230,7 +287,24 @@
       "zh_hans": "天府星是命盘中的宝库——稳健、宽厚,天生善于稳妥地守住并增长资源。",
       "zh_hant": "天府星是命盤中的寶庫——穩健、寬厚,天生善於穩妥地守住並增長資源。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "天府屬土，南斗主令第一星也。為財帛之主宰。",
+      "practical_advice": [
+        "Protect and organize resources with realistic reserves and records.",
+        "Distinguish prudent stewardship from holding on to plans or possessions that no longer serve you."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The text casts Tian Fu as a steward of resources and authority, often using the image of a storehouse. Its favorable reading is qualified by chart context, so it is not a guarantee of assets or security."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -255,7 +329,24 @@
       "zh_hans": "太阴星温柔、直觉敏锐、内敛富足——以柔克刚,凭耐心与内在深度取胜。",
       "zh_hant": "太陰星溫柔、直覺敏銳、內斂富足——以柔克剛,憑耐心與內在深度取勝。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "太陰乃水之精，為田宅主，化富，與日為配。",
+      "practical_advice": [
+        "Review household and long-term financial plans carefully before committing.",
+        "Make room for reflection, while checking assumptions against practical information."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage connects Taiyin with property, material resources, and a refined or thoughtful disposition. It emphasizes changing conditions and the star?s relationship with the Sun and other chart factors; it does not establish a certain financial outcome."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -280,7 +371,24 @@
       "zh_hans": "贪狼星是欲望、才华与魅力之星——多才多艺、有磁性、永远渴望更多。",
       "zh_hant": "貪狼星是慾望、才華與魅力之星——多才多藝、有磁性、永遠渴望更多。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "貪狼北斗解厄之神，第一星也。屬水，化氣為桃花。",
+      "practical_advice": [
+        "Choose a small number of interests to develop consistently.",
+        "Notice when excitement or social pressure is driving a choice more than your priorities."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The text associates Tan Lang with appetite, attraction, sociability, and varied pursuits, while warning that context changes how those themes appear. A grounded reading treats this as a reflection on desire and priorities, not a moral judgment or fixed prediction."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -305,7 +413,24 @@
       "zh_hans": "巨门星是言语、思辨与锐利洞察之星——思维犀利,能看穿并道出隐秘真相。",
       "zh_hant": "巨門星是言語、思辨與銳利洞察之星——思維犀利,能看穿並道出隱秘真相。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "巨門屬水、金。北斗第二星也，為陰精之星，化氣為暗。",
+      "practical_advice": [
+        "Ask clarifying questions and separate evidence from interpretation.",
+        "Choose careful, direct wording when a conversation could become adversarial."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage links Ju Men with hidden matters, speech, disagreement, and the weighing of claims. Read constructively, it can represent scrutiny and verbal analysis, with a reminder to make communication clear and avoid assuming bad intent."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -330,7 +455,24 @@
       "zh_hans": "天相星是服务、公正与稳健辅佐之星——值得信赖的左膀右臂,让事情运转起来。",
       "zh_hant": "天相星是服務、公正與穩健輔佐之星——值得信賴的左膀右臂,讓事情運轉起來。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "天相屬水，南斗第五星也。為司爵之宿，為福善，化氣曰印。",
+      "practical_advice": [
+        "Support a group by making responsibilities and decisions fair and transparent.",
+        "Offer help without taking ownership of tasks that belong to someone else."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage portrays Tian Xiang through the symbols of the seal, service, and entrusted responsibility, and describes sincerity and compassion as favorable qualities. Its meaning remains dependent on placement and surrounding stars."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -355,7 +497,24 @@
       "zh_hans": "天梁星是命盘中的睿智长者——正直、庇护他人、拥有成熟的判断力。",
       "zh_hant": "天樑星是命盤中的睿智長者——正直、庇護他人、擁有成熟的判斷力。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "天梁屬土，南斗第二星也。司壽，化氣為蔭為福壽。",
+      "practical_advice": [
+        "Share experience as guidance while leaving others room to decide.",
+        "Turn concern for others into practical support with clear boundaries."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage associates Tian Liang with protection, counsel, principled conduct, and longevity symbolism. Longevity language is a traditional symbol, not a medical or lifespan prediction; the text also makes its readings conditional on chart context."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -380,7 +539,24 @@
       "zh_hans": "七杀星果敢、独立、势不可挡——在别人犹豫时率先冲锋的开拓者。",
       "zh_hant": "七殺星果敢、獨立、勢不可擋——在別人猶豫時率先衝鋒的開拓者。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "七殺南斗第六星也，屬火、金。乃斗中之上將。",
+      "practical_advice": [
+        "Take initiative after defining the goal, risks, and a fallback plan.",
+        "Use pauses and consultation to prevent urgency from turning into avoidable conflict."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage uses the image of a general to describe decisive, forceful action and emphasizes that surrounding factors can alter the reading. This can be used as a prompt about courage and risk management, not as a forecast of danger or hardship."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
@@ -405,7 +581,24 @@
       "zh_hans": "破军星破旧立新——躁动、叛逆、天生要打破不再适用的旧事物。",
       "zh_hant": "破軍星破舊立新——躁動、叛逆、天生要打破不再適用的舊事物。"
     },
-    "classical_expansion": null,
+    "classical_expansion": {
+      "classical_text_zh": "破軍屬水，北斗第七星也。",
+      "practical_advice": [
+        "Before replacing an established approach, identify what should be preserved and what should change.",
+        "Plan time, money, and support for transitions rather than relying on a dramatic reset."
+      ],
+      "palace_notes": {},
+      "classical_source": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars' (Wikisource transcription; print edition not independently identified)",
+      "provenance": {
+        "claimed_work": "Zi Wei Dou Shu Quan Shu, Volume I, 'Questions and Answers on the Stars'",
+        "edition": null,
+        "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%80",
+        "verification_status": "transcription_located_edition_unverified",
+        "notes": "The cited digital transcription was consulted; its underlying printed edition and textual variants were not independently collated."
+      },
+      "interpretation_note": "Modern English paraphrase and practical prompts based on a traditional astrology text; symbolic, non-deterministic, and not scientific or medical advice.",
+      "modern_summary_en": "The passage describes Pojun through disruption and expenditure, portraying change as a prominent theme. A constructive modern reading focuses on reviewing what needs renewal and planning for transition costs; it does not predict loss or failure."
+    },
     "source": {
       "name": "DaoPath Taoist Metaphysics Dataset",
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
