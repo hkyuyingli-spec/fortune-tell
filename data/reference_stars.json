@@ -1,0 +1,397 @@
+[
+  {
+    "star_id": "ziwei-star",
+    "star_name_zh": "紫微星",
+    "star_name_en": "Emperor Star",
+    "pinyin": "Zǐ Wēi",
+    "element": "阴土 Yin Earth",
+    "associated_palace": "命宫 / Life Palace",
+    "keywords": [
+      "领导力",
+      "尊贵",
+      "权威",
+      "自尊"
+    ],
+    "description": {
+      "en": "The Emperor Star is the most noble of the 14 major stars in Zi Wei Dou Shu — it represents dignity, leadership and a natural air of authority.",
+      "zh_hans": "紫微星是紫微斗数十四主星之首,象征尊贵、领导力与与生俱来的权威气质。",
+      "zh_hant": "紫微星是紫微斗數十四主星之首,象徵尊貴、領導力與與生俱來的權威氣質。"
+    },
+    "classical_expansion": {
+      "classical_text_zh": "紫微屬土，乃中天之尊星，為帝座。主尊貴、威權、領導。入命宮則氣質高雅，有王者之風；入財帛則財源穩定而體面；入官祿則宜掌權柄。最忌落陷，落陷則孤高自賞，易生孤獨。",
+      "classical_source": "《紫微斗數全書》 (to be verified)",
+      "modern_translation_en": "Ziwei belongs to Earth. It is the honored star in the middle of the sky and the imperial seat. It signifies dignity, authority, and leadership. In the Life Palace, it indicates an elegant manner and kingly bearing; in the Wealth Palace, stable, respectable income; and in the Career Palace, suitability for authority. Its greatest unfavorable condition is a fallen position, associated with aloof self-admiration and a tendency toward loneliness.",
+      "practical_advice": [
+        "When leading, act with dignity and use authority responsibly.",
+        "In financial matters, favor stable and reputable sources of income.",
+        "In career choices, consider roles that involve holding authority.",
+        "Watch for aloofness or self-admiration that could lead to loneliness."
+      ],
+      "palace_notes": {
+        "Life": "Indicates an elegant manner and a kingly bearing.",
+        "Wealth": "Indicates stable and respectable sources of income.",
+        "Career": "Indicates suitability for positions of authority."
+      }
+    },
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tianji-star",
+    "star_name_zh": "天机星",
+    "star_name_en": "Advisor Star",
+    "pinyin": "Tiān Jī",
+    "element": "阴木 Yin Wood",
+    "associated_palace": "兄弟宫 / Siblings Palace",
+    "keywords": [
+      "智慧",
+      "谋略",
+      "变动",
+      "分析"
+    ],
+    "description": {
+      "en": "The Advisor Star governs intelligence, strategy and adaptability — the restless mind that is always calculating its next move.",
+      "zh_hans": "天机星主智慧、谋略与变通,是一颗不停运转、时刻盘算下一步的机巧之星。",
+      "zh_hant": "天機星主智慧、謀略與變通,是一顆不停運轉、時刻盤算下一步的機巧之星。"
+    },
+    "classical_expansion": {
+      "classical_text_zh": "天機屬木，乃南斗第三星，為謀略之星。主智慧、機變、策劃。入命宮則心思細密，善謀略；入財帛則財來財去，靠智取；入官祿則宜參謀、企劃之職。最忌浮動，浮動則多思少成。",
+      "classical_source": "《紫微斗數全書》 (to be verified)",
+      "modern_translation_en": "Tianji belongs to Wood. It is the third star of the Southern Dipper and a star of strategy. It signifies wisdom, adaptability, and planning. In the Life Palace, it indicates a meticulous mind and skill in strategizing; in the Wealth Palace, money may come and go, with gains made through intelligence; and in the Career Palace, advisory and planning work is suitable. Its greatest unfavorable condition is instability: when unsettled, one may think much but accomplish little.",
+      "practical_advice": [
+        "Use careful planning and strategic thinking when making decisions.",
+        "For financial matters, rely on thoughtful judgment and account for money coming and going.",
+        "Consider advisory or planning roles in career choices.",
+        "Avoid continual changes that lead to excessive thought without completion."
+      ],
+      "palace_notes": {
+        "Life": "Indicates a meticulous mind and skill in strategizing.",
+        "Wealth": "Indicates money may come and go, with gains made through intelligence.",
+        "Career": "Indicates suitability for advisory and planning work."
+      }
+    },
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "taiyang-star",
+    "star_name_zh": "太阳星",
+    "star_name_en": "Sun Star",
+    "pinyin": "Tài Yáng",
+    "element": "阳火 Yang Fire",
+    "associated_palace": "官禄宫 / Career Palace",
+    "keywords": [
+      "光明",
+      "博爱",
+      "付出",
+      "名声"
+    ],
+    "description": {
+      "en": "The Sun Star radiates warmth, generosity and public visibility — it shines on others and is rewarded with recognition.",
+      "zh_hans": "太阳星散发温暖、博爱与众目所瞩的光芒——照亮他人,以名声为回报。",
+      "zh_hant": "太陽星散發溫暖、博愛與眾目所矚的光芒——照亮他人,以名聲為回報。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "wuqu-star",
+    "star_name_zh": "武曲星",
+    "star_name_en": "Finance Star",
+    "pinyin": "Wǔ Qū",
+    "element": "阴金 Yin Metal",
+    "associated_palace": "财帛宫 / Wealth Palace",
+    "keywords": [
+      "财富",
+      "果断",
+      "执行",
+      "务实"
+    ],
+    "description": {
+      "en": "The Finance Star is the star of wealth and decisive action — pragmatic, disciplined and built for results.",
+      "zh_hans": "武曲星是财富与果断行动之星——务实、自律、为结果而生。",
+      "zh_hant": "武曲星是財富與果斷行動之星——務實、自律、為結果而生。"
+    },
+    "classical_expansion": {
+      "classical_text_zh": "武曲屬金，乃北斗第六星，為財帛之星。主財富、果斷、執行。入命宮則剛毅果決，重實利；入財帛則財源廣進，善理財；入官祿則宜金融、實業之職。最忌孤剋，孤剋則六親緣薄。",
+      "classical_source": "《紫微斗數全書》 (to be verified)",
+      "modern_translation_en": "Wuqu belongs to Metal. It is the sixth star of the Northern Dipper and the star of wealth. It signifies wealth, decisiveness, and execution. In the Life Palace, it indicates firmness, decisiveness, and focus on practical gain; in the Wealth Palace, plentiful income and skill in managing money; and in the Career Palace, suitability for finance or industry. Its greatest unfavorable condition is isolation and harshness, associated with weak ties to close relatives.",
+      "practical_advice": [
+        "Make decisions firmly while keeping practical value in view.",
+        "Manage income and finances carefully, drawing on the stated strength in money management.",
+        "Consider work in finance or industry when choosing a career.",
+        "Pay attention to close-family relationships and avoid becoming isolated or harsh."
+      ],
+      "palace_notes": {
+        "Life": "Indicates a firm, decisive nature that values practical gain.",
+        "Wealth": "Indicates broad sources of income and skill in managing money.",
+        "Career": "Indicates suitability for work in finance or industry."
+      }
+    },
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tiantong-star",
+    "star_name_zh": "天同星",
+    "star_name_en": "Contentment Star",
+    "pinyin": "Tiān Tóng",
+    "element": "阳水 Yang Water",
+    "associated_palace": "福德宫 / Fortune Palace",
+    "keywords": [
+      "享福",
+      "温和",
+      "知足",
+      "人缘"
+    ],
+    "description": {
+      "en": "The Contentment Star is the star of ease, harmony and good fortune — a gentle soul that attracts comfort and goodwill.",
+      "zh_hans": "天同星是安逸、和谐与福气之星——性情温和,天生招福纳善。",
+      "zh_hant": "天同星是安逸、和諧與福氣之星——性情溫和,天生招福納善。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "lianzhen-star",
+    "star_name_zh": "廉贞星",
+    "star_name_en": "Passion Star",
+    "pinyin": "Lián Zhēn",
+    "element": "阴火 Yin Fire",
+    "associated_palace": "官禄宫 / Career Palace",
+    "keywords": [
+      "魅力",
+      "权力",
+      "激情",
+      "复杂"
+    ],
+    "description": {
+      "en": "The Passion Star blends charisma, ambition and intensity — magnetic, politically astute and emotionally complex.",
+      "zh_hans": "廉贞星融合魅力、野心与激情——有磁性、精于权谋、情感复杂。",
+      "zh_hant": "廉貞星融合魅力、野心與激情——有磁性、精於權謀、情感複雜。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tianfu-star",
+    "star_name_zh": "天府星",
+    "star_name_en": "Treasury Star",
+    "pinyin": "Tiān Fǔ",
+    "element": "阳土 Yang Earth",
+    "associated_palace": "财帛宫 / Wealth Palace",
+    "keywords": [
+      "稳健",
+      "富足",
+      "包容",
+      "保守"
+    ],
+    "description": {
+      "en": "The Treasury Star is the vault of the chart — stable, generous and built to hold and grow resources securely.",
+      "zh_hans": "天府星是命盘中的宝库——稳健、宽厚,天生善于稳妥地守住并增长资源。",
+      "zh_hant": "天府星是命盤中的寶庫——穩健、寬厚,天生善於穩妥地守住並增長資源。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "taiyin-star",
+    "star_name_zh": "太阴星",
+    "star_name_en": "Moon Star",
+    "pinyin": "Tài Yīn",
+    "element": "阴水 Yin Water",
+    "associated_palace": "田宅宫 / Property Palace",
+    "keywords": [
+      "温柔",
+      "直觉",
+      "内敛",
+      "财富"
+    ],
+    "description": {
+      "en": "The Moon Star is gentle, intuitive and quietly prosperous — it wins through softness, patience and inner depth.",
+      "zh_hans": "太阴星温柔、直觉敏锐、内敛富足——以柔克刚,凭耐心与内在深度取胜。",
+      "zh_hant": "太陰星溫柔、直覺敏銳、內斂富足——以柔克剛,憑耐心與內在深度取勝。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tanlang-star",
+    "star_name_zh": "贪狼星",
+    "star_name_en": "Desire Star",
+    "pinyin": "Tān Láng",
+    "element": "阳木 Yang Wood",
+    "associated_palace": "福德宫 / Fortune Palace",
+    "keywords": [
+      "欲望",
+      "多才",
+      "魅力",
+      "社交"
+    ],
+    "description": {
+      "en": "The Desire Star is the star of appetite, talent and charisma — versatile, magnetic and always reaching for more.",
+      "zh_hans": "贪狼星是欲望、才华与魅力之星——多才多艺、有磁性、永远渴望更多。",
+      "zh_hant": "貪狼星是慾望、才華與魅力之星——多才多藝、有磁性、永遠渴望更多。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "jumen-star",
+    "star_name_zh": "巨门星",
+    "star_name_en": "Gate Star",
+    "pinyin": "Jù Mén",
+    "element": "阴水 Yin Water",
+    "associated_palace": "兄弟宫 / Siblings Palace",
+    "keywords": [
+      "口才",
+      "思辨",
+      "洞察",
+      "是非"
+    ],
+    "description": {
+      "en": "The Gate Star is the star of speech, analysis and sharp insight — a penetrating mind that sees hidden truths and speaks them.",
+      "zh_hans": "巨门星是言语、思辨与锐利洞察之星——思维犀利,能看穿并道出隐秘真相。",
+      "zh_hant": "巨門星是言語、思辨與銳利洞察之星——思維犀利,能看穿並道出隱秘真相。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tianxiang-star",
+    "star_name_zh": "天相星",
+    "star_name_en": "Minister Star",
+    "pinyin": "Tiān Xiàng",
+    "element": "阳水 Yang Water",
+    "associated_palace": "官禄宫 / Career Palace",
+    "keywords": [
+      "辅佐",
+      "公正",
+      "服务",
+      "稳重"
+    ],
+    "description": {
+      "en": "The Minister Star is the star of service, fairness and steady support — the trusted right hand that makes things work.",
+      "zh_hans": "天相星是服务、公正与稳健辅佐之星——值得信赖的左膀右臂,让事情运转起来。",
+      "zh_hant": "天相星是服務、公正與穩健輔佐之星——值得信賴的左膀右臂,讓事情運轉起來。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "tianliang-star",
+    "star_name_zh": "天梁星",
+    "star_name_en": "Scholar Star",
+    "pinyin": "Tiān Liáng",
+    "element": "阳土 Yang Earth",
+    "associated_palace": "父母宫 / Parents Palace",
+    "keywords": [
+      "智慧",
+      "庇护",
+      "清高",
+      "长寿"
+    ],
+    "description": {
+      "en": "The Scholar Star is the wise elder of the chart — principled, protective and blessed with mature judgment.",
+      "zh_hans": "天梁星是命盘中的睿智长者——正直、庇护他人、拥有成熟的判断力。",
+      "zh_hant": "天樑星是命盤中的睿智長者——正直、庇護他人、擁有成熟的判斷力。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "qisha-star",
+    "star_name_zh": "七杀星",
+    "star_name_en": "Warrior Star",
+    "pinyin": "Qī Shā",
+    "element": "阳金 Yang Metal",
+    "associated_palace": "迁移宫 / Travel Palace",
+    "keywords": [
+      "果敢",
+      "开创",
+      "独立",
+      "冒险"
+    ],
+    "description": {
+      "en": "The Warrior Star is bold, independent and unstoppable — a pioneer who charges ahead where others hesitate.",
+      "zh_hans": "七杀星果敢、独立、势不可挡——在别人犹豫时率先冲锋的开拓者。",
+      "zh_hant": "七殺星果敢、獨立、勢不可擋——在別人猶豫時率先衝鋒的開拓者。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "star_id": "pojun-star",
+    "star_name_zh": "破军星",
+    "star_name_en": "Destroyer Star",
+    "pinyin": "Pò Jūn",
+    "element": "阴水 Yin Water",
+    "associated_palace": "迁移宫 / Travel Palace",
+    "keywords": [
+      "破旧立新",
+      "变革",
+      "冲锋",
+      "不安定"
+    ],
+    "description": {
+      "en": "The Destroyer Star tears down to rebuild — restless, revolutionary and born to break what no longer works.",
+      "zh_hans": "破军星破旧立新——躁动、叛逆、天生要打破不再适用的旧事物。",
+      "zh_hant": "破軍星破舊立新——躁動、叛逆、天生要打破不再適用的舊事物。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "DaoPath Taoist Metaphysics Dataset",
+      "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
+      "license": "CC0 1.0"
+    }
+  }
+]

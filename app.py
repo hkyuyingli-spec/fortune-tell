@@ -13,6 +13,7 @@ from period_engine import lunar_of
 import time_engine as te
 import beta_notice as bn
 from i18n import t, LANGS
+from knowledge_lookup import lookup_star_definitions
 
 st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
 
@@ -151,7 +152,14 @@ def _send_question(bc, zw, lang, question):
     st.session_state["chat_history"].append({"role": "user", "content": question})
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
-        res = ai_chat.ask(context, st.session_state["chat_history"][:-1], question, ui_lang=lang)
+        star_defs = lookup_star_definitions(zw)
+        res = ai_chat.ask(
+            context,
+            st.session_state["chat_history"][:-1],
+            question,
+            ui_lang=lang,
+            star_definitions=star_defs,
+        )
         import types
         answer = "".join(res) if isinstance(res, types.GeneratorType) else str(res)
     except Exception as e:
@@ -200,7 +208,14 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
         with st.chat_message("assistant"):
             context = ai_chat.build_chart_context(bc, zw, interp)
             try:
-                response = ai_chat.ask(context, st.session_state["chat_history"], question, ui_lang=lang)
+                star_defs = lookup_star_definitions(zw)
+                response = ai_chat.ask(
+                    context,
+                    st.session_state["chat_history"],
+                    question,
+                    ui_lang=lang,
+                    star_definitions=star_defs,
+                )
                 import types
                 if isinstance(response, types.GeneratorType):
                     answer = st.write_stream(response)
