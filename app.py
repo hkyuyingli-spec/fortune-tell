@@ -13,7 +13,7 @@ from period_engine import lunar_of
 import time_engine as te
 import beta_notice as bn
 from i18n import t, LANGS
-from knowledge_lookup import lookup_star_definitions
+from knowledge_lookup import lookup_patterns, lookup_star_definitions
 
 st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
 
@@ -153,12 +153,14 @@ def _send_question(bc, zw, lang, question):
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
         star_defs = lookup_star_definitions(zw, question=question)
+        matched_patterns = lookup_patterns(zw, question=question)
         res = ai_chat.ask(
             context,
             st.session_state["chat_history"][:-1],
             question,
             ui_lang=lang,
             star_definitions=star_defs,
+            patterns=matched_patterns,
         )
         import types
         answer = "".join(res) if isinstance(res, types.GeneratorType) else str(res)
@@ -209,12 +211,14 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
             context = ai_chat.build_chart_context(bc, zw, interp)
             try:
                 star_defs = lookup_star_definitions(zw, question=question)
+                matched_patterns = lookup_patterns(zw, question=question)
                 response = ai_chat.ask(
                     context,
                     st.session_state["chat_history"],
                     question,
                     ui_lang=lang,
                     star_definitions=star_defs,
+                    patterns=matched_patterns,
                 )
                 import types
                 if isinstance(response, types.GeneratorType):

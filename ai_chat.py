@@ -94,6 +94,14 @@ If star definitions are provided above, use them to ground your interpretation.
 Explain what each star means (its nature and element), then what it means for this user in their specific palace placement.
 Do not invent interpretations not in the definitions. Do not quote the classical Chinese text verbatim in your reply; translate its meaning.
 
+【命盤格局使用規則 / Chart pattern rule】：
+If chart patterns are provided above, treat them as the primary analytical frame for this user's chart.
+For each matched pattern:
+1. Name the pattern and explain what it means for this user (2–3 sentences).
+2. Cite what the classical source says about the pattern.
+3. Give one concrete implication (what to watch for or what to do).
+Do not invent patterns that are not provided. Do not treat the pattern as fate — it describes a tendency, not a fixed outcome.
+
 【回答結構（嚴格遵守）】：
 請根據用戶的提問靈活調整，但如果是「第一次提問」或「新主題」，**必須**使用以下三個標題格式（請根據語言翻譯標題）：
 1. **盤面解析 (The Situation)**：用白話文解釋目前的星曜與宮位能量，讓用戶知道「為什麼」會有這樣的運勢。
@@ -177,7 +185,7 @@ def _clean_reply(text: str, lang: str) -> str:
 
 
 def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh",
-        period_context=None, star_definitions=None) -> str:
+        period_context=None, star_definitions=None, patterns=None) -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}
     period_context: text from period_engine (already in the UI language). If None, it is
     read from st.session_state["period_ctx"], which the period selector fills in."""
@@ -194,6 +202,9 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
     if star_definitions:
         from knowledge_lookup import format_star_definitions
         chart_context = chart_context + format_star_definitions(star_definitions, lang)
+    if patterns:
+        from knowledge_lookup import format_patterns
+        chart_context = chart_context + format_patterns(patterns, lang)
     period_header = ""
     if period_context is None:
         try:

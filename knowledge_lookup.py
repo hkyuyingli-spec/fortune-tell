@@ -6,7 +6,11 @@ import re
 
 
 _PATH = os.path.join(os.path.dirname(__file__), "data", "reference_stars.json")
+_PATTERNS_PATH = os.path.join(
+    os.path.dirname(__file__), "data", "reference_patterns.json"
+)
 _CACHE = None
+_PATTERN_CACHE = None
 _TRADITIONAL_TO_SIMPLIFIED = {
     "天機": "天机",
     "太陽": "太阳",
@@ -73,6 +77,14 @@ def _load():
     return _CACHE
 
 
+def _load_patterns():
+    global _PATTERN_CACHE
+    if _PATTERN_CACHE is None:
+        with open(_PATTERNS_PATH, encoding="utf-8") as f:
+            _PATTERN_CACHE = json.load(f)
+    return _PATTERN_CACHE
+
+
 def _question_term_position(question, term):
     term = term.casefold()
     if re.search(r"[a-z]", term, re.IGNORECASE):
@@ -95,6 +107,135 @@ def _question_palaces(question):
         if positions:
             matches.append((min(positions), palace))
     return [palace for _, palace in sorted(matches)]
+
+
+def _normalized_star_name(name):
+    return _TRADITIONAL_TO_SIMPLIFIED.get(name, name)
+
+
+def _pattern_branch_matches(pattern, rows, candidate_rows):
+    extra_conditions = pattern["trigger"].get("extra_conditions", "")
+    extra_conditions = re.sub(
+        r"[子丑寅卯辰巳午未申酉戌亥]年", "", extra_conditions
+    )
+    branches = set(re.findall(r"[子丑寅卯辰巳午未申酉戌亥]", extra_conditions))
+    if not branches:
+        return True
+
+    if "命" in extra_conditions or "life palace" in extra_conditions.casefold():
+        relevant_rows = [row for row in rows if row["palace"] == "命宮"]
+    else:
+        relevant_rows = [
+            row for row in candidate_rows
+            if any(
+                _normalized_star_name(star)
+                in {
+                    _normalized_star_name(name)
+                    for name in pattern["trigger"]["required_stars"]
+                }
+                for star in row["stars"]
+            )
+        ]
+    return bool(relevant_rows) and all(row["branch"] in branches for row in relevant_rows)
+
+
+def _pattern_matches(pattern, rows):
+    trigger = pattern["trigger"]
+    condition = trigger["condition"]
+    if condition == "ambiguous":
+        return False
+
+    palace_names = trigger.get("palaces") or []
+    required_stars = {
+        _normalized_star_name(name) for name in trigger["required_stars"]
+    }
+
+    if condition == "flanking":
+        target_palace = palace_names[0] if palace_names else "命宮"
+        target_index = next(
+            (index for index, row in enumerate(rows)
+             if row["palace"] == target_palace),
+            None,
+        )
+        if target_index is None:
+            return False
+        adjacent_rows = (
+            rows[(target_index - 1) % len(rows)],
+            rows[(target_index + 1) % len(rows)],
+        )
+        present_stars = {
+            _normalized_star_name(star)
+            for row in adjacent_rows
+            for star in row["stars"]
+        }
+        return required_stars.issubset(present_stars)
+
+    if condition != "specific_arrangement":
+        return False
+
+    candidate_rows = [
+        row for row in rows
+        if not palace_names or row["palace"] in palace_names
+    ]
+    present_stars = {
+        _normalized_star_name(star)
+        for row in candidate_rows
+        for star in row["stars"]
+    }
+    if not required_stars.issubset(present_stars):
+        return False
+
+    return _pattern_branch_matches(pattern, rows, candidate_rows)
+
+
+def lookup_patterns(zw, question=None, max_patterns=3):
+    """Return chart patterns with non-ambiguous triggers, prioritized by topic."""
+    if max_patterns <= 0:
+        return []
+
+    rows = zw.palace_table()
+    question_palaces = _question_palaces(question)
+    matched = [
+        (index, pattern)
+        for index, pattern in enumerate(_load_patterns())
+        if _pattern_matches(pattern, rows)
+    ]
+
+    def priority(item):
+        _, pattern = item
+        palace_names = pattern["trigger"].get("palaces") or []
+        question_match = any(palace in question_palaces for palace in palace_names)
+        if "命宮" in palace_names:
+            palace_priority = 0
+        elif palace_names:
+            palace_priority = 1
+        else:
+            palace_priority = 2
+        return (not question_match, palace_priority, item[0])
+
+    matched.sort(key=priority)
+    return [pattern for _, pattern in matched[:max_patterns]]
+
+
+def format_patterns(patterns, lang="zh"):
+    """Render matched patterns for the model context."""
+    if not patterns:
+        return ""
+    lines = [""]
+    if lang == "zh":
+        lines.append("【命盤格局 / Chart patterns】")
+    else:
+        lines.append("Chart patterns:")
+    for pattern in patterns:
+        if lang == "zh":
+            lines.append(f"- {pattern['name_zh']} ({pattern['name_en']})")
+            if pattern.get("classical_text_zh"):
+                lines.append(f"  Classical: {pattern['classical_text_zh']}")
+        else:
+            lines.append(f"- {pattern['name_en']}")
+        lines.append(f"  Meaning: {pattern['modern_summary_en']}")
+        lines.append("  Advice: " + " | ".join(pattern["practical_advice"]))
+    return "\n".join(lines)
 
 
 def lookup_star_definitions(zw, max_stars=3, question=None):
