@@ -12,6 +12,7 @@ _PATTERNS_PATH = os.path.join(
 _CACHE = None
 _PATTERN_CACHE = None
 _TRADITIONAL_TO_SIMPLIFIED = {
+    "左輔": "左辅",
     "天機": "天机",
     "太陽": "太阳",
     "廉貞": "廉贞",
@@ -20,6 +21,11 @@ _TRADITIONAL_TO_SIMPLIFIED = {
     "巨門": "巨门",
     "七殺": "七杀",
     "破軍": "破军",
+    "右弼": "右弼",
+    "文昌": "文昌",
+    "文曲": "文曲",
+    "天魁": "天魁",
+    "天鉞": "天钺",
 }
 _PALACE_QUESTION_TERMS = (
     ("官祿", (

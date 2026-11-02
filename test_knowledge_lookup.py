@@ -63,12 +63,20 @@ class KnowledgeLookupTests(unittest.TestCase):
 
     def test_reference_data_has_consistent_source_and_expansion_status(self):
         definitions = _load()
-        self.assertEqual(len(definitions), 14)
+        self.assertEqual(len(definitions), 20)
+        expanded_count = 0
         for definition in definitions:
-            self.assertTrue(definition["source"]["url"])
             self.assertIn("classical_expansion", definition)
             expansion = definition.get("classical_expansion")
-            self.assertIsNotNone(expansion)
+            if expansion is None:
+                self.assertEqual(
+                    definition["source"]["name"], "User-provided reference content"
+                )
+                self.assertIsNone(definition["source"]["url"])
+                continue
+
+            expanded_count += 1
+            self.assertTrue(definition["source"]["url"])
             self.assertEqual(
                 expansion["provenance"]["verification_status"],
                 "transcription_located_edition_unverified",
@@ -78,6 +86,7 @@ class KnowledgeLookupTests(unittest.TestCase):
             self.assertTrue(expansion["modern_summary_en"])
             self.assertTrue(expansion["practical_advice"])
             self.assertTrue(expansion["interpretation_note"])
+        self.assertEqual(expanded_count, 14)
 
     def test_english_and_indonesian_formats_include_caution(self):
         definition = lookup_star_definitions(self.chart, max_stars=1)[0]

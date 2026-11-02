@@ -53,6 +53,13 @@ SHEN_ZHU_TABLE = {
     "辰": "文昌", "巳": "天機", "午": "火星", "未": "天相",
     "申": "天梁", "酉": "天同", "戌": "文昌", "亥": "天機",
 }
+KUI_YUE_TABLE = {
+    "甲": ("丑", "未"), "戊": ("丑", "未"), "庚": ("丑", "未"),
+    "乙": ("子", "申"), "己": ("子", "申"),
+    "丙": ("亥", "酉"), "丁": ("亥", "酉"),
+    "壬": ("卯", "巳"), "癸": ("卯", "巳"),
+    "辛": ("午", "寅"),
+}
 
 YIN_INDEX = DI_ZHI.index("寅")  # standard-branch index of 寅 = 2
 
@@ -76,6 +83,7 @@ class ZiWeiChart:
         self._compute_palace_stems_and_branches()
         self._compute_ziwei_tianfu_index()
         self._compute_major_stars()
+        self._compute_minor_stars()
         self._compute_decades()
         self._compute_ming_zhu_shen_zhu()
 
@@ -155,7 +163,28 @@ class ZiWeiChart:
             if name:
                 self.stars_by_p[fix12(self.tianfu_p + i)].append(name)
 
-    # ---- 6. Decade luck cycles (大限) ----
+    # ---- 6. Place six commonly used auxiliary stars ----
+    def _compute_minor_stars(self):
+        lunar_month = self.chart.zi_wei_month_number()
+        hour_branch_idx = DI_ZHI.index(self.chart.hour_gz[1])
+        year_stem = self.chart.zi_wei_year_gz[0]
+
+        def place(star, branch_idx):
+            p = fix12(branch_idx - YIN_INDEX)
+            self.stars_by_p[p].append(star)
+
+        chen_idx = DI_ZHI.index("辰")
+        xu_idx = DI_ZHI.index("戌")
+        place("左輔", fix12(chen_idx + lunar_month - 1))
+        place("右弼", fix12(xu_idx - lunar_month + 1))
+        place("文曲", fix12(chen_idx + hour_branch_idx))
+        place("文昌", fix12(xu_idx - hour_branch_idx))
+
+        tian_kui_branch, tian_yue_branch = KUI_YUE_TABLE[year_stem]
+        place("天魁", DI_ZHI.index(tian_kui_branch))
+        place("天鉞", DI_ZHI.index(tian_yue_branch))
+
+    # ---- 7. Decade luck cycles (大限) ----
     def _compute_decades(self):
         year_branch_idx = DI_ZHI.index(self.chart.zi_wei_year_gz[1])
         year_is_yang = (year_branch_idx % 2 == 0)
@@ -176,7 +205,7 @@ class ZiWeiChart:
             }
         self.decade_direction = "forward" if forward else "backward"
 
-    # ---- 7. 命主 / 身主 (Life Star / Body Star) ----
+    # ---- 8. 命主 / 身主 (Life Star / Body Star) ----
     def _compute_ming_zhu_shen_zhu(self):
         year_branch = self.chart.zi_wei_year_gz[1]
         self.ming_zhu = MING_ZHU_TABLE[self.soul_branch]   # keyed by Life Palace branch

@@ -604,5 +604,125 @@
       "url": "https://github.com/HeTaobaba123/daopath-terms-dataset",
       "license": "CC0 1.0"
     }
+  },
+  {
+    "star_id": "zuo-fu-star",
+    "star_name_zh": "左辅星",
+    "star_name_en": "Assistant Star",
+    "pinyin": "Zuǒ Fǔ",
+    "element": "阳土 Yang Earth",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["助力", "辅佐", "贵人"],
+    "description": {
+      "en": "A star of support and assistance, representing helpful people and a cooperative nature.",
+      "zh_hans": "代表助力与辅佐，象征愿意帮助他人的人脉与合作特质。",
+      "zh_hant": "代表助力與輔佐，象徵願意幫助他人的人脈與合作特質。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
+  },
+  {
+    "star_id": "you-bi-star",
+    "star_name_zh": "右弼星",
+    "star_name_en": "Peer Support Star",
+    "pinyin": "Yòu Bì",
+    "element": "阴水 Yin Water",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["平辈助力", "温和", "协调"],
+    "description": {
+      "en": "A star of peer support and gentle coordination, associated with smooth relations among equals.",
+      "zh_hans": "代表同辈助力与温和协调，象征与平辈相处融洽。",
+      "zh_hant": "代表同輩助力與溫和協調，象徵與平輩相處融洽。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
+  },
+  {
+    "star_id": "wen-chang-star",
+    "star_name_zh": "文昌星",
+    "star_name_en": "Scholar Star",
+    "pinyin": "Wén Chāng",
+    "element": "阳金 Yang Metal",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["文采", "学术", "考试"],
+    "description": {
+      "en": "The star of literary talent, academic achievement, and clear communication.",
+      "zh_hans": "象征文采、学术能力、考试表现与清晰表达。",
+      "zh_hant": "象徵文采、學術能力、考試表現與清晰表達。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
+  },
+  {
+    "star_id": "wen-qu-star",
+    "star_name_zh": "文曲星",
+    "star_name_en": "Arts Star",
+    "pinyin": "Wén Qǔ",
+    "element": "阴水 Yin Water",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["才艺", "口才", "艺术"],
+    "description": {
+      "en": "The star of artistic talent, eloquence, and creative expression.",
+      "zh_hans": "象征才艺、口才与创造性的表达。",
+      "zh_hant": "象徵才藝、口才與創造性的表達。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
+  },
+  {
+    "star_id": "tian-kui-star",
+    "star_name_zh": "天魁星",
+    "star_name_en": "Heavenly Noble Star",
+    "pinyin": "Tiān Kuí",
+    "element": "阳火 Yang Fire",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["男性贵人", "机遇", "提携"],
+    "description": {
+      "en": "A star of sudden opportunities and male benefactors who can provide mentorship or advancement.",
+      "zh_hans": "象征突然出现的机会，以及提供提携或指导的男性贵人。",
+      "zh_hant": "象徵突然出現的機會，以及提供提攜或指導的男性貴人。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
+  },
+  {
+    "star_id": "tian-yue-star",
+    "star_name_zh": "天钺星",
+    "star_name_en": "Heavenly Assistant Star",
+    "pinyin": "Tiān Yuè",
+    "element": "阴火 Yin Fire",
+    "associated_palace": "各宫 / Any Palace",
+    "keywords": ["女性贵人", "提拔", "化解"],
+    "description": {
+      "en": "A star of female benefactors and quiet support that can help resolve difficulties.",
+      "zh_hans": "象征女性贵人与低调的支持，能够协助化解困难。",
+      "zh_hant": "象徵女性貴人與低調的支持，能夠協助化解困難。"
+    },
+    "classical_expansion": null,
+    "source": {
+      "name": "User-provided reference content",
+      "url": null,
+      "license": null
+    }
   }
 ]
