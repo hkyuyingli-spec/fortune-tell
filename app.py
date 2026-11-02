@@ -84,6 +84,12 @@ def _md_to_html(text: str) -> str:
     return "".join(f"<p>{p}</p>" for p in paras)
 
 
+def _rectification_time_label(candidate, lang: str) -> str:
+    if lang == "zh":
+        return f"{candidate.label}（{candidate.time_range}）"
+    return candidate.time_range
+
+
 def render_full_report(bc: BirthChart, zw: ZiWeiChart, lang: str):
     """Shared rendering for a resolved chart (whether time was known
     upfront, or arrived at via σ«Üτ¢ñ rectification)."""
@@ -382,7 +388,10 @@ else:
             st.info(st.session_state["rect_turning_point_note"])
         if len(narrowed) == 1:
             final = narrowed[0]
-            st.success(f"{t('rect_result_single', lang)} **{final.label}∩╝ê{final.time_range}∩╝ë**")
+            st.success(
+                f"{t('rect_result_single', lang)} "
+                f"**{_rectification_time_label(final, lang)}**"
+            )
             if st.button(t("rect_view_chart_btn", lang)):
                 st.session_state["rect_final"] = final
                 st.session_state["rect_step"] = "done"
@@ -391,13 +400,16 @@ else:
             st.info(t("rect_result_multi", lang, n=len(narrowed)))
             for c in narrowed:
                 st.markdown(
-                    f'<div class="candidate-box"><b>{c.label}∩╝ê{c.time_range}∩╝ë</b><br/>{c.personality_text(lang)}</div>',
+                    f'<div class="candidate-box"><b>{_rectification_time_label(c, lang)}</b><br/>'
+                    f'{c.personality_text(lang)}</div>',
                     unsafe_allow_html=True,
                 )
-            labels = [c.label for c in narrowed]
+            labels = [_rectification_time_label(c, lang) for c in narrowed]
             pick = st.radio(t("rect_choose_label", lang), labels, index=None)
             if pick is not None and st.button(t("rect_confirm_choice_btn", lang)):
-                final = next(c for c in narrowed if c.label == pick)
+                final = next(
+                    c for c, label in zip(narrowed, labels) if label == pick
+                )
                 st.session_state["rect_final"] = final
                 st.session_state["rect_step"] = "done"
                 st.rerun()
@@ -409,7 +421,14 @@ else:
 
     elif step == "done":
         final = st.session_state["rect_final"]
-        st.caption(t("rect_done_caption", lang, label=final.label, time_range=final.time_range))
+        st.caption(
+            t(
+                "rect_done_caption",
+                lang,
+                label=final.label,
+                time_range=final.time_range,
+            )
+        )
         render_full_report(final.bc, final.zw, lang)
         if st.button(t("rect_redo_btn", lang)):
             st.session_state["rect_step"] = "input"

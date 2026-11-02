@@ -87,8 +87,8 @@ STRINGS = {
     "rect_restart_btn": {"zh": "重新開始定盤", "en": "Start Over", "id": "Mulai Ulang"},
     "rect_done_caption": {
         "zh": "以下命盤基於推定時辰：{label}（{time_range}）— 如未來確認實際時辰，結果可能不同。",
-        "en": "This chart is based on the estimated time: {label} ({time_range}) — results may differ once you confirm your actual birth time.",
-        "id": "Bagan ini berdasarkan waktu perkiraan: {label} ({time_range}) — hasil dapat berbeda setelah Anda memastikan waktu lahir sebenarnya.",
+        "en": "This chart is based on the estimated time: {time_range} — results may differ once you confirm your actual birth time.",
+        "id": "Bagan ini berdasarkan waktu perkiraan: {time_range} — hasil dapat berbeda setelah Anda memastikan waktu lahir sebenarnya.",
     },
     "rect_redo_btn": {"zh": "重新定盤", "en": "Redo Rectification", "id": "Ulangi Rektifikasi"},
     "ai_chat_header": {"zh": "💬 問AI · Ask about your chart", "en": "💬 Ask AI about your chart", "id": "💬 Tanya AI tentang bagan Anda"},
