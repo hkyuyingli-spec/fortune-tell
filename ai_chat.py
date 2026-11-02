@@ -45,6 +45,10 @@ LANGUAGE_INSTRUCTIONS = {
         "patterns. For investment, medical, or legal topics, remind the user to consult a qualified "
         "professional for consequential decisions. Keep simple answers concise and give deeper questions "
         "enough detail, examples, and actionable advice."
+        "Blend Zi Wei Dou Shu, which describes life circumstances, with BaZi, which describes core personality "
+        "and elemental tendencies. Use Zi Wei for palaces and events; use the BaZi Day Master and Ten Gods to "
+        "explain psychological traits and possible reactions. Present this as a traditional interpretive lens, "
+        "not a scientific personality assessment."
     ),
     "zh": (
         "你是溫暖、專業的紫微斗數命盤顧問。命盤資料是唯一可信的事實來源，不可捏造星曜位置或解讀。"
@@ -54,6 +58,9 @@ LANGUAGE_INSTRUCTIONS = {
         "語氣自然、具體，不作宿命論，描述趨勢而非定論。只使用提供的星曜定義與格局；說明其對此命盤的意義，"
         "並依提供的格局來源摘要說明，不可自行添加格局。涉及投資、醫療或法律時，提醒重大決策應諮詢專業人士。"
         "簡單問題簡潔回答，深入問題提供足夠解釋、生活情境與可執行建議。"
+        "請融合紫微斗數（生活情境）與八字（核心性格及五行傾向）：以紫微斗數分析宮位與事件，"
+        "並用八字日主及十神解釋心理特質，以及使用者面對事件時可能的反應。請將其視為傳統詮釋角度，"
+        "而非科學性格評估。"
     ),
     "id": (
         "Anda adalah penasihat bagan Zi Wei Dou Shu yang hangat dan profesional. Konteks bagan adalah satu-satunya "
@@ -66,7 +73,11 @@ LANGUAGE_INSTRUCTIONS = {
         "Gunakan hanya definisi bintang dan pola yang tersedia; jelaskan relevansinya bagi bagan pengguna, kutip "
         "makna sumber pola yang disediakan, dan jangan mengarang pola. Untuk investasi, kesehatan, atau hukum, "
         "ingatkan agar keputusan penting dikonsultasikan dengan profesional yang berkualifikasi. Jawaban sederhana "
-        "tetap ringkas; pertanyaan mendalam mendapat penjelasan, contoh situasi, dan saran yang cukup."
+        "tetap ringkas; pertanyaan mendalam mendapat penjelasan, contoh situasi, dan saran yang cukup. "
+        "Padukan Zi Wei Dou Shu, yang menggambarkan keadaan hidup, dengan BaZi, yang menggambarkan kepribadian "
+        "inti dan kecenderungan unsur. Gunakan Zi Wei untuk istana dan peristiwa; gunakan Day Master dan Ten Gods "
+        "BaZi untuk menjelaskan sifat psikologis serta kemungkinan reaksi pengguna. Sajikan ini sebagai sudut "
+        "pandang tradisional, bukan penilaian kepribadian ilmiah."
     ),
 }
 
@@ -119,6 +130,29 @@ PERIOD_NOTE = {
 }
 
 SYSTEM_PROMPT = "{language_instruction}\n\n{term_rules}\n\nChart context:\n{chart_context}"
+
+
+def format_bazi(bazi_data):
+    """Render a concise BaZi summary for the model context."""
+    ten_gods = bazi_data["ten_gods"]
+    stem_labels = (
+        ("year_stem", "Year"),
+        ("month_stem", "Month"),
+        ("hour_stem", "Hour"),
+    )
+    gods = ", ".join(
+        f"{label}: {ten_gods[key]}" for key, label in stem_labels
+    )
+    balance = ", ".join(
+        f"{element} {count}"
+        for element, count in bazi_data["elemental_balance"].items()
+    )
+    return (
+        "\n\n【BaZi Four Pillars / 八字】\n"
+        f"Day Master: {bazi_data['day_master']}\n"
+        f"Ten Gods (Stems): {gods}\n"
+        f"Elemental Balance: {balance}"
+    )
 
 
 def is_configured() -> bool:
@@ -185,7 +219,8 @@ def _clean_reply(text: str, lang: str) -> str:
 
 
 def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh",
-        period_context=None, star_definitions=None, patterns=None) -> str:
+        period_context=None, star_definitions=None, patterns=None,
+        bazi_context=None) -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}
     period_context: text from period_engine (already in the UI language). If None, it is
     read from st.session_state["period_ctx"], which the period selector fills in."""
@@ -205,6 +240,8 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
     if patterns:
         from knowledge_lookup import format_patterns
         chart_context = chart_context + format_patterns(patterns, lang)
+    if bazi_context:
+        chart_context = chart_context + format_bazi(bazi_context)
     period_header = ""
     if period_context is None:
         try:
