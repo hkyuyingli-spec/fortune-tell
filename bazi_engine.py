@@ -204,6 +204,13 @@ def get_bazi_reference(bazi_data):
             )
         lines.append("Hidden Ten Gods (藏干): " + "; ".join(hidden_meanings))
 
+    for source in reference.get("source_notes", []):
+        lines.append(
+            f"Historical source locator — {source['title_en']} "
+            f"({source['source_type']}; provenance {source['verification_status']}): "
+            f"{source['url']}. {source['scope_note']}"
+        )
+
     element_by_state = {
         (entry["element"], entry["state"]): entry
         for entry in reference["elemental_counts"]

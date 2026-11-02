@@ -234,5 +234,21 @@
       "meaning_zh": "簡化計數中的水元素偏多，可反思適應、專注與界線的平衡；單憑數量不能判定五行旺弱。",
       "disclaimer": "Simplified visible-character count, not a full strength analysis."
     }
+  ],
+  "source_notes": [
+    {
+      "source_id": "yuanhai_ziping",
+      "title_en": "Yuanhai Ziping",
+      "title_zh": "淵海子平",
+      "url": "https://zh.wikisource.org/wiki/淵海子平",
+      "source_type": "Public text transcription (Wikisource)",
+      "verification_status": "source_unknown_or_unverified",
+      "relevant_sections": [
+        "Foundations",
+        "Five-element generation, control, and transformation",
+        "Day-master-centered Four Pillars framework"
+      ],
+      "scope_note": "Historical locator for terminology and framework only. The transcription's source and edition are unverified; it does not independently validate these modern summaries or this engine's calculations."
+    }
   ]
 }

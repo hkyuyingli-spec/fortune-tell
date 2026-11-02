@@ -3,6 +3,7 @@
 import json
 import os
 import re
+from urllib.parse import quote
 
 
 _PATH = os.path.join(os.path.dirname(__file__), "data", "reference_stars.json")
@@ -242,6 +243,44 @@ def format_patterns(patterns, lang="zh"):
             lines.append(f"- {pattern['name_en']}")
             lines.append(f"  Source Meaning: {pattern['modern_summary_en']}")
         lines.append("  Advice: " + " | ".join(pattern["practical_advice"]))
+        provenance = pattern.get("provenance") or {}
+        source = pattern.get("classical_source") or "Source not recorded"
+        if lang != "zh":
+            source = source.replace(
+                "《紫微斗數全書》卷一、卷三",
+                "Zi Wei Dou Shu Quan Shu, Volumes I and III",
+            ).replace(
+                "《紫微斗數全書》卷一",
+                "Zi Wei Dou Shu Quan Shu, Volume I",
+            ).replace(
+                "《紫微斗數全書》卷二",
+                "Zi Wei Dou Shu Quan Shu, Volume II",
+            ).replace(
+                "《紫微斗數全書》卷三",
+                "Zi Wei Dou Shu Quan Shu, Volume III",
+            ).replace(
+                " (Wikisource transcription; edition not independently verified)",
+                "",
+            )
+        lines.append(f"  Source: {source}")
+        status = provenance.get("verification_status")
+        if status == "transcription_located_edition_unverified":
+            if lang == "zh":
+                lines.append("  來源狀態：已找到文字轉錄本；印刷版本尚未獨立核實。")
+            else:
+                lines.append(
+                    "  Source status: text transcription located; print edition "
+                    "not independently verified."
+                )
+        elif status == "verified":
+            lines.append("  Source status: marked verified in the dataset.")
+        else:
+            lines.append("  Source status: missing or unknown; do not treat as verified.")
+        if provenance.get("url"):
+            source_url = quote(
+                provenance["url"], safe=":/?#[]@!$&'()*+,;=%"
+            )
+            lines.append(f"  Source URL: {source_url}")
     return "\n".join(lines)
 
 
@@ -324,6 +363,16 @@ def format_star_definitions(defs, lang="zh"):
                     lines.append(
                         "  Provenance is unverified; treat this expansion as provisional."
                     )
+            source_url = provenance.get("url")
+            if source_url:
+                source_title = (
+                    classical_expansion.get("classical_source")
+                    if lang == "zh"
+                    else "Zi Wei Dou Shu Quan Shu, Volume I (claimed source)"
+                )
+                lines.append(f"  Source: {source_title}")
+                source_url = quote(source_url, safe=":/?#[]@!$&'()*+,;=%")
+                lines.append(f"  Source URL: {source_url}")
             lines.append(
                 f"  {'現代摘要' if lang == 'zh' else 'Modern summary'}: "
                 f"{classical_expansion['modern_summary_en']}"

@@ -1,8 +1,11 @@
 import re
 import unittest
+from urllib.parse import quote
 
 from knowledge_lookup import (
     _load,
+    _load_patterns,
+    format_patterns,
     format_star_definitions,
     lookup_star_definitions,
 )
@@ -95,6 +98,47 @@ class KnowledgeLookupTests(unittest.TestCase):
         self.assertIn("not a factual prediction or medical advice", english)
         self.assertIn("bukan prediksi pasti", indonesian)
         self.assertIn("Sumber belum diverifikasi", indonesian)
+
+    def test_pattern_context_includes_source_and_unverified_status(self):
+        pattern = _load_patterns()[0]
+        formatted = format_patterns([pattern], lang="en")
+        self.assertIn("Source: Zi Wei Dou Shu Quan Shu, Volume III", formatted)
+        self.assertIn("print edition not independently verified", formatted)
+        expected_url = quote(
+            pattern["provenance"]["url"], safe=":/?#[]@!$&'()*+,;=%"
+        )
+        self.assertIn(expected_url, formatted)
+        citation_lines = [
+            line for line in formatted.splitlines()
+            if line.strip().startswith(("Source:", "Source status:", "Source URL:"))
+        ]
+        self.assertTrue(citation_lines)
+        self.assertIsNone(
+            re.search(r"[\u4e00-\u9fff]", "\n".join(citation_lines))
+        )
+
+    def test_pattern_records_preserve_unverified_provenance(self):
+        patterns = _load_patterns()
+        self.assertEqual(len(patterns), 33)
+        for pattern in patterns:
+            self.assertTrue(pattern["classical_source"])
+            self.assertTrue(pattern["provenance"]["url"])
+            self.assertEqual(
+                pattern["provenance"]["verification_status"],
+                "transcription_located_edition_unverified",
+            )
+        formatted = format_patterns(patterns, lang="en")
+        citation_lines = [
+            line for line in formatted.splitlines()
+            if line.strip().startswith(("Source:", "Source status:", "Source URL:"))
+        ]
+        self.assertEqual(
+            sum(line.strip().startswith("Source URL:") for line in citation_lines),
+            33,
+        )
+        self.assertIsNone(
+            re.search(r"[\u4e00-\u9fff]", "\n".join(citation_lines))
+        )
 
 
 if __name__ == "__main__":
