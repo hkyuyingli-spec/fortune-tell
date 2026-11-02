@@ -231,9 +231,10 @@ def format_patterns(patterns, lang="zh"):
             lines.append(f"- {pattern['name_zh']} ({pattern['name_en']})")
             if pattern.get("classical_text_zh"):
                 lines.append(f"  Classical: {pattern['classical_text_zh']}")
+            lines.append(f"  Meaning: {pattern['modern_summary_en']}")
         else:
             lines.append(f"- {pattern['name_en']}")
-        lines.append(f"  Meaning: {pattern['modern_summary_en']}")
+            lines.append(f"  Source Meaning: {pattern['modern_summary_en']}")
         lines.append("  Advice: " + " | ".join(pattern["practical_advice"]))
     return "\n".join(lines)
 

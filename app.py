@@ -155,14 +155,21 @@ CATEGORIES = [
 
 
 def _send_question(bc, zw, lang, question):
-    st.session_state["chat_history"].append({"role": "user", "content": question})
+    st.session_state["chat_history"].append(
+        {"role": "user", "content": question, "lang": lang}
+    )
     try:
         context = ai_chat.build_chart_context(bc, zw, interp)
         star_defs = lookup_star_definitions(zw, question=question)
         matched_patterns = lookup_patterns(zw, question=question)
+        current_lang_history = [
+            message for message in st.session_state["chat_history"][:-1]
+            if message.get("lang") == lang
+        ]
+        recent_history = current_lang_history[-4:]
         res = ai_chat.ask(
             context,
-            st.session_state["chat_history"][:-1],
+            recent_history,
             question,
             ui_lang=lang,
             star_definitions=star_defs,
@@ -172,7 +179,9 @@ def _send_question(bc, zw, lang, question):
         answer = "".join(res) if isinstance(res, types.GeneratorType) else str(res)
     except Exception as e:
         answer = f"Error: {e}"
-    st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+    st.session_state["chat_history"].append(
+        {"role": "assistant", "content": answer, "lang": lang}
+    )
     firebase_db.log_chat_message({
         "lang": lang,
         "chart_key": st.session_state.get("chat_chart_key"),
@@ -205,7 +214,11 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
                     _send_question(bc, zw, lang, t(question_key, lang))
                 st.rerun()
 
-    for msg in st.session_state["chat_history"]:
+    current_lang_history = [
+        message for message in st.session_state["chat_history"]
+        if message.get("lang") == lang
+    ]
+    for msg in current_lang_history:
         with st.chat_message(msg["role"]):
             st.write(msg["content"])
 
@@ -218,9 +231,14 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
             try:
                 star_defs = lookup_star_definitions(zw, question=question)
                 matched_patterns = lookup_patterns(zw, question=question)
+                current_lang_history = [
+                    message for message in st.session_state["chat_history"]
+                    if message.get("lang") == lang
+                ]
+                recent_history = current_lang_history[-4:]
                 response = ai_chat.ask(
                     context,
-                    st.session_state["chat_history"],
+                    recent_history,
                     question,
                     ui_lang=lang,
                     star_definitions=star_defs,
@@ -235,8 +253,12 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
             except Exception as e:
                 answer = f"Error: {e}"
                 st.write(answer)
-        st.session_state["chat_history"].append({"role": "user", "content": question})
-        st.session_state["chat_history"].append({"role": "assistant", "content": answer})
+        st.session_state["chat_history"].append(
+            {"role": "user", "content": question, "lang": lang}
+        )
+        st.session_state["chat_history"].append(
+            {"role": "assistant", "content": answer, "lang": lang}
+        )
         firebase_db.log_chat_message({
             "lang": lang,
             "chart_key": st.session_state.get("chat_chart_key"),
