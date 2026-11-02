@@ -43,6 +43,10 @@ ENTRIES = [
     E("star.tian_liang", "天梁", "Guardian star", "Bintang Penjaga", "Tian Liang", "Protection, mentorship"),
     E("star.qi_sha", "七殺", "Warrior star", "Bintang Pejuang", "Qi Sha", "Courage, bold change", ["七杀"]),
     E("star.po_jun", "破軍", "Pioneer star", "Bintang Perintis", "Po Jun", "Breaking old patterns, renewal", ["破军"]),
+    E("star.zuo_fu", "左輔", "Assistant star", "Bintang Pendamping", "Zuo Fu", "Support, assistance, helpful connections", ["左辅"], True),
+    E("star.you_bi", "右弼", "Peer support star", "Bintang Dukungan Rekan", "You Bi", "Peer support, gentle coordination", [], True),
+    E("star.tian_kui", "天魁", "Heavenly Noble star", "Bintang Bangsawan Langit", "Tian Kui", "Opportunity, mentorship, benefactor support", [], True),
+    E("star.tian_yue", "天鉞", "Heavenly Assistant star", "Bintang Penolong Langit", "Tian Yue", "Quiet support, assistance, resolving difficulties", ["天钺"], True),
     # Stars that appear as Life ruler / Body ruler (proposals)
     E("star.lu_cun", "祿存", "Wealth-keeper star", "Bintang Penjaga Rezeki", "Lu Cun", "Steady resources", ["禄存"], True),
     E("star.wen_qu", "文曲", "Arts star", "Bintang Seni", "Wen Qu", "Talent, expression", [], True),

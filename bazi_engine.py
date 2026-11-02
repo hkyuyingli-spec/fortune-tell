@@ -32,6 +32,21 @@ _BRANCH_ELEMENTS = {
     "亥": "Water",
 }
 
+_HIDDEN_STEMS = {
+    "子": ("癸",),
+    "丑": ("己", "癸", "辛"),
+    "寅": ("甲", "丙", "戊"),
+    "卯": ("乙",),
+    "辰": ("戊", "乙", "癸"),
+    "巳": ("丙", "戊", "庚"),
+    "午": ("丁", "己"),
+    "未": ("己", "丁", "乙"),
+    "申": ("庚", "壬", "戊"),
+    "酉": ("辛",),
+    "戌": ("戊", "辛", "丁"),
+    "亥": ("壬", "甲"),
+}
+
 _ELEMENTS = ("Wood", "Fire", "Earth", "Metal", "Water")
 _GENERATES = {
     "Wood": "Fire",
@@ -112,6 +127,15 @@ def analyze_bazi(four_pillars_dict):
         key: _TEN_GODS_BY_DISPLAY[display]
         for key, display in ten_gods.items()
     }
+    hidden_ten_gods = []
+    hidden_ten_god_names = []
+    for _, branch in pillars.values():
+        for hidden_stem in _HIDDEN_STEMS[branch]:
+            display = _ten_god(day_stem, hidden_stem)
+            name = _TEN_GODS_BY_DISPLAY[display]
+            if name not in hidden_ten_god_names:
+                hidden_ten_gods.append(display)
+                hidden_ten_god_names.append(name)
 
     elemental_balance = {element: 0 for element in _ELEMENTS}
     for stem, branch in pillars.values():
@@ -123,6 +147,8 @@ def analyze_bazi(four_pillars_dict):
         "day_master_stem": day_stem,
         "ten_gods": ten_gods,
         "ten_god_names": ten_god_names,
+        "hidden_ten_gods": hidden_ten_gods,
+        "hidden_ten_god_names": hidden_ten_god_names,
         "elemental_balance": elemental_balance,
     }
 
@@ -166,6 +192,17 @@ def get_bazi_reference(bazi_data):
             f"Ten God — {ten_god['display_name']}: {ten_god['meaning_en']} "
             f"{ten_god['disclaimer']}"
         )
+
+    hidden_ten_god_names = bazi_data.get("hidden_ten_god_names")
+    if hidden_ten_god_names:
+        hidden_meanings = []
+        for name_zh in dict.fromkeys(hidden_ten_god_names):
+            ten_god = ten_god_by_name[name_zh]
+            hidden_meanings.append(
+                f"{ten_god['display_name']}: {ten_god['meaning_en']} "
+                f"{ten_god['disclaimer']}"
+            )
+        lines.append("Hidden Ten Gods (藏干): " + "; ".join(hidden_meanings))
 
     element_by_state = {
         (entry["element"], entry["state"]): entry
