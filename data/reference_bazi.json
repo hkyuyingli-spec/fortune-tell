@@ -1,0 +1,238 @@
+{
+  "day_masters": [
+    {
+      "stem": "甲",
+      "display_name": "Yang Wood (甲)",
+      "traits": ["Initiative", "Growth", "Principle"],
+      "summary_en": "Yang Wood is symbolically compared to a tall tree: it may suggest initiative, steady growth, and a strong sense of principle, with a possible tendency toward rigidity.",
+      "summary_zh": "陽木象徵挺拔生長，可能呈現主動、有原則與持續向上的特質，也可能較不易變通。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "乙",
+      "display_name": "Yin Wood (乙)",
+      "traits": ["Adaptability", "Patience", "Sensitivity"],
+      "summary_en": "Yin Wood is symbolically compared to a vine or flower: it may suggest adaptability, patience, and sensitivity to surroundings, with a possible tendency to hesitate or rely heavily on support.",
+      "summary_zh": "陰木象徵柔韌的花草藤蔓，可能呈現適應力、耐心與細膩，也可能較易猶豫或依賴外在支持。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "丙",
+      "display_name": "Yang Fire (丙)",
+      "traits": ["Visibility", "Warmth", "Enthusiasm"],
+      "summary_en": "Yang Fire is symbolically compared to the sun: it may suggest warmth, enthusiasm, and a wish to be visible or encouraging, with a possible tendency to overextend or seek recognition.",
+      "summary_zh": "陽火象徵太陽般的光明，可能呈現熱情、溫暖與鼓舞他人的傾向，也可能較易過度投入或在意認同。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "丁",
+      "display_name": "Yin Fire (丁)",
+      "traits": ["Focus", "Insight", "Consideration"],
+      "summary_en": "Yin Fire is symbolically compared to a lamp or candle: it may suggest focused insight, consideration, and quiet warmth, with a possible tendency toward worry or fluctuating confidence.",
+      "summary_zh": "陰火象徵燈燭之光，可能呈現專注、洞察與含蓄的溫暖，也可能較易多慮或信心起伏。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "戊",
+      "display_name": "Yang Earth (戊)",
+      "traits": ["Groundedness", "Stability", "Protection"],
+      "summary_en": "Yang Earth is symbolically compared to a mountain: it may suggest reliability, steadiness, and a protective nature, with a possible tendency to resist change once committed.",
+      "summary_zh": "陽土象徵高山，可能呈現穩重可靠、願意承擔與保護他人的特質，也可能在決定後較難改變。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "己",
+      "display_name": "Yin Earth (己)",
+      "traits": ["Nurturing", "Practicality", "Attentiveness"],
+      "summary_en": "Yin Earth is symbolically compared to cultivated soil: it may suggest practical care, attentiveness, and a capacity to support gradual development, with a possible tendency to worry or become overinvolved.",
+      "summary_zh": "陰土象徵滋養作物的田地，可能呈現務實、細心與照料他人的傾向，也可能較易操心或介入過多。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "庚",
+      "display_name": "Yang Metal (庚)",
+      "traits": ["Decisiveness", "Directness", "Resolve"],
+      "summary_en": "Yang Metal is symbolically compared to forged metal: it may suggest decisiveness, directness, and resolve, with a possible tendency to be blunt or inflexible under pressure.",
+      "summary_zh": "陽金象徵鍛造之金，可能呈現果斷、直接與堅毅，也可能在壓力下顯得尖銳或不易妥協。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "辛",
+      "display_name": "Yin Metal (辛)",
+      "traits": ["Precision", "Refinement", "Discernment"],
+      "summary_en": "Yin Metal is symbolically compared to a fine jewel: it may suggest precision, refinement, and discernment, with a possible tendency toward perfectionism or sensitivity to criticism.",
+      "summary_zh": "陰金象徵精琢的珠玉，可能呈現細緻、講究與辨別力，也可能較易追求完美或在意批評。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "壬",
+      "display_name": "Yang Water (壬)",
+      "traits": ["Breadth", "Curiosity", "Adaptability"],
+      "summary_en": "Yang Water is symbolically compared to a great river or sea: it may suggest broad curiosity, flexibility, and resourcefulness, with a possible tendency to diffuse attention or resist limits.",
+      "summary_zh": "陽水象徵江河海洋，可能呈現眼界開闊、好奇與靈活，也可能較易分散注意或不喜受限。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "stem": "癸",
+      "display_name": "Yin Water (癸)",
+      "traits": ["Observation", "Subtlety", "Reflection"],
+      "summary_en": "Yin Water is symbolically compared to rain or dew: it may suggest observation, subtlety, and reflection, with a possible tendency toward reserve or overthinking.",
+      "summary_zh": "陰水象徵雨露，可能呈現敏銳觀察、含蓄與善於反思，也可能較為內斂或思慮過多。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    }
+  ],
+  "ten_gods": [
+    {
+      "name_zh": "比肩",
+      "name_en": "Friend",
+      "display_name": "Friend (比肩)",
+      "meaning_en": "May be associated with independence, self-reliance, and peer connection; when overemphasized, it may also point to stubbornness or difficulty accepting help.",
+      "meaning_zh": "可能與自主、自立及同儕連結相關；若此象徵過強，也可能表現為固執或不易接受協助。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "劫財",
+      "name_en": "Rob Wealth",
+      "display_name": "Rob Wealth (劫財)",
+      "meaning_en": "May be associated with competition, strong will, and struggles with sharing resources; in balance, it can symbolize initiative and courage in group settings.",
+      "meaning_zh": "可能與競爭心、強烈主見及資源分配摩擦相關；平衡時也可象徵群體中的主動與勇氣。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "食神",
+      "name_en": "Eating God",
+      "display_name": "Eating God (食神)",
+      "meaning_en": "May be associated with steady creative output, enjoyment, and generous expression; an imbalanced emphasis may encourage comfort-seeking or postponing difficult tasks.",
+      "meaning_zh": "可能與穩定創作、享受生活及慷慨表達相關；若失衡，也可能傾向安逸或延後處理難題。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "傷官",
+      "name_en": "Hurting Officer",
+      "display_name": "Hurting Officer (傷官)",
+      "meaning_en": "May be associated with originality, candor, and questioning conventions; it can also symbolize friction with rules when expression becomes impulsive.",
+      "meaning_zh": "可能與創新、坦率及質疑常規相關；若表達過於衝動，也可能象徵與規範產生摩擦。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "偏財",
+      "name_en": "Indirect Wealth",
+      "display_name": "Indirect Wealth (偏財)",
+      "meaning_en": "May be associated with opportunity-seeking, enterprise, and flexible resource use; it is not a promise of windfall or financial gain.",
+      "meaning_zh": "可能與尋找機會、開創精神及靈活運用資源相關；不代表必然獲得意外之財或財務收益。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "正財",
+      "name_en": "Direct Wealth",
+      "display_name": "Direct Wealth (正財)",
+      "meaning_en": "May be associated with consistency, budgeting, and responsibility around resources; it does not guarantee stable income or material success.",
+      "meaning_zh": "可能與穩定、規劃及資源責任感相關；不保證收入穩定或物質成功。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "七殺",
+      "name_en": "Seven Killings",
+      "display_name": "Seven Killings (七殺)",
+      "meaning_en": "May be associated with pressure, challenges, authority, and rapid change; it can symbolize drive under demanding conditions, as well as stress that needs careful management.",
+      "meaning_zh": "可能與壓力、挑戰、權威及快速變化相關；可象徵在要求高的情境中展現動力，也提醒留意壓力管理。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "正官",
+      "name_en": "Direct Officer",
+      "display_name": "Direct Officer (正官)",
+      "meaning_en": "May be associated with responsibility, order, and respect for agreements; excessive emphasis can feel restrictive or overly concerned with approval.",
+      "meaning_zh": "可能與責任、秩序及重視約定相關；過度強調時也可能感到受限或過於在意認可。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "偏印",
+      "name_en": "Indirect Resource",
+      "display_name": "Indirect Resource (偏印)",
+      "meaning_en": "May be associated with unconventional learning, intuition, and independent research; it can also point to isolation or excessive analysis if not balanced.",
+      "meaning_zh": "可能與非典型學習、直覺及獨立研究相關；若缺乏平衡，也可能傾向孤立或過度分析。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    },
+    {
+      "name_zh": "正印",
+      "name_en": "Direct Resource",
+      "display_name": "Direct Resource (正印)",
+      "meaning_en": "May be associated with study, care, and support from teachers or institutions; too much reliance on reassurance may slow independent action.",
+      "meaning_zh": "可能與學習、照顧及師長或制度支持相關；若過度依賴肯定，也可能延緩自主行動。",
+      "disclaimer": "Modern symbolic summary, not a deterministic prediction."
+    }
+  ],
+  "elemental_counts": [
+    {
+      "element": "Wood",
+      "state": "Absent",
+      "meaning_en": "No visible Wood appears in this simplified count. It may prompt reflection on flexibility, planning, or growth, but hidden stems and seasonal strength could change the full reading.",
+      "meaning_zh": "簡化計數中表面無木，可作為反思彈性、規劃或成長方式的提示；藏干與季節旺衰可能改變完整判讀。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Wood",
+      "state": "High",
+      "meaning_en": "Wood has a high visible count in this simplified measure. It may prompt reflection on growth, direction, or flexibility; this count alone does not establish elemental strength.",
+      "meaning_zh": "簡化計數中的木元素偏多，可反思成長方向與彈性；單憑數量不能判定五行旺弱。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Fire",
+      "state": "Absent",
+      "meaning_en": "No visible Fire appears in this simplified count. It may prompt reflection on motivation, warmth, or visibility, but hidden stems and seasonal strength could change the full reading.",
+      "meaning_zh": "簡化計數中表面無火，可作為反思動力、熱情或表達方式的提示；藏干與季節旺衰可能改變完整判讀。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Fire",
+      "state": "High",
+      "meaning_en": "Fire has a high visible count in this simplified measure. It may prompt reflection on enthusiasm, visibility, or pacing; this count alone does not establish elemental strength.",
+      "meaning_zh": "簡化計數中的火元素偏多，可反思熱情、表達或投入節奏；單憑數量不能判定五行旺弱。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Earth",
+      "state": "Absent",
+      "meaning_en": "No visible Earth appears in this simplified count. It may prompt reflection on stability, routines, or boundaries, but hidden stems and seasonal strength could change the full reading.",
+      "meaning_zh": "簡化計數中表面無土，可作為反思穩定、日常安排或界線的提示；藏干與季節旺衰可能改變完整判讀。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Earth",
+      "state": "High",
+      "meaning_en": "Earth has a high visible count in this simplified measure. It may prompt reflection on steadiness and adaptability; this count alone does not establish elemental strength.",
+      "meaning_zh": "簡化計數中的土元素偏多，可反思穩定與變通的平衡；單憑數量不能判定五行旺弱。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Metal",
+      "state": "Absent",
+      "meaning_en": "No visible Metal appears in this simplified count. It may prompt reflection on structure, discernment, or follow-through, but hidden stems and seasonal strength could change the full reading.",
+      "meaning_zh": "簡化計數中表面無金，可作為反思規劃、判斷或執行方式的提示；藏干與季節旺衰可能改變完整判讀。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Metal",
+      "state": "High",
+      "meaning_en": "Metal has a high visible count in this simplified measure. It may prompt reflection on standards, boundaries, or flexibility; this count alone does not establish elemental strength.",
+      "meaning_zh": "簡化計數中的金元素偏多，可反思標準、界線與彈性的平衡；單憑數量不能判定五行旺弱。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Water",
+      "state": "Absent",
+      "meaning_en": "No visible Water appears in this simplified count. It may prompt reflection on rest, observation, or adaptability, but hidden stems and seasonal strength could change the full reading.",
+      "meaning_zh": "簡化計數中表面無水，可作為反思休息、觀察或適應方式的提示；藏干與季節旺衰可能改變完整判讀。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    },
+    {
+      "element": "Water",
+      "state": "High",
+      "meaning_en": "Water has a high visible count in this simplified measure. It may prompt reflection on adaptability, focus, or boundaries; this count alone does not establish elemental strength.",
+      "meaning_zh": "簡化計數中的水元素偏多，可反思適應、專注與界線的平衡；單憑數量不能判定五行旺弱。",
+      "disclaimer": "Simplified visible-character count, not a full strength analysis."
+    }
+  ]
+}

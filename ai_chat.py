@@ -48,7 +48,8 @@ LANGUAGE_INSTRUCTIONS = {
         "Blend Zi Wei Dou Shu, which describes life circumstances, with BaZi, which describes core personality "
         "and elemental tendencies. Use Zi Wei for palaces and events; use the BaZi Day Master and Ten Gods to "
         "explain psychological traits and possible reactions. Present this as a traditional interpretive lens, "
-        "not a scientific personality assessment."
+        "not a scientific personality assessment. Treat the BaZi reference summaries as interpretive guidance, "
+        "not additional chart facts, and explain them in English."
     ),
     "zh": (
         "你是溫暖、專業的紫微斗數命盤顧問。命盤資料是唯一可信的事實來源，不可捏造星曜位置或解讀。"
@@ -60,7 +61,7 @@ LANGUAGE_INSTRUCTIONS = {
         "簡單問題簡潔回答，深入問題提供足夠解釋、生活情境與可執行建議。"
         "請融合紫微斗數（生活情境）與八字（核心性格及五行傾向）：以紫微斗數分析宮位與事件，"
         "並用八字日主及十神解釋心理特質，以及使用者面對事件時可能的反應。請將其視為傳統詮釋角度，"
-        "而非科學性格評估。"
+        "而非科學性格評估。八字參考摘要僅供詮釋，不是額外的命盤事實；請以繁體中文說明其含義。"
     ),
     "id": (
         "Anda adalah penasihat bagan Zi Wei Dou Shu yang hangat dan profesional. Konteks bagan adalah satu-satunya "
@@ -77,7 +78,8 @@ LANGUAGE_INSTRUCTIONS = {
         "Padukan Zi Wei Dou Shu, yang menggambarkan keadaan hidup, dengan BaZi, yang menggambarkan kepribadian "
         "inti dan kecenderungan unsur. Gunakan Zi Wei untuk istana dan peristiwa; gunakan Day Master dan Ten Gods "
         "BaZi untuk menjelaskan sifat psikologis serta kemungkinan reaksi pengguna. Sajikan ini sebagai sudut "
-        "pandang tradisional, bukan penilaian kepribadian ilmiah."
+        "pandang tradisional, bukan penilaian kepribadian ilmiah. Perlakukan ringkasan referensi BaZi sebagai "
+        "panduan interpretasi, bukan fakta bagan tambahan, dan jelaskan dalam Bahasa Indonesia."
     ),
 }
 
@@ -220,7 +222,7 @@ def _clean_reply(text: str, lang: str) -> str:
 
 def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str = "zh",
         period_context=None, star_definitions=None, patterns=None,
-        bazi_context=None) -> str:
+        bazi_context=None, bazi_reference=None) -> str:
     """chat_history: list of {'role': 'user'|'assistant', 'content': str}
     period_context: text from period_engine (already in the UI language). If None, it is
     read from st.session_state["period_ctx"], which the period selector fills in."""
@@ -242,6 +244,12 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
         chart_context = chart_context + format_patterns(patterns, lang)
     if bazi_context:
         chart_context = chart_context + format_bazi(bazi_context)
+    if bazi_reference:
+        chart_context = (
+            chart_context
+            + "\n\n【BaZi Reference / 八字解讀】\n"
+            + bazi_reference
+        )
     period_header = ""
     if period_context is None:
         try:

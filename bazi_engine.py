@@ -1,5 +1,9 @@
 """Simplified BaZi analysis for visible stems and elements."""
 
+import json
+from pathlib import Path
+
+
 _STEMS = {
     "甲": ("Wood", "Yang"),
     "乙": ("Wood", "Yin"),
@@ -56,6 +60,8 @@ _TEN_GODS = {
     ("resource", "same"): ("Indirect Resource", "偏印"),
     ("resource", "opposite"): ("Direct Resource", "正印"),
 }
+_REFERENCE_PATH = Path(__file__).parent / "data" / "reference_bazi.json"
+_REFERENCE_CACHE = None
 
 
 def _ten_god(day_stem, other_stem):
@@ -102,6 +108,10 @@ def analyze_bazi(four_pillars_dict):
         f"{key}_stem": _ten_god(day_stem, pillars[key][0])
         for key in ("year", "month", "hour")
     }
+    ten_god_names = {
+        key: _TEN_GODS_BY_DISPLAY[display]
+        for key, display in ten_gods.items()
+    }
 
     elemental_balance = {element: 0 for element in _ELEMENTS}
     for stem, branch in pillars.values():
@@ -110,6 +120,65 @@ def analyze_bazi(four_pillars_dict):
 
     return {
         "day_master": f"{day_polarity} {day_element} ({day_stem})",
+        "day_master_stem": day_stem,
         "ten_gods": ten_gods,
+        "ten_god_names": ten_god_names,
         "elemental_balance": elemental_balance,
     }
+
+
+_TEN_GODS_BY_DISPLAY = {
+    f"{english} ({chinese})": chinese
+    for english, chinese in _TEN_GODS.values()
+}
+
+
+def _load_bazi_reference():
+    global _REFERENCE_CACHE
+    if _REFERENCE_CACHE is None:
+        with _REFERENCE_PATH.open(encoding="utf-8") as reference_file:
+            _REFERENCE_CACHE = json.load(reference_file)
+    return _REFERENCE_CACHE
+
+
+def get_bazi_reference(bazi_data):
+    """Return labeled modern symbolic reference meanings for a BaZi result."""
+    reference = _load_bazi_reference()
+    lines = ["BaZi reference (modern symbolic summaries):"]
+
+    day_master_stem = bazi_data["day_master_stem"]
+    day_master = next(
+        entry for entry in reference["day_masters"]
+        if entry["stem"] == day_master_stem
+    )
+    lines.append(
+        f"Day Master — {day_master['display_name']}: {day_master['summary_en']} "
+        f"{day_master['disclaimer']}"
+    )
+
+    ten_god_by_name = {
+        entry["name_zh"]: entry for entry in reference["ten_gods"]
+    }
+    distinct_gods = dict.fromkeys(bazi_data["ten_god_names"].values())
+    for name_zh in distinct_gods:
+        ten_god = ten_god_by_name[name_zh]
+        lines.append(
+            f"Ten God — {ten_god['display_name']}: {ten_god['meaning_en']} "
+            f"{ten_god['disclaimer']}"
+        )
+
+    element_by_state = {
+        (entry["element"], entry["state"]): entry
+        for entry in reference["elemental_counts"]
+    }
+    for element, count in bazi_data["elemental_balance"].items():
+        state = "Absent" if count == 0 else "High" if count >= 3 else None
+        if state is None:
+            continue
+        entry = element_by_state[(element, state)]
+        lines.append(
+            f"Visible element count — {element} ({state}, {count}): "
+            f"{entry['meaning_en']} {entry['disclaimer']}"
+        )
+
+    return "\n".join(lines)

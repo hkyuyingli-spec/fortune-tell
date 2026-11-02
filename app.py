@@ -14,7 +14,7 @@ import time_engine as te
 import beta_notice as bn
 from i18n import t, LANGS
 from knowledge_lookup import lookup_patterns, lookup_star_definitions
-from bazi_engine import analyze_bazi
+from bazi_engine import analyze_bazi, get_bazi_reference
 
 st.set_page_config(page_title="Destiny Chart", page_icon="≡ƒö«", layout="centered")
 
@@ -169,6 +169,7 @@ def _send_question(bc, zw, lang, question):
         ]
         recent_history = current_lang_history[-4:]
         bazi_data = analyze_bazi(bc.four_pillars.as_dict())
+        bazi_ref = get_bazi_reference(bazi_data)
         res = ai_chat.ask(
             context,
             recent_history,
@@ -177,6 +178,7 @@ def _send_question(bc, zw, lang, question):
             star_definitions=star_defs,
             patterns=matched_patterns,
             bazi_context=bazi_data,
+            bazi_reference=bazi_ref,
         )
         import types
         answer = "".join(res) if isinstance(res, types.GeneratorType) else str(res)
@@ -240,6 +242,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
                 ]
                 recent_history = current_lang_history[-4:]
                 bazi_data = analyze_bazi(bc.four_pillars.as_dict())
+                bazi_ref = get_bazi_reference(bazi_data)
                 response = ai_chat.ask(
                     context,
                     recent_history,
@@ -248,6 +251,7 @@ def render_ai_chat(bc: BirthChart, zw: ZiWeiChart, lang: str):
                     star_definitions=star_defs,
                     patterns=matched_patterns,
                     bazi_context=bazi_data,
+                    bazi_reference=bazi_ref,
                 )
                 import types
                 if isinstance(response, types.GeneratorType):
