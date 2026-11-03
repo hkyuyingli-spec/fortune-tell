@@ -279,7 +279,11 @@ def ask(chart_context: str, chat_history: list, user_question: str, ui_lang: str
             term_rules=term_rules,
         ),
     }]
-    messages.extend(chat_history)
+    sanitized_history = [
+        {"role": message["role"], "content": message["content"]}
+        for message in chat_history
+    ]
+    messages.extend(sanitized_history)
     final_question = user_question
     if period_context:
         first_line = period_context.split("\n")[0]
